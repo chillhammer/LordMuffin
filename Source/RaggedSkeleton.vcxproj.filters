@@ -1,0 +1,363 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="PCH">
+      <UniqueIdentifier>{2010880B-8C19-887C-1595-9E7C819D937C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SkelGame">
+      <UniqueIdentifier>{8EAB0635-7A78-6140-A391-4FE88FBD96CE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SkelGame\Camera">
+      <UniqueIdentifier>{46F44F5D-B27F-BD21-BB90-4016279B1922}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SkelGame\EventSystem">
+      <UniqueIdentifier>{44B6D060-3045-5A2A-D963-6E25C5D16AD0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SkelGame\EventSystem\Events">
+      <UniqueIdentifier>{A82D1AB1-143B-4897-9D21-4482092E144E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SkelGame\FrisbeeFieldController">
+      <UniqueIdentifier>{25D52769-91B8-36A9-9ABB-64E5061EFDF9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SkelGame\FrisbeeFieldController\Team">
+      <UniqueIdentifier>{5B1E266E-4705-E865-F055-4E83DC1B61CC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SkelGame\FrisbeeFieldController\Team\AIPositionFinder">
+      <UniqueIdentifier>{E1891A81-4DA6-0C72-167E-79DF82597633}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SkelGame\FrisbeeFieldController\Team\TeamStates">
+      <UniqueIdentifier>{6504F34F-D13F-5313-DA34-D0A246EFD743}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SkelGame\Game">
+      <UniqueIdentifier>{F72DA179-63EE-1CB0-2C29-662D98A8618C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SkelGame\Game\Screens">
+      <UniqueIdentifier>{19BBFD12-8527-B90D-4E1B-516BBA46DB75}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SkelGame\Game\States">
+      <UniqueIdentifier>{DA8B68AC-C61A-F275-6F39-06715BA7021C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SkelGame\Input">
+      <UniqueIdentifier>{0D4EF2AD-F91B-E6B3-E2AF-56DACE1CC218}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SkelGame\Objects">
+      <UniqueIdentifier>{47F827A5-33F1-46F7-5C23-2C7C487B2603}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SkelGame\Objects\Agents">
+      <UniqueIdentifier>{389CD480-A4D3-1C18-ADDD-803B19944311}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SkelGame\Objects\Agents\Components">
+      <UniqueIdentifier>{4D6EA433-39AA-A79D-A2BC-BF948E1750B8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SkelGame\Objects\Agents\Components\TeamStates">
+      <UniqueIdentifier>{1739904A-83A9-92C3-4CC8-0C4CB8F7CAC4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SkelGame\Objects\Agents\Components\TestStates">
+      <UniqueIdentifier>{30DA0802-9C4A-0B7B-6569-8503D198437C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SkelGame\Objects\Box">
+      <UniqueIdentifier>{1FB1836D-0B40-0D37-B45E-2132A0CC1DDD}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SkelGame\Objects\Court">
+      <UniqueIdentifier>{C38F46DD-AF89-6F2F-98F6-0540848FD59B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SkelGame\Objects\Fedora">
+      <UniqueIdentifier>{E7AD598C-53E5-A123-5CEF-0547C8A5C81C}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SkelGame\Resources">
+      <UniqueIdentifier>{781AA67E-64FE-66D4-CD5E-6127B9615156}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SkelGame\Window">
+      <UniqueIdentifier>{B56C888C-21F8-F550-2A09-794596135251}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility">
+      <UniqueIdentifier>{594615A9-C525-9444-CE3D-1F1B3A9CFAA5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility\Audio">
+      <UniqueIdentifier>{1A73ED06-8633-693D-4F6E-B2BABBEDAD19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility\GameObject">
+      <UniqueIdentifier>{39B765B6-259B-260C-8EFB-205F7AFE108E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility\Graphics">
+      <UniqueIdentifier>{B9420417-A53B-2369-CE6D-08EEBAC50275}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility\Graphics\Model">
+      <UniqueIdentifier>{B912D6E1-A50C-FF33-8E79-95447A1265A0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility\Graphics\OpenGL">
+      <UniqueIdentifier>{CD815521-39B9-9DB8-42C3-01DCAE79C4B1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility\Graphics\Sprite">
+      <UniqueIdentifier>{DF35B12A-4B6D-F9C1-5477-5DE5C02D20BB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility\Graphics\Text">
+      <UniqueIdentifier>{6D2B0AC1-D997-C5BB-A28B-5D190EB7E723}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility\Logger">
+      <UniqueIdentifier>{089ED9FD-F46B-CD03-DDFF-3D2AC96CA968}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility\StateMachine">
+      <UniqueIdentifier>{DE5DC7A2-CAEC-506C-730B-65675F796112}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility\Transform">
+      <UniqueIdentifier>{64A1F9DD-D0B7-F773-192F-83958584C8FB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility\UI">
+      <UniqueIdentifier>{E62689B3-D2DE-CA00-3BE6-A35C27BD65F1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vendor">
+      <UniqueIdentifier>{935FDCD7-7F01-07AE-68BC-1A0254FD8DFE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Vendor\stb_image">
+      <UniqueIdentifier>{EDE315D3-D9DC-3425-020F-1AAAEE661431}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="PCH\SkelPCH.h">
+      <Filter>PCH</Filter>
+    </ClInclude>
+    <ClInclude Include="SkelGame\Objects\Box\BoxMesh.h">
+      <Filter>SkelGame\Objects\Box</Filter>
+    </ClInclude>
+    <ClInclude Include="SkelGame\Objects\Box\WoodenBox.h">
+      <Filter>SkelGame\Objects\Box</Filter>
+    </ClInclude>
+    <ClInclude Include="SkelGame\Objects\Box\WoodenBoxModel.h">
+      <Filter>SkelGame\Objects\Box</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Audio\AudioEngine.h">
+      <Filter>Utility\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\GameObject\BoundingBox.h">
+      <Filter>Utility\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\GameObject\GameObject.h">
+      <Filter>Utility\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Graphics\Model\ImportedMesh.h">
+      <Filter>Utility\Graphics\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Graphics\Model\ImportedModel.h">
+      <Filter>Utility\Graphics\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Graphics\Model\Mesh.h">
+      <Filter>Utility\Graphics\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Graphics\Model\Model.h">
+      <Filter>Utility\Graphics\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Graphics\Model\SingleMeshModel.h">
+      <Filter>Utility\Graphics\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Graphics\Model\Skybox.h">
+      <Filter>Utility\Graphics\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Graphics\OpenGL\Cubemap.h">
+      <Filter>Utility\Graphics\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Graphics\OpenGL\IndexBuffer.h">
+      <Filter>Utility\Graphics\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Graphics\OpenGL\Renderer.h">
+      <Filter>Utility\Graphics\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Graphics\OpenGL\Shader.h">
+      <Filter>Utility\Graphics\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Graphics\OpenGL\Texture.h">
+      <Filter>Utility\Graphics\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Graphics\OpenGL\VertexArray.h">
+      <Filter>Utility\Graphics\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Graphics\OpenGL\VertexBuffer.h">
+      <Filter>Utility\Graphics\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Graphics\OpenGL\VertexBufferLayout.h">
+      <Filter>Utility\Graphics\OpenGL</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Graphics\Sprite\Sprite.h">
+      <Filter>Utility\Graphics\Sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Graphics\Text\Font.h">
+      <Filter>Utility\Graphics\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Logger\Log.h">
+      <Filter>Utility\Logger</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Macros.h">
+      <Filter>Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\StateMachine\State.h">
+      <Filter>Utility\StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\StateMachine\StateMachine.h">
+      <Filter>Utility\StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Transform\Transform.h">
+      <Filter>Utility\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\UI\Button.h">
+      <Filter>Utility\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\UI\UIElement.h">
+      <Filter>Utility\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Vendor\stb_image\stb_image.h">
+      <Filter>Vendor\stb_image</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Game\Screens\PauseScreen.h">
+      <Filter>SkelGame\Game\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Game\States\GameStates.h">
+      <Filter>SkelGame\Game\States</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Game\GameManager.h">
+      <Filter>SkelGame\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\EventSystem\Events\ApplicationEvent.h">
+      <Filter>SkelGame\EventSystem\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\EventSystem\Events\KeyEvent.h">
+      <Filter>SkelGame\EventSystem\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\EventSystem\Events\MouseEvent.h">
+      <Filter>SkelGame\EventSystem\Events</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\EventSystem\Event.h">
+      <Filter>SkelGame\EventSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\EventSystem\EventType.h">
+      <Filter>SkelGame\EventSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\EventSystem\IObserver.h">
+      <Filter>SkelGame\EventSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\EventSystem\Subject.h">
+      <Filter>SkelGame\EventSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="SkelGame\Events\GameEventTypes.h" />
+    <ClInclude Include="SkelGame\Events\GameEvents.h" />
+    <ClInclude Include="Utility\Camera\Camera.h">
+      <Filter>SkelGame\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Input\InputManager.h">
+      <Filter>SkelGame\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Input\Keys.h">
+      <Filter>SkelGame\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Window\Window.h">
+      <Filter>SkelGame\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Resources\ResourceManager.h">
+      <Filter>SkelGame\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="SkelGame\Resources\GameResources.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="PCH\SkelPCH.cpp">
+      <Filter>PCH</Filter>
+    </ClCompile>
+    <ClCompile Include="SkelGame\Main.cpp">
+      <Filter>SkelGame</Filter>
+    </ClCompile>
+    <ClCompile Include="SkelGame\Objects\Box\BoxMesh.cpp">
+      <Filter>SkelGame\Objects\Box</Filter>
+    </ClCompile>
+    <ClCompile Include="SkelGame\Objects\Box\WoodenBoxModel.cpp">
+      <Filter>SkelGame\Objects\Box</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\Audio\AudioEngine.cpp">
+      <Filter>Utility\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\GameObject\BoundingBox.cpp">
+      <Filter>Utility\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\GameObject\GameObject.cpp">
+      <Filter>Utility\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\Graphics\Model\ImportedMesh.cpp">
+      <Filter>Utility\Graphics\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\Graphics\Model\ImportedModel.cpp">
+      <Filter>Utility\Graphics\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\Graphics\Model\Mesh.cpp">
+      <Filter>Utility\Graphics\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\Graphics\Model\Skybox.cpp">
+      <Filter>Utility\Graphics\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\Graphics\OpenGL\Cubemap.cpp">
+      <Filter>Utility\Graphics\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\Graphics\OpenGL\IndexBuffer.cpp">
+      <Filter>Utility\Graphics\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\Graphics\OpenGL\Renderer.cpp">
+      <Filter>Utility\Graphics\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\Graphics\OpenGL\Shader.cpp">
+      <Filter>Utility\Graphics\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\Graphics\OpenGL\Texture.cpp">
+      <Filter>Utility\Graphics\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\Graphics\OpenGL\VertexArray.cpp">
+      <Filter>Utility\Graphics\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\Graphics\OpenGL\VertexBuffer.cpp">
+      <Filter>Utility\Graphics\OpenGL</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\Graphics\Sprite\Sprite.cpp">
+      <Filter>Utility\Graphics\Sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\Graphics\Text\Font.cpp">
+      <Filter>Utility\Graphics\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\Logger\Log.cpp">
+      <Filter>Utility\Logger</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\Transform\TransformHelpers.cpp">
+      <Filter>Utility\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\UI\Button.cpp">
+      <Filter>Utility\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\UI\UIElement.cpp">
+      <Filter>Utility\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Vendor\stb_image\stb_image.cpp">
+      <Filter>Vendor\stb_image</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\Game\Screens\PauseScreen.cpp">
+      <Filter>SkelGame\Game\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\Game\States\MainMenu.cpp">
+      <Filter>SkelGame\Game\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\Game\States\TestState.cpp">
+      <Filter>SkelGame\Game\States</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\Game\GameManager.cpp">
+      <Filter>SkelGame\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\EventSystem\Subject.cpp">
+      <Filter>SkelGame\EventSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\Camera\Camera.cpp">
+      <Filter>SkelGame\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\Input\InputManager.cpp">
+      <Filter>SkelGame\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\Window\Window.cpp">
+      <Filter>SkelGame\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\Resources\ResourceManager.cpp">
+      <Filter>SkelGame\Resources</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
