@@ -44,10 +44,13 @@ void main()
 	intensity = (intensity + 0.3f > 0.5f ? 0.8f : 0.2f);
 	float baseline = 0.6f;
 
+
 	if (u_UseTexture)
 		color = texture(u_Texture, v_TexCoord);
 	else
+	{
 		color = vec4(u_Color, 1.0);
+	}
 
 	color *= (baseline + intensity);
 	color.w = 1.0f;

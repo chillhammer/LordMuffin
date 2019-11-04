@@ -17,6 +17,7 @@
 #include <Graphics/Model/SingleMeshModel.h>
 #include <Resources/ResourceManager.h>
 #include <Objects/Box/WoodenBox.h>
+#include <Game/States/GameStates.h>
 
 using namespace Skel;
 
@@ -35,6 +36,7 @@ int main()
 
 	Renderer renderer;
 	Game.Start();
+	Game.ChangeState(Skel::GameStates::Test::Instance());
 	while (Game.IsRunning())
 	{
 		// App Render

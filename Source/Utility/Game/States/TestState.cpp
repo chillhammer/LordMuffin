@@ -22,6 +22,7 @@ namespace Skel::GameStates
 		m_DebugShader = Resources.GetShader("Debug");
 
 		m_Box.ObjectTransform.Scale = Vector3(15, 0.001f, 30);
+		//m_Box.ObjectTransform.Scale = Vector3(1, 1, 1);
 	}
 	void Test::Execute(GameManager* owner)
 	{
@@ -32,7 +33,7 @@ namespace Skel::GameStates
 		m_DebugShader->Bind();
 		m_DebugShader->SetUniformMat4f("u_ViewProjection", m_Camera.GetProjectionMatrix() * m_Camera.GetViewMatrix());
 
-		//m_Box.Draw();
+		m_Box.Draw();
 	}
 	void Test::Exit(GameManager* owner)
 	{

@@ -11,7 +11,7 @@ namespace Skel
 	public:
 		Mesh();
 		Mesh(const void* vertexData, unsigned int vertexBufferSize,
-			const unsigned int* indexData, unsigned int indexSize, Texture texture);
+			const unsigned int* indexData, unsigned int indexSize, Texture& texture);
 		Mesh(const void* vertexData, unsigned int vertexBufferSize,
 			const unsigned int* indexData, unsigned int indexSize, Vector3 color);
 		Mesh(const Mesh& other);

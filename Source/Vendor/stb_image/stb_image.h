@@ -464,8 +464,7 @@ extern "C" {
 //
 //
 ////   end header file   /////////////////////////////////////////////////////
-#endif // STBI_INCLUDE_STB_IMAGE_H
-
+#endif // STBI_INCLUDE_STB_IMAGE_Hf
 #ifdef STB_IMAGE_IMPLEMENTATION
 
 #if defined(STBI_ONLY_JPEG) || defined(STBI_ONLY_PNG) || defined(STBI_ONLY_BMP) \

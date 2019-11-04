@@ -8,7 +8,7 @@ namespace Skel
 	{
 	}
 	Mesh::Mesh(const void* vertexData, unsigned int vertexBufferSize,
-		const unsigned int* indexData, unsigned int indexSize, Texture texture)
+		const unsigned int* indexData, unsigned int indexSize, Texture& texture)
 		:	m_VertexBuffer(vertexData, vertexBufferSize),
 			m_IndexBuffer(indexData, indexSize),
 			m_Texture(texture)

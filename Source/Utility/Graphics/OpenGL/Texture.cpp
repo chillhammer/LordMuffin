@@ -16,11 +16,9 @@ namespace Skel
 		GLCall(glGenTextures(1, &m_RendererID));
 	}
 
-	// TODO: Optimize Textur copy constructor
-	Texture::Texture(const Texture & other) : m_FilePath(other.m_FilePath), m_LocalBuffer(nullptr),
-		m_Height(0), m_Width(0), m_BPP(0)
+	Texture::Texture(const Texture & other) : m_FilePath(other.m_FilePath), m_LocalBuffer(other.m_LocalBuffer),
+		m_Height(other.m_Height), m_Width(other.m_Width), m_BPP(other.m_BPP), m_RendererID(other.m_RendererID)
 	{
-		GLCall(glGenTextures(1, &m_RendererID));
 	}
 
 	Texture::~Texture()
@@ -32,7 +30,7 @@ namespace Skel
 	{
 		if (m_FilePath == "")
 			ASSERT(false, "Cannot load texture with invalid file path");
-		LoadTexture(m_FilePath);
+		this->LoadTexture(m_FilePath);
 	}
 
 	void Texture::LoadTexture(const std::string & path)
