@@ -1,2 +1,55 @@
-﻿  Texture.cpp
+﻿  SkelPCH.cpp
+  Main.cpp
+  BoxMesh.cpp
+  WoodenBoxModel.cpp
+  AudioEngine.cpp
+  Camera.cpp
+  Subject.cpp
+  BoundingBox.cpp
+  GameObject.cpp
+  GameManager.cpp
+C:\Users\Hermos\Documents\RaggedSkeleton-Project\RaggedSkeleton\Source\Utility\GameObject\GameObject.cpp(2,10): warning C4067:  unexpected tokens following preprocessor directive - expected a newline
+C:\Users\Hermos\Documents\RaggedSkeleton-Project\RaggedSkeleton\Source\Utility\Game\GameManager.cpp(79,11): warning C4244:  'return': conversion from 'const double' to 'float', possible loss of data
+C:\Users\Hermos\Documents\RaggedSkeleton-Project\RaggedSkeleton\Source\Utility\Game\GameManager.cpp(81,22): warning C4244:  'return': conversion from 'double' to 'float', possible loss of data
+C:\Users\Hermos\Documents\RaggedSkeleton-Project\RaggedSkeleton\Source\Utility\Game\GameManager.cpp(88,10): warning C4244:  'return': conversion from 'const double' to 'float', possible loss of data
+  PauseScreen.cpp
+C:\Users\Hermos\Documents\RaggedSkeleton-Project\RaggedSkeleton\Source\Utility\Game\GameManager.cpp(93,10): warning C4244:  'return': conversion from 'const double' to 'float', possible loss of data
+C:\Users\Hermos\Documents\RaggedSkeleton-Project\RaggedSkeleton\Source\Utility\Game\Screens\PauseScreen.cpp(17,12): warning C4244:  'initializing': conversion from 'unsigned int' to 'float', possible loss of data
+C:\Users\Hermos\Documents\RaggedSkeleton-Project\RaggedSkeleton\Source\Utility\Game\Screens\PauseScreen.cpp(18,12): warning C4244:  'initializing': conversion from 'unsigned int' to 'float', possible loss of data
+C:\Users\Hermos\Documents\RaggedSkeleton-Project\RaggedSkeleton\Source\Utility\Game\Screens\PauseScreen.cpp(95,12): warning C4244:  'initializing': conversion from 'unsigned int' to 'float', possible loss of data
+  MainMenu.cpp
+  TestState.cpp
+  ImportedMesh.cpp
+C:\Users\Hermos\Documents\RaggedSkeleton-Project\RaggedSkeleton\Source\Utility\Game\Screens\PauseScreen.cpp(96,12): warning C4244:  'initializing': conversion from 'unsigned int' to 'float', possible loss of data
+C:\Users\Hermos\Documents\RaggedSkeleton-Project\RaggedSkeleton\Source\Utility\Graphics\Model\ImportedMesh.cpp(13,114): warning C4267:  'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\Hermos\Documents\RaggedSkeleton-Project\RaggedSkeleton\Source\Utility\Graphics\Model\ImportedMesh.cpp(23,114): warning C4267:  'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+  ImportedModel.cpp
+  Mesh.cpp
+  Skybox.cpp
+  Cubemap.cpp
+  IndexBuffer.cpp
+  Renderer.cpp
+  Shader.cpp
+  Generating Code...
+  Compiling...
+  Texture.cpp
+  VertexArray.cpp
+C:\Users\Hermos\Documents\RaggedSkeleton-Project\RaggedSkeleton\Source\Utility\Graphics\Model\ImportedMesh.cpp(33,135): warning C4267:  'argument': conversion from 'size_t' to 'unsigned int', possible loss of data
+  VertexBuffer.cpp
+  Sprite.cpp
+  Font.cpp
+C:\Users\Hermos\Documents\RaggedSkeleton-Project\RaggedSkeleton\Source\Utility\Graphics\OpenGL\VertexArray.cpp(45,1): warning C4312:  'type cast': conversion from 'unsigned int' to 'const void *' of greater size
+  InputManager.cpp
+  Log.cpp
+  ResourceManager.cpp
+  TransformHelpers.cpp
+C:\Users\Hermos\Documents\RaggedSkeleton-Project\RaggedSkeleton\Source\Utility\Graphics\Text\Font.cpp(103,25): warning C4838:  conversion from 'FT_Pos' to 'GLuint' requires a narrowing conversion
+C:\Users\Hermos\Documents\RaggedSkeleton-Project\RaggedSkeleton\Source\Utility\Transform\TransformHelpers.cpp(17,20): warning C4244:  '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\Hermos\Documents\RaggedSkeleton-Project\RaggedSkeleton\Source\Utility\Transform\TransformHelpers.cpp(33,24): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
+  Button.cpp
+  UIElement.cpp
+  Window.cpp
+  stb_image.cpp
+  Generating Code...
+C:\Users\Hermos\Documents\RaggedSkeleton-Project\RaggedSkeleton\Source\Utility\Transform\TransformHelpers.cpp(41,24): warning C4244:  'initializing': conversion from 'double' to 'float', possible loss of data
   RaggedSkeleton.vcxproj -> C:\Users\Hermos\Documents\RaggedSkeleton-Project\RaggedSkeleton\Source\..\Temp\Binary\Debug-windows-x86_64\RaggedSkeleton\RaggedSkeleton.exe

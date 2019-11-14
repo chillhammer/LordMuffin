@@ -24,6 +24,7 @@
 // User-Made Headers
 #include <Logger/Log.h>
 #include <Macros.h>
+#include <Profiler/ProfileBlock.h>
 
 
 #ifdef SKEL_PLATFORM_WINDOWS

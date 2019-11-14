@@ -157,6 +157,7 @@
     <ClInclude Include="SkelGame\Objects\Box\BoxMesh.h" />
     <ClInclude Include="SkelGame\Objects\Box\WoodenBox.h" />
     <ClInclude Include="SkelGame\Objects\Box\WoodenBoxModel.h" />
+    <ClInclude Include="Utility\Profiler\ProfileBlock.h" />
     <ClInclude Include="Utility\Resources\ResourceManager.h" />
     <ClInclude Include="Utility\Window\Window.h" />
     <ClInclude Include="Utility\Audio\AudioEngine.h" />

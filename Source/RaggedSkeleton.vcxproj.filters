@@ -255,6 +255,7 @@
       <Filter>SkelGame\Resources</Filter>
     </ClInclude>
     <ClInclude Include="SkelGame\Resources\GameResources.h" />
+    <ClInclude Include="Utility\Profiler\ProfileBlock.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PCH\SkelPCH.cpp">

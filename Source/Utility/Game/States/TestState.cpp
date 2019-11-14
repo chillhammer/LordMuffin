@@ -34,6 +34,8 @@ namespace Skel::GameStates
 		m_DebugShader->SetUniformMat4f("u_ViewProjection", m_Camera.GetProjectionMatrix() * m_Camera.GetViewMatrix());
 
 		m_Box.Draw();
+
+
 	}
 	void Test::Exit(GameManager* owner)
 	{

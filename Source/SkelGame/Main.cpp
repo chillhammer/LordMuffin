@@ -42,7 +42,7 @@ int main()
 		// App Render
 		renderer.Clear();
 
-
+		ProfilerBlock block("Main Loop");
 		Game.Run();
 
 	}
