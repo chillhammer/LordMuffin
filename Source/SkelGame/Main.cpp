@@ -18,6 +18,8 @@
 #include <Resources/ResourceManager.h>
 #include <Objects/Box/WoodenBox.h>
 #include <Game/States/GameStates.h>
+#include <Net/Net.h>
+#include <Net/Socket.h>
 
 using namespace Skel;
 
@@ -31,19 +33,37 @@ int main()
 	Log::Init();
 	Input.Init();
 	Game.Init();
+	Net::Init();
 	// Loads All Resources
 	Resources.Init();
 
 	Renderer renderer;
 	Game.Start();
 	Game.ChangeState(Skel::GameStates::Test::Instance());
+
+#ifdef SERVER
+	Net::Socket server;
+	server.Bind(Net::GetServerAddress().GetPort());
+#endif
 	while (Game.IsRunning())
 	{
 		// App Render
 		renderer.Clear();
 
-		ProfilerBlock block("Main Loop");
+#ifndef SERVER
 		Game.Run();
+#else
+		Net::Buffer buffer;
+		Net::Address fromAddress;
+		// Send back
+		if (server.ReceiveBuffer(buffer, fromAddress)) {
+			server.SendBuffer(buffer, fromAddress);
+
+			PlayerInputState input;
+			memcpy(&input, buffer.Data(), buffer.Length());
+			LOG("Got buffer, state= ({0},{1})", input.Forward, input.Back);
+		}
+#endif
 
 	}
 

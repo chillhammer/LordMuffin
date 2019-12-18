@@ -89,7 +89,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>..\Vendor\Lib\Assimp\lib\assimp.lib;..\Vendor\Lib\freetype\lib\freetype.lib;..\Vendor\Lib\irrKlang\lib\Winx64-visualStudio\irrKlang.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>..\Vendor\Lib\Assimp\lib\assimp.lib;..\Vendor\Lib\freetype\lib\freetype.lib;..\Vendor\Lib\irrKlang\lib\Winx64-visualStudio\irrKlang.lib;opengl32.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -111,7 +111,7 @@
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>..\Vendor\Lib\Assimp\lib\assimp.lib;..\Vendor\Lib\freetype\lib\freetype.lib;..\Vendor\Lib\irrKlang\lib\Winx64-visualStudio\irrKlang.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>..\Vendor\Lib\Assimp\lib\assimp.lib;..\Vendor\Lib\freetype\lib\freetype.lib;..\Vendor\Lib\irrKlang\lib\Winx64-visualStudio\irrKlang.lib;opengl32.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
@@ -133,15 +133,22 @@
       <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>..\Vendor\Lib\Assimp\lib\assimp.lib;..\Vendor\Lib\freetype\lib\freetype.lib;..\Vendor\Lib\irrKlang\lib\Winx64-visualStudio\irrKlang.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>..\Vendor\Lib\Assimp\lib\assimp.lib;..\Vendor\Lib\freetype\lib\freetype.lib;..\Vendor\Lib\irrKlang\lib\Winx64-visualStudio\irrKlang.lib;opengl32.lib;Ws2_32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="PCH\SkelPCH.h" />
-    <ClInclude Include="SkelGame\Resources\GameResources.h" />
-    <ClInclude Include="Utility\Camera\Camera.h" />
-    <ClInclude Include="SkelGame\Events\GameEvents.h" />
     <ClInclude Include="SkelGame\Events\GameEventTypes.h" />
+    <ClInclude Include="SkelGame\Events\GameEvents.h" />
+    <ClInclude Include="SkelGame\Objects\Box\BoxMesh.h" />
+    <ClInclude Include="SkelGame\Objects\Box\WoodenBox.h" />
+    <ClInclude Include="SkelGame\Objects\Box\WoodenBoxModel.h" />
+    <ClInclude Include="SkelGame\Objects\Player\PlayerInputState.h" />
+    <ClInclude Include="SkelGame\Objects\Player\PlayerObject.h" />
+    <ClInclude Include="SkelGame\Resources\GameResources.h" />
+    <ClInclude Include="Utility\Audio\AudioEngine.h" />
+    <ClInclude Include="Utility\Camera\Camera.h" />
+    <ClInclude Include="Utility\Containers\PackedIDMap.h" />
     <ClInclude Include="Utility\EventSystem\Event.h" />
     <ClInclude Include="Utility\EventSystem\EventType.h" />
     <ClInclude Include="Utility\EventSystem\Events\ApplicationEvent.h" />
@@ -152,15 +159,6 @@
     <ClInclude Include="Utility\Game\GameManager.h" />
     <ClInclude Include="Utility\Game\Screens\PauseScreen.h" />
     <ClInclude Include="Utility\Game\States\GameStates.h" />
-    <ClInclude Include="Utility\Input\InputManager.h" />
-    <ClInclude Include="Utility\Input\Keys.h" />
-    <ClInclude Include="SkelGame\Objects\Box\BoxMesh.h" />
-    <ClInclude Include="SkelGame\Objects\Box\WoodenBox.h" />
-    <ClInclude Include="SkelGame\Objects\Box\WoodenBoxModel.h" />
-    <ClInclude Include="Utility\Profiler\ProfileBlock.h" />
-    <ClInclude Include="Utility\Resources\ResourceManager.h" />
-    <ClInclude Include="Utility\Window\Window.h" />
-    <ClInclude Include="Utility\Audio\AudioEngine.h" />
     <ClInclude Include="Utility\GameObject\BoundingBox.h" />
     <ClInclude Include="Utility\GameObject\GameObject.h" />
     <ClInclude Include="Utility\Graphics\Model\ImportedMesh.h" />
@@ -179,32 +177,39 @@
     <ClInclude Include="Utility\Graphics\OpenGL\VertexBufferLayout.h" />
     <ClInclude Include="Utility\Graphics\Sprite\Sprite.h" />
     <ClInclude Include="Utility\Graphics\Text\Font.h" />
+    <ClInclude Include="Utility\Input\InputManager.h" />
+    <ClInclude Include="Utility\Input\Keys.h" />
     <ClInclude Include="Utility\Logger\Log.h" />
     <ClInclude Include="Utility\Macros.h" />
+    <ClInclude Include="Utility\Net\Address.h" />
+    <ClInclude Include="Utility\Net\Buffer.h" />
+    <ClInclude Include="Utility\Net\Net.h" />
+    <ClInclude Include="Utility\Net\Socket.h" />
+    <ClInclude Include="Utility\Profiler\ProfileBlock.h" />
+    <ClInclude Include="Utility\Resources\ResourceManager.h" />
     <ClInclude Include="Utility\StateMachine\State.h" />
     <ClInclude Include="Utility\StateMachine\StateMachine.h" />
     <ClInclude Include="Utility\Transform\Transform.h" />
     <ClInclude Include="Utility\UI\Button.h" />
     <ClInclude Include="Utility\UI\UIElement.h" />
+    <ClInclude Include="Utility\Window\Window.h" />
     <ClInclude Include="Vendor\stb_image\stb_image.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PCH\SkelPCH.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="SkelGame\Main.cpp" />
+    <ClCompile Include="SkelGame\Objects\Box\BoxMesh.cpp" />
+    <ClCompile Include="SkelGame\Objects\Box\WoodenBoxModel.cpp" />
+    <ClCompile Include="SkelGame\Objects\Player\PlayerObject.cpp" />
+    <ClCompile Include="Utility\Audio\AudioEngine.cpp" />
     <ClCompile Include="Utility\Camera\Camera.cpp" />
     <ClCompile Include="Utility\EventSystem\Subject.cpp" />
     <ClCompile Include="Utility\Game\GameManager.cpp" />
     <ClCompile Include="Utility\Game\Screens\PauseScreen.cpp" />
     <ClCompile Include="Utility\Game\States\MainMenu.cpp" />
     <ClCompile Include="Utility\Game\States\TestState.cpp" />
-    <ClCompile Include="Utility\Input\InputManager.cpp" />
-    <ClCompile Include="SkelGame\Main.cpp" />
-    <ClCompile Include="SkelGame\Objects\Box\BoxMesh.cpp" />
-    <ClCompile Include="SkelGame\Objects\Box\WoodenBoxModel.cpp" />
-    <ClCompile Include="Utility\Resources\ResourceManager.cpp" />
-    <ClCompile Include="Utility\Window\Window.cpp" />
-    <ClCompile Include="Utility\Audio\AudioEngine.cpp" />
     <ClCompile Include="Utility\GameObject\BoundingBox.cpp" />
     <ClCompile Include="Utility\GameObject\GameObject.cpp" />
     <ClCompile Include="Utility\Graphics\Model\ImportedMesh.cpp" />
@@ -220,10 +225,16 @@
     <ClCompile Include="Utility\Graphics\OpenGL\VertexBuffer.cpp" />
     <ClCompile Include="Utility\Graphics\Sprite\Sprite.cpp" />
     <ClCompile Include="Utility\Graphics\Text\Font.cpp" />
+    <ClCompile Include="Utility\Input\InputManager.cpp" />
     <ClCompile Include="Utility\Logger\Log.cpp" />
+    <ClCompile Include="Utility\Net\Address.cpp" />
+    <ClCompile Include="Utility\Net\Net.cpp" />
+    <ClCompile Include="Utility\Net\Socket.cpp" />
+    <ClCompile Include="Utility\Resources\ResourceManager.cpp" />
     <ClCompile Include="Utility\Transform\TransformHelpers.cpp" />
     <ClCompile Include="Utility\UI\Button.cpp" />
     <ClCompile Include="Utility\UI\UIElement.cpp" />
+    <ClCompile Include="Utility\Window\Window.cpp" />
     <ClCompile Include="Vendor\stb_image\stb_image.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -7,7 +7,9 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GLFW", "Vendor\Lib\GLFW\GLF
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ImGui", "Vendor\Lib\imgui\ImGui.vcxproj", "{C0FF640D-2C14-8DBE-F595-301E616989EF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RaggedSkeleton", "Source\RaggedSkeleton.vcxproj", "{D4145E46-C0E2-514C-A976-C27295E32DB1}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RaggedSkeletonClient", "Source\RaggedSkeletonClient.vcxproj", "{73ACFE04-5F3B-88CE-085A-9CC9F4C79874}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "RaggedSkeletonServer", "Source\RaggedSkeletonServer.vcxproj", "{8BC1D729-7750-61F3-206F-75EE0CDD7199}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -34,12 +36,18 @@ Global
 		{C0FF640D-2C14-8DBE-F595-301E616989EF}.Dist|x64.Build.0 = Dist|x64
 		{C0FF640D-2C14-8DBE-F595-301E616989EF}.Release|x64.ActiveCfg = Release|x64
 		{C0FF640D-2C14-8DBE-F595-301E616989EF}.Release|x64.Build.0 = Release|x64
-		{D4145E46-C0E2-514C-A976-C27295E32DB1}.Debug|x64.ActiveCfg = Debug|x64
-		{D4145E46-C0E2-514C-A976-C27295E32DB1}.Debug|x64.Build.0 = Debug|x64
-		{D4145E46-C0E2-514C-A976-C27295E32DB1}.Dist|x64.ActiveCfg = Dist|x64
-		{D4145E46-C0E2-514C-A976-C27295E32DB1}.Dist|x64.Build.0 = Dist|x64
-		{D4145E46-C0E2-514C-A976-C27295E32DB1}.Release|x64.ActiveCfg = Release|x64
-		{D4145E46-C0E2-514C-A976-C27295E32DB1}.Release|x64.Build.0 = Release|x64
+		{73ACFE04-5F3B-88CE-085A-9CC9F4C79874}.Debug|x64.ActiveCfg = Debug|x64
+		{73ACFE04-5F3B-88CE-085A-9CC9F4C79874}.Debug|x64.Build.0 = Debug|x64
+		{73ACFE04-5F3B-88CE-085A-9CC9F4C79874}.Dist|x64.ActiveCfg = Dist|x64
+		{73ACFE04-5F3B-88CE-085A-9CC9F4C79874}.Dist|x64.Build.0 = Dist|x64
+		{73ACFE04-5F3B-88CE-085A-9CC9F4C79874}.Release|x64.ActiveCfg = Release|x64
+		{73ACFE04-5F3B-88CE-085A-9CC9F4C79874}.Release|x64.Build.0 = Release|x64
+		{8BC1D729-7750-61F3-206F-75EE0CDD7199}.Debug|x64.ActiveCfg = Debug|x64
+		{8BC1D729-7750-61F3-206F-75EE0CDD7199}.Debug|x64.Build.0 = Debug|x64
+		{8BC1D729-7750-61F3-206F-75EE0CDD7199}.Dist|x64.ActiveCfg = Dist|x64
+		{8BC1D729-7750-61F3-206F-75EE0CDD7199}.Dist|x64.Build.0 = Dist|x64
+		{8BC1D729-7750-61F3-206F-75EE0CDD7199}.Release|x64.ActiveCfg = Release|x64
+		{8BC1D729-7750-61F3-206F-75EE0CDD7199}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

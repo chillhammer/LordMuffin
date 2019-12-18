@@ -4,6 +4,9 @@
 #include <Graphics/Model/Skybox.h>
 #include <UI/Button.h>
 #include <Game/Screens/PauseScreen.h>
+
+#include <Objects/Player/PlayerObject.h>
+#include <Net/Socket.h>
 namespace Skel::GameStates
 {
 
@@ -14,6 +17,8 @@ namespace Skel::GameStates
 		ShaderPtr m_Shader;
 		ShaderPtr m_DebugShader;
 		WoodenBox m_Box;
+		PlayerObject m_Player;
+		Net::Socket m_Client;
 	);
 
 	STATE_CLASS_SINGLETON(GameManager, MainMenu,

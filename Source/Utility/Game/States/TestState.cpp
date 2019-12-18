@@ -22,7 +22,8 @@ namespace Skel::GameStates
 		m_DebugShader = Resources.GetShader("Debug");
 
 		m_Box.ObjectTransform.Scale = Vector3(15, 0.001f, 30);
-		//m_Box.ObjectTransform.Scale = Vector3(1, 1, 1);
+
+		m_Player.ObjectTransform.Position = Vector3(2.0f, 1.0f, 0.0f);
 	}
 	void Test::Execute(GameManager* owner)
 	{
@@ -33,8 +34,33 @@ namespace Skel::GameStates
 		m_DebugShader->Bind();
 		m_DebugShader->SetUniformMat4f("u_ViewProjection", m_Camera.GetProjectionMatrix() * m_Camera.GetViewMatrix());
 
+
+#ifndef SERVER
+		{
+			PlayerInputState input = { Input.IsKeyDown(KEY_W), Input.IsKeyDown(KEY_S) };
+			Net::Address serverAddress = Net::GetServerAddress();
+			m_Client.SendBuffer(Net::Buffer(&input, sizeof(input)), serverAddress); // don't use m_Client
+		}
+
+
+		Net::Buffer receiveBuffer;
+		Net::Address serverAddress;
+		PlayerInputState input;
+		if (m_Client.ReceiveBuffer(receiveBuffer, serverAddress)) {
+
+			memcpy(&input, receiveBuffer.Data(), sizeof(input));
+
+			m_Player.ProcessInput(input, Game.DeltaTime());
+		}
+
+#endif
+
+		
+		
+
 		m_Box.Draw();
 
+		m_Player.Draw();
 
 	}
 	void Test::Exit(GameManager* owner)
