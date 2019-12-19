@@ -100,6 +100,9 @@
     <Filter Include="Vendor\stb_image">
       <UniqueIdentifier>{EDE315D3-D9DC-3425-020F-1AAAEE661431}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Utility\Net\Server">
+      <UniqueIdentifier>{eb0a4172-982d-4471-b05a-d49a48f167f7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PCH\SkelPCH.h">
@@ -273,6 +276,7 @@
     <ClInclude Include="Vendor\stb_image\stb_image.h">
       <Filter>Vendor\stb_image</Filter>
     </ClInclude>
+    <ClInclude Include="Utility\Net\Server\ServerManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PCH\SkelPCH.cpp">
@@ -389,5 +393,6 @@
     <ClCompile Include="Vendor\stb_image\stb_image.cpp">
       <Filter>Vendor\stb_image</Filter>
     </ClCompile>
+    <ClCompile Include="Utility\Net\Server\ServerManager.cpp" />
   </ItemGroup>
 </Project>

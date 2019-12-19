@@ -20,6 +20,7 @@
 #include <Game/States/GameStates.h>
 #include <Net/Net.h>
 #include <Net/Socket.h>
+#include <Net/Server/ServerManager.h>
 
 using namespace Skel;
 
@@ -29,6 +30,11 @@ namespace Skel {
 
 int main()
 {
+#ifdef SERVER
+	Server.ServerMain();
+	return 0;
+#endif
+
 	// Setting Up Dependencies
 	Log::Init();
 	Input.Init();
@@ -50,20 +56,7 @@ int main()
 		// App Render
 		renderer.Clear();
 
-#ifndef SERVER
 		Game.Run();
-#else
-		Net::Buffer buffer;
-		Net::Address fromAddress;
-		// Send back
-		if (server.ReceiveBuffer(buffer, fromAddress)) {
-			server.SendBuffer(buffer, fromAddress);
-
-			PlayerInputState input;
-			memcpy(&input, buffer.Data(), buffer.Length());
-			LOG("Got buffer, state= ({0},{1})", input.Forward, input.Back);
-		}
-#endif
 
 	}
 

@@ -35,14 +35,14 @@ namespace Skel::GameStates
 		m_DebugShader->SetUniformMat4f("u_ViewProjection", m_Camera.GetProjectionMatrix() * m_Camera.GetViewMatrix());
 
 
-#ifndef SERVER
+		// Client Send
 		{
 			PlayerInputState input = { Input.IsKeyDown(KEY_W), Input.IsKeyDown(KEY_S) };
 			Net::Address serverAddress = Net::GetServerAddress();
 			m_Client.SendBuffer(Net::Buffer(&input, sizeof(input)), serverAddress); // don't use m_Client
 		}
 
-
+		// Client Receive
 		Net::Buffer receiveBuffer;
 		Net::Address serverAddress;
 		PlayerInputState input;
@@ -52,8 +52,6 @@ namespace Skel::GameStates
 
 			m_Player.ProcessInput(input, Game.DeltaTime());
 		}
-
-#endif
 
 		
 		
