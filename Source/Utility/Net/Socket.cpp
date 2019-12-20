@@ -10,6 +10,13 @@ namespace Skel::Net {
 			LOG_ERROR("socket failed: {0}", WSAGetLastError());
 			return;
 		}
+
+		u_long nonBlocking = 1;
+		if (ioctlsocket(m_Socket, FIONBIO, &nonBlocking) != 0)
+		{
+			LOG_ERROR("making socket non-blocking failed: {0}", WSAGetLastError());
+			return;
+		}
 	}
 
 	// Binding to a socket. Useful for servers that need to have a known port. 
@@ -56,12 +63,15 @@ namespace Skel::Net {
 
 		int result = recvfrom(m_Socket, (char*)outBuffer.m_Data, outBuffer.MaxSize, 0, (sockaddr*)& from, &fromLength);
 
+
 		if (result <= 0)
 		{
+			int error = WSAGetLastError();
+
 			if (result == 0)
 				LOG("cannot receive buffer. connection closed");
-			else
-				LOG_ERROR("receive buffer failed: {0}\n", strerror(errno));
+			else if (error != WSAEWOULDBLOCK)
+				LOG_ERROR("receive buffer failed: {0} [{1}]\n", strerror(errno), error);
 			return false;
 		}
 		outBuffer.m_Length += result;

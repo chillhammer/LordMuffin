@@ -70,6 +70,10 @@ void ServerManager::ServerMain()
 		//ASSERT(nextFrameTime >= endFrameTime, "Dropped frames not handled appropriately");
 		Server.Sleep(std::max(0.0, targetFrameTime - endFrameTime));
 
+		// Checking actual delta
+		double actualDelta = Server.RunningTime() - startFrameTime;
+		LOG("Actual delta: {0}", actualDelta);
+
 		// Reset Target Variables
 		previousFrameTime = targetFrameTime;
 		targetFrameTime += Server.GetFixedFrameDeltaTime();
