@@ -4,6 +4,8 @@
 #include <Net/Buffer.h>
 #include <thread>
 #include <Objects/Player/PlayerInputState.h>
+#include <Packets/PlayerInputPacket.h>
+#include <Net/Packet.h>
 #include <limits>
 
 namespace Skel::Net {
@@ -38,21 +40,54 @@ void ServerManager::ServerMain()
 		const double startFrameTime = Server.RunningTime();
 
 
+		// Test
+		{
+			int test = 4;
+			Buffer buffer;
+			buffer.Write(&test, sizeof(test));
+
+			test = 0;
+
+			buffer.Read(&test, sizeof(test));
+			ASSERT(test == 4, "Test is incorrect");
+		}
+
+
 		Net::Buffer buffer;
 		Net::Address fromAddress;
+		Packet p(PACKET_INPUT);
+		p.WriteToBuffer(buffer);
 		// Send back
-		if (server.ReceiveBuffer(buffer, fromAddress)) {
-			server.SendBuffer(buffer, fromAddress);
+		int packetsReceived = 0;
+		while (server.ReceiveBuffer(buffer, fromAddress)) {
+			packetsReceived++;
 
-			PlayerInputState input;
-			memcpy(&input, buffer.Data(), buffer.Length());
-			LOG("Got buffer, state= ({0},{1})", input.Forward, input.Back);
+			// Find out what packet is being received
+			PacketType packetType; 
+			buffer.ResetReadPosition();
+			buffer.Read(&packetType, 1);
+
+			switch (packetType) {
+			case PACKET_INPUT:
+				PlayerInputPacket packet;
+				packet.ReadFromBuffer(buffer);
+
+				// Debug Results
+				PlayerInputState input = packet.InputState;
+				LOG("Got buffer, state= ({0},{1})", input.Forward, input.Back);
+
+				// Writes same packet back for testing purposes
+				packet.WriteToBuffer(buffer);
+				server.SendBuffer(buffer, fromAddress);
+				break;
+			}
 		}
+		LOG("Packets Received: {0}", packetsReceived);
 
 
 		#pragma region Fixed Framerate Loop
 		const double endFrameTime = Server.RunningTime();
-		LOG("Delta time this frame: {0} - Fixed rate: {1}", endFrameTime - startFrameTime, Server.GetFixedFrameDeltaTime());
+		//LOG("Delta time this frame: {0} - Fixed rate: {1}", endFrameTime - startFrameTime, Server.GetFixedFrameDeltaTime());
 
 		// Find out how many dropped frames. 
 		int droppedFrames = 0;
@@ -71,8 +106,8 @@ void ServerManager::ServerMain()
 		Server.Sleep(std::max(0.0, targetFrameTime - endFrameTime));
 
 		// Checking actual delta
-		double actualDelta = Server.RunningTime() - startFrameTime;
-		LOG("Actual delta: {0}", actualDelta);
+		//double actualDelta = Server.RunningTime() - startFrameTime;
+		//LOG("Actual delta: {0}", actualDelta);
 
 		// Reset Target Variables
 		previousFrameTime = targetFrameTime;

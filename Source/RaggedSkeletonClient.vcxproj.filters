@@ -19,6 +19,9 @@
     <Filter Include="SkelGame\Objects\Player">
       <UniqueIdentifier>{83732AA4-EFAA-723B-F8B4-D65E646B9934}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SkelGame\Packets">
+      <UniqueIdentifier>{A8B351EF-94AC-7041-BDDE-55C6A936504D}</UniqueIdentifier>
+    </Filter>
     <Filter Include="SkelGame\Resources">
       <UniqueIdentifier>{781AA67E-64FE-66D4-CD5E-6127B9615156}</UniqueIdentifier>
     </Filter>
@@ -76,6 +79,9 @@
     <Filter Include="Utility\Net">
       <UniqueIdentifier>{EFE9AD24-5B9F-261A-E493-20F150481D1E}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Utility\Net\Server">
+      <UniqueIdentifier>{350C35E7-21F0-F53C-8A50-F08F7653E0BE}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Utility\Profiler">
       <UniqueIdentifier>{CB9B4885-B794-67D7-E0C6-4C5CCC1E47E3}</UniqueIdentifier>
     </Filter>
@@ -125,6 +131,12 @@
     </ClInclude>
     <ClInclude Include="SkelGame\Objects\Player\PlayerObject.h">
       <Filter>SkelGame\Objects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="SkelGame\Packets\PacketTypes.h">
+      <Filter>SkelGame\Packets</Filter>
+    </ClInclude>
+    <ClInclude Include="SkelGame\Packets\PlayerInputPacket.h">
+      <Filter>SkelGame\Packets</Filter>
     </ClInclude>
     <ClInclude Include="SkelGame\Resources\GameResources.h">
       <Filter>SkelGame\Resources</Filter>
@@ -225,6 +237,9 @@
     <ClInclude Include="Utility\Input\InputManager.h">
       <Filter>Utility\Input</Filter>
     </ClInclude>
+    <ClInclude Include="Utility\Input\InputState.h">
+      <Filter>Utility\Input</Filter>
+    </ClInclude>
     <ClInclude Include="Utility\Input\Keys.h">
       <Filter>Utility\Input</Filter>
     </ClInclude>
@@ -242,6 +257,12 @@
     </ClInclude>
     <ClInclude Include="Utility\Net\Net.h">
       <Filter>Utility\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Net\Packet.h">
+      <Filter>Utility\Net</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Net\Server\ServerManager.h">
+      <Filter>Utility\Net\Server</Filter>
     </ClInclude>
     <ClInclude Include="Utility\Net\Socket.h">
       <Filter>Utility\Net</Filter>
@@ -367,6 +388,12 @@
     </ClCompile>
     <ClCompile Include="Utility\Net\Net.cpp">
       <Filter>Utility\Net</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\Net\Packet.cpp">
+      <Filter>Utility\Net</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\Net\Server\ServerManager.cpp">
+      <Filter>Utility\Net\Server</Filter>
     </ClCompile>
     <ClCompile Include="Utility\Net\Socket.cpp">
       <Filter>Utility\Net</Filter>

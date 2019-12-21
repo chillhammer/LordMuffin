@@ -5,17 +5,24 @@
 namespace Skel::Net
 {
 
+	enum PacketType : uint8
+	{
+		PACKET_INPUT = 0,
+		CUSTOM_PACKETS
+	};
+
 	class Packet
 	{
 	public:
-		Packet(uint8 type) : m_Type(type) {}
+		Packet(PacketType type) : m_Type(type) {}
 
+		void ReadFromBuffer(Buffer& buffer);
 		void WriteToBuffer(Buffer& buffer);
-
 	protected:
 		virtual void WriteToBuffer_Internal(Buffer& buffer) {}
+		virtual void ReadFromBuffer_Internal(Buffer& buffer) {}
 	private:
-		uint8 m_Type;
+		PacketType m_Type;
 
 	};
 }

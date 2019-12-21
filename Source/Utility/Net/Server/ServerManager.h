@@ -22,7 +22,6 @@ namespace Skel::Net
 		~ServerManager() {};
 	private:
 		ServerManager() {};
-		//void UpdateDeltaTime();
 
 		// Properties
 		double m_LastUpdatedTime = 0;

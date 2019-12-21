@@ -1,6 +1,7 @@
 #include <skelpch.h>
 #include <Input/InputManager.h>
 #include <Resources/ResourceManager.h>
+#include <Packets/PlayerInputPacket.h>
 #include "GameStates.h"
 /**
 	Each state runs code that determines the course of the game.
@@ -37,22 +38,28 @@ namespace Skel::GameStates
 
 		// Client Send
 		{
+			Net::Buffer buffer;
+			
 			PlayerInputState input = { Input.IsKeyDown(KEY_W), Input.IsKeyDown(KEY_S) };
+			PlayerInputPacket packet(input);
+			packet.WriteToBuffer(buffer);
 			Net::Address serverAddress = Net::GetServerAddress();
-			m_Client.SendBuffer(Net::Buffer(&input, sizeof(input)), serverAddress); // don't use m_Client
+			m_Client.SendBuffer(buffer, serverAddress); // don't use m_Client
 		}
 
 		// Client Receive
 		Net::Buffer receiveBuffer;
 		Net::Address serverAddress;
 		PlayerInputState input;
-		if (m_Client.ReceiveBuffer(receiveBuffer, serverAddress)) {
+		while (m_Client.ReceiveBuffer(receiveBuffer, serverAddress)) {
 
-			memcpy(&input, receiveBuffer.Data(), sizeof(input));
+			receiveBuffer.ResetReadPosition();
+			PlayerInputPacket packet;
+			packet.ReadFromBuffer(receiveBuffer);
+			input = packet.InputState;
 
 			m_Player.ProcessInput(input, Game.DeltaTime());
 		}
-
 		
 		
 

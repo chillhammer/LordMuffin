@@ -145,6 +145,8 @@
     <ClInclude Include="SkelGame\Objects\Box\WoodenBoxModel.h" />
     <ClInclude Include="SkelGame\Objects\Player\PlayerInputState.h" />
     <ClInclude Include="SkelGame\Objects\Player\PlayerObject.h" />
+    <ClInclude Include="SkelGame\Packets\PacketTypes.h" />
+    <ClInclude Include="SkelGame\Packets\PlayerInputPacket.h" />
     <ClInclude Include="SkelGame\Resources\GameResources.h" />
     <ClInclude Include="Utility\Audio\AudioEngine.h" />
     <ClInclude Include="Utility\Camera\Camera.h" />
@@ -178,12 +180,15 @@
     <ClInclude Include="Utility\Graphics\Sprite\Sprite.h" />
     <ClInclude Include="Utility\Graphics\Text\Font.h" />
     <ClInclude Include="Utility\Input\InputManager.h" />
+    <ClInclude Include="Utility\Input\InputState.h" />
     <ClInclude Include="Utility\Input\Keys.h" />
     <ClInclude Include="Utility\Logger\Log.h" />
     <ClInclude Include="Utility\Macros.h" />
     <ClInclude Include="Utility\Net\Address.h" />
     <ClInclude Include="Utility\Net\Buffer.h" />
     <ClInclude Include="Utility\Net\Net.h" />
+    <ClInclude Include="Utility\Net\Packet.h" />
+    <ClInclude Include="Utility\Net\Server\ServerManager.h" />
     <ClInclude Include="Utility\Net\Socket.h" />
     <ClInclude Include="Utility\Profiler\ProfileBlock.h" />
     <ClInclude Include="Utility\Resources\ResourceManager.h" />
@@ -229,6 +234,8 @@
     <ClCompile Include="Utility\Logger\Log.cpp" />
     <ClCompile Include="Utility\Net\Address.cpp" />
     <ClCompile Include="Utility\Net\Net.cpp" />
+    <ClCompile Include="Utility\Net\Packet.cpp" />
+    <ClCompile Include="Utility\Net\Server\ServerManager.cpp" />
     <ClCompile Include="Utility\Net\Socket.cpp" />
     <ClCompile Include="Utility\Resources\ResourceManager.cpp" />
     <ClCompile Include="Utility\Transform\TransformHelpers.cpp" />

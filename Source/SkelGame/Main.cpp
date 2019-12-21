@@ -47,10 +47,6 @@ int main()
 	Game.Start();
 	Game.ChangeState(Skel::GameStates::Test::Instance());
 
-#ifdef SERVER
-	Net::Socket server;
-	server.Bind(Net::GetServerAddress().GetPort());
-#endif
 	while (Game.IsRunning())
 	{
 		// App Render
