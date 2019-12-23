@@ -2,6 +2,7 @@
 #include <Input/InputManager.h>
 #include <Resources/ResourceManager.h>
 #include <Packets/PlayerInputPacket.h>
+#include <imgui.h>
 #include "GameStates.h"
 /**
 	Each state runs code that determines the course of the game.
@@ -34,6 +35,10 @@ namespace Skel::GameStates
 		m_Shader->SetUniformMat4f("u_ViewProjection", m_Camera.GetProjectionMatrix() * m_Camera.GetViewMatrix());
 		m_DebugShader->Bind();
 		m_DebugShader->SetUniformMat4f("u_ViewProjection", m_Camera.GetProjectionMatrix() * m_Camera.GetViewMatrix());
+
+		ImGui::Begin("Demo window");
+		ImGui::Button("Hello!");
+		ImGui::End();
 
 
 		// Client Send

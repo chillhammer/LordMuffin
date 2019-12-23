@@ -7,6 +7,9 @@
     <Filter Include="SkelGame">
       <UniqueIdentifier>{8EAB0635-7A78-6140-A391-4FE88FBD96CE}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SkelGame\Client">
+      <UniqueIdentifier>{DCCF145E-485B-8222-516C-0517BD76DE22}</UniqueIdentifier>
+    </Filter>
     <Filter Include="SkelGame\Events">
       <UniqueIdentifier>{B20B7263-1E97-DF27-27A8-621C93B23B28}</UniqueIdentifier>
     </Filter>
@@ -24,6 +27,9 @@
     </Filter>
     <Filter Include="SkelGame\Resources">
       <UniqueIdentifier>{781AA67E-64FE-66D4-CD5E-6127B9615156}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SkelGame\Server">
+      <UniqueIdentifier>{F4E4ED82-6070-5B47-6981-DE3BD58BB747}</UniqueIdentifier>
     </Filter>
     <Filter Include="Utility">
       <UniqueIdentifier>{594615A9-C525-9444-CE3D-1F1B3A9CFAA5}</UniqueIdentifier>
@@ -79,9 +85,6 @@
     <Filter Include="Utility\Net">
       <UniqueIdentifier>{EFE9AD24-5B9F-261A-E493-20F150481D1E}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Utility\Net\Server">
-      <UniqueIdentifier>{350C35E7-21F0-F53C-8A50-F08F7653E0BE}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Utility\Profiler">
       <UniqueIdentifier>{CB9B4885-B794-67D7-E0C6-4C5CCC1E47E3}</UniqueIdentifier>
     </Filter>
@@ -110,6 +113,9 @@
   <ItemGroup>
     <ClInclude Include="PCH\SkelPCH.h">
       <Filter>PCH</Filter>
+    </ClInclude>
+    <ClInclude Include="SkelGame\Client\ClientManager.h">
+      <Filter>SkelGame\Client</Filter>
     </ClInclude>
     <ClInclude Include="SkelGame\Events\GameEventTypes.h">
       <Filter>SkelGame\Events</Filter>
@@ -140,6 +146,9 @@
     </ClInclude>
     <ClInclude Include="SkelGame\Resources\GameResources.h">
       <Filter>SkelGame\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="SkelGame\Server\ServerManager.h">
+      <Filter>SkelGame\Server</Filter>
     </ClInclude>
     <ClInclude Include="Utility\Audio\AudioEngine.h">
       <Filter>Utility\Audio</Filter>
@@ -261,9 +270,6 @@
     <ClInclude Include="Utility\Net\Packet.h">
       <Filter>Utility\Net</Filter>
     </ClInclude>
-    <ClInclude Include="Utility\Net\Server\ServerManager.h">
-      <Filter>Utility\Net\Server</Filter>
-    </ClInclude>
     <ClInclude Include="Utility\Net\Socket.h">
       <Filter>Utility\Net</Filter>
     </ClInclude>
@@ -299,6 +305,9 @@
     <ClCompile Include="PCH\SkelPCH.cpp">
       <Filter>PCH</Filter>
     </ClCompile>
+    <ClCompile Include="SkelGame\Client\ClientManager.cpp">
+      <Filter>SkelGame\Client</Filter>
+    </ClCompile>
     <ClCompile Include="SkelGame\Main.cpp">
       <Filter>SkelGame</Filter>
     </ClCompile>
@@ -310,6 +319,9 @@
     </ClCompile>
     <ClCompile Include="SkelGame\Objects\Player\PlayerObject.cpp">
       <Filter>SkelGame\Objects\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="SkelGame\Server\ServerManager.cpp">
+      <Filter>SkelGame\Server</Filter>
     </ClCompile>
     <ClCompile Include="Utility\Audio\AudioEngine.cpp">
       <Filter>Utility\Audio</Filter>
@@ -392,9 +404,6 @@
     <ClCompile Include="Utility\Net\Packet.cpp">
       <Filter>Utility\Net</Filter>
     </ClCompile>
-    <ClCompile Include="Utility\Net\Server\ServerManager.cpp">
-      <Filter>Utility\Net\Server</Filter>
-    </ClCompile>
     <ClCompile Include="Utility\Net\Socket.cpp">
       <Filter>Utility\Net</Filter>
     </ClCompile>
@@ -416,5 +425,6 @@
     <ClCompile Include="Vendor\stb_image\stb_image.cpp">
       <Filter>Vendor\stb_image</Filter>
     </ClCompile>
+    <ClCompile Include="Vendor\ImGui\ImGuiBuild.cpp" />
   </ItemGroup>
 </Project>

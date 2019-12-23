@@ -151,7 +151,7 @@ namespace Skel
 			if (glm::length2(m_DeltaMousePosition) > DELTA_CAP * DELTA_CAP)
 				m_DeltaMousePosition = Vector2(0.0f, 0.0f);
 		}
-		if (!Game.IsPaused())
+		if (!Game.IsPaused() && Game.TimeScale() != 0.0f)
 			Game.GetWindow().SetCursorPosition(midWindowX, midWindowY);
 		return false;
 	}

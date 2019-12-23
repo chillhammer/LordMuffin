@@ -20,7 +20,7 @@
 #include <Game/States/GameStates.h>
 #include <Net/Net.h>
 #include <Net/Socket.h>
-#include <Net/Server/ServerManager.h>
+#include <Server/ServerManager.h>
 
 using namespace Skel;
 

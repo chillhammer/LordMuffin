@@ -202,7 +202,7 @@ void Skel::Window::SetCursorEnabled(bool enabled) const
 {
 	if (!enabled)
 	{
-		glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+		glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 	}
 	else
 	{
