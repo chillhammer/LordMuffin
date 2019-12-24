@@ -3,8 +3,11 @@
 #include <Net/Socket.h>
 #include <Net/Buffer.h>
 #include <thread>
-#include <Objects/Player/PlayerInputState.h>
+#include <Resources/ResourceManager.h>
+#include <Objects/Player/PlayerObject.h>
+
 #include <Packets/PlayerInputPacket.h>
+#include <Packets/JoinPackets.h>
 #include <Net/Packet.h>
 #include <limits>
 
@@ -24,24 +27,26 @@ namespace Skel::Net {
 	void ServerManager::ServerMain()
 	{
 		// Setting Up Dependencies
-		Log::Init();
 		Net::Init();
 
 		Net::Socket server;
 		server.Bind(Net::GetServerAddress().GetPort());
+
+		Skel::PlayerObject playerObjs[MAX_PLAYERS];
+		m_ClientHandler.SetPlayerObjectArray(&(*playerObjs));
 
 		const double startTime = Server.RunningTime();
 
 		double previousFrameTime = startTime;
 		double targetFrameTime = previousFrameTime + Server.GetFixedFrameDeltaTime();
 
+		Net::Buffer buffer;
+		Net::Address fromAddress;
+
 		while (Server.IsRunning())
 		{
 			const double startFrameTime = Server.RunningTime();
 
-
-			Net::Buffer buffer;
-			Net::Address fromAddress;
 			Packet p(PACKET_INPUT);
 			p.WriteToBuffer(buffer);
 			// Send back
@@ -55,21 +60,35 @@ namespace Skel::Net {
 				buffer.Read(&packetType, 1);
 
 				switch (packetType) {
+				case PACKET_JOIN_REQUEST:
+				{
+					JoinRequestPacket packet;
+					packet.ReadFromBuffer(buffer);
+
+					// TODO: Allocate space for client on server
+
+					JoinAcceptPacket acceptPacket(1);
+					acceptPacket.WriteToBuffer(buffer);
+					server.SendBuffer(buffer, fromAddress);
+				}
+					break;
 				case PACKET_INPUT:
+				{
 					PlayerInputPacket packet;
 					packet.ReadFromBuffer(buffer);
 
 					// Debug Results
 					PlayerInputState input = packet.InputState;
-					LOG("Got buffer, state= ({0},{1})", input.Forward, input.Back);
+					//LOG("Got buffer, state= ({0},{1})", input.Forward, input.Back);
 
 					// Writes same packet back for testing purposes
 					packet.WriteToBuffer(buffer);
 					server.SendBuffer(buffer, fromAddress);
 					break;
 				}
+				}
 			}
-			LOG("Packets Received: {0}", packetsReceived);
+			//LOG("Packets Received: {0}", packetsReceived);
 
 
 #pragma region Fixed Framerate Loop

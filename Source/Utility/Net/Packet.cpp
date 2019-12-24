@@ -6,7 +6,6 @@ namespace Skel::Net
 {
 	void Packet::ReadFromBuffer(Buffer& buffer)
 	{
-		ASSERT(buffer.GetReadPosition() <= 1, "Not the first time reading the buffer");
 		buffer.ResetReadPosition();
 		uint8 packetType; 
 		buffer.Read(&packetType, 1);

@@ -2,6 +2,8 @@
 #include <Input/InputManager.h>
 #include <Resources/ResourceManager.h>
 #include <Packets/PlayerInputPacket.h>
+#include <Packets/JoinPackets.h>
+#include <Client/ClientManager.h>
 #include <imgui.h>
 #include "GameStates.h"
 /**
@@ -36,36 +38,81 @@ namespace Skel::GameStates
 		m_DebugShader->Bind();
 		m_DebugShader->SetUniformMat4f("u_ViewProjection", m_Camera.GetProjectionMatrix() * m_Camera.GetViewMatrix());
 
-		ImGui::Begin("Demo window");
-		ImGui::Button("Hello!");
+
+		// ImGui Connection Window
+		ImGui::Begin("Network Connection Window");
+		if (!Client.Connected()) {
+			if (ImGui::Button("Connect!")) {
+				Net::Buffer buffer;
+				Net::JoinRequestPacket packet;
+				packet.WriteToBuffer(buffer);
+				Client.SendBuffer(buffer);
+			}
+		}
+		else {
+			ImGui::Text("Connected");
+		}
 		ImGui::End();
 
-
-		// Client Send
+		if (!Client.Connected()) 
 		{
-			Net::Buffer buffer;
-			
-			PlayerInputState input = { Input.IsKeyDown(KEY_W), Input.IsKeyDown(KEY_S) };
-			PlayerInputPacket packet(input);
-			packet.WriteToBuffer(buffer);
-			Net::Address serverAddress = Net::GetServerAddress();
-			m_Client.SendBuffer(buffer, serverAddress); // don't use m_Client
+			// Client Receive Join Accept Or Decline
+			Net::Buffer receiveBuffer;
+			PlayerInputState input;
+			while (Client.ReceiveBuffer(receiveBuffer)) {
+
+				Net::PacketType type; 
+				receiveBuffer.Read(&type, 1);
+
+				switch (type) {
+				case Net::PACKET_JOIN_ACCEPT:
+					LOG("Connected to Server");
+					Client.SetConnected(true);
+					break;
+
+				case Net::PACKET_JOIN_DECLINED:
+					LOG("Packet Join Declined");
+					break;
+
+				case Net::PACKET_INPUT:
+					Net::PlayerInputPacket packet;
+					packet.ReadFromBuffer(receiveBuffer);
+					input = packet.InputState;
+					break;
+				}
+				
+
+				m_Player.ProcessInput(input, Game.DeltaTime());
+			}
 		}
 
-		// Client Receive
-		Net::Buffer receiveBuffer;
-		Net::Address serverAddress;
-		PlayerInputState input;
-		while (m_Client.ReceiveBuffer(receiveBuffer, serverAddress)) {
 
-			receiveBuffer.ResetReadPosition();
-			PlayerInputPacket packet;
-			packet.ReadFromBuffer(receiveBuffer);
-			input = packet.InputState;
+		if (Client.Connected())
+		{
+			// Client Send
+			{
+				Net::Buffer buffer;
 
-			m_Player.ProcessInput(input, Game.DeltaTime());
+				PlayerInputState input = { Input.IsKeyDown(KEY_W), Input.IsKeyDown(KEY_S) };
+				Net::PlayerInputPacket packet(input);
+				packet.WriteToBuffer(buffer);
+
+				Client.SendBuffer(buffer);
+			}
+
+			// Client Receive
+			Net::Buffer receiveBuffer;
+			PlayerInputState input;
+			while (Client.ReceiveBuffer(receiveBuffer)) {
+
+				Net::PlayerInputPacket packet;
+				packet.ReadFromBuffer(receiveBuffer);
+				input = packet.InputState;
+
+				m_Player.ProcessInput(input, Game.DeltaTime());
+			}
+
 		}
-		
 		
 
 		m_Box.Draw();

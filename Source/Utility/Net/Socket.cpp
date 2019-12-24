@@ -7,14 +7,16 @@ namespace Skel::Net {
 		m_Socket = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
 		if (m_Socket == INVALID_SOCKET)
 		{
-			LOG_ERROR("socket failed: {0}", WSAGetLastError());
+			if (m_LogErrors)
+				LOG_ERROR("socket failed: {0}", WSAGetLastError());
 			return;
 		}
 
 		u_long nonBlocking = 1;
 		if (ioctlsocket(m_Socket, FIONBIO, &nonBlocking) != 0)
 		{
-			LOG_ERROR("making socket non-blocking failed: {0}", WSAGetLastError());
+			if (m_LogErrors)
+				LOG_ERROR("making socket non-blocking failed: {0}", WSAGetLastError());
 			return;
 		}
 	}
@@ -29,7 +31,8 @@ namespace Skel::Net {
 		local_address.sin_addr.s_addr = INADDR_ANY;
 		if (bind(m_Socket, (SOCKADDR*)& local_address, sizeof(local_address)) == SOCKET_ERROR)
 		{
-			LOG_ERROR("bind failed: {0}", WSAGetLastError());
+			if (m_LogErrors)
+				LOG_ERROR("bind failed: {0}", WSAGetLastError());
 			return;
 		}
 		m_Bounded = true;
@@ -47,7 +50,7 @@ namespace Skel::Net {
 		}
 		
 		int result = sendto(m_Socket, buffer.Data(), buffer.MaxSize, 0, toAddress, sizeof(*toAddress)); // change from maxsize
-		if (result == SOCKET_ERROR) {
+		if (result == SOCKET_ERROR && m_LogErrors) {
 			LOG_ERROR("send buffer failed: {0}", WSAGetLastError());
 		}
 		return result == buffer.Length();
@@ -68,10 +71,13 @@ namespace Skel::Net {
 		{
 			int error = WSAGetLastError();
 
-			if (result == 0)
-				LOG("cannot receive buffer. connection closed");
-			else if (error != WSAEWOULDBLOCK)
-				LOG_ERROR("receive buffer failed: {0} [{1}]\n", strerror(errno), error);
+			if (m_LogErrors) {
+				if (result == 0) {
+					LOG("cannot receive buffer. connection closed");
+				}
+				else if (error != WSAEWOULDBLOCK)
+					LOG_ERROR("receive buffer failed: {0} [{1}]\n", strerror(errno), error);
+			}
 			return false;
 		}
 		outBuffer.m_Length += result;

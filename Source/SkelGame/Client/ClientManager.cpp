@@ -26,4 +26,10 @@ namespace Skel::Net {
 		return m_Socket.ReceiveBuffer(outBuffer, serverAddress);
 	}
 
+	void ClientManager::SetConnected(bool connected)
+	{
+		m_Connected = connected;
+		m_Socket.SetLogErrors(connected);
+	}
+
 }

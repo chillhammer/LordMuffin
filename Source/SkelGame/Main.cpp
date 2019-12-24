@@ -30,13 +30,13 @@ namespace Skel {
 
 int main()
 {
+	Log::Init();
 #ifdef SERVER
 	Server.ServerMain();
 	return 0;
 #endif
 
 	// Setting Up Dependencies
-	Log::Init();
 	Input.Init();
 	Game.Init();
 	Net::Init();

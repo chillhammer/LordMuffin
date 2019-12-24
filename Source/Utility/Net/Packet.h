@@ -1,5 +1,6 @@
 #pragma once
 #include <Macros.h>
+#include "Packets/PacketTypes.h"
 #include "Buffer.h"
 
 namespace Skel::Net
@@ -7,7 +8,6 @@ namespace Skel::Net
 
 	enum PacketType : uint8
 	{
-		PACKET_INPUT = 0,
 		CUSTOM_PACKETS
 	};
 

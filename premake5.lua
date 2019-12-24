@@ -88,7 +88,8 @@ project "RaggedSkeletonClient"
 		{
 			"SKEL_PLATFORM_WINDOWS",
 			"SKEL_BUILD_DLL",
-			"GLFW_INCLUDE_NONE"
+			"GLFW_INCLUDE_NONE",
+			"CLIENT"
 		}
 
 	filter "configurations:Debug"

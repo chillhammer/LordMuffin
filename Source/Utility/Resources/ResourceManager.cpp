@@ -19,6 +19,7 @@ namespace Skel
 		LoadResources(m_TextureTable, m_MeshTable, m_ModelTable, m_ShaderTable, m_FontTable);
 		LOG("Initialized Resource Manager");
 	}
+#ifndef SERVER
 	TexturePtr ResourceManager::GetTexture(std::string name)
 	{
 		ASSERT(m_TextureTable[name], "Cannot load texture: " + name);
@@ -44,4 +45,11 @@ namespace Skel
 		ASSERT(m_FontTable[name], "Cannot load font: " + name);
 		return m_FontTable[name];
 	}
+#else
+	TexturePtr ResourceManager::GetTexture(std::string name) { return nullptr; }
+	MeshPtr ResourceManager::GetMesh(std::string name) { return nullptr; }
+	ModelPtr ResourceManager::GetModel(std::string name) { return nullptr; }
+	ShaderPtr ResourceManager::GetShader(std::string name) { return nullptr; }
+	FontPtr ResourceManager::GetFont(std::string name) { return nullptr; }
+#endif
 }

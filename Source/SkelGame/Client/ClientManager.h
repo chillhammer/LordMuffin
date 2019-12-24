@@ -18,9 +18,11 @@ namespace Skel::Net
 		bool SendBuffer(const Buffer& buffer);
 		bool ReceiveBuffer(Buffer& outBuffer);
 
+		void SetConnected(bool connected);
+
 		~ClientManager() {};
 	private:
-		ClientManager() {};
+		ClientManager() { m_Socket.SetLogErrors(false); };
 
 		// Properties
 		Socket m_Socket;

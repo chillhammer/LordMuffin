@@ -300,6 +300,7 @@
     <ClInclude Include="Vendor\stb_image\stb_image.h">
       <Filter>Vendor\stb_image</Filter>
     </ClInclude>
+    <ClInclude Include="SkelGame\Server\ClientHandler.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PCH\SkelPCH.cpp">
@@ -426,5 +427,6 @@
       <Filter>Vendor\stb_image</Filter>
     </ClCompile>
     <ClCompile Include="Vendor\ImGui\ImGuiBuild.cpp" />
+    <ClCompile Include="SkelGame\Server\ClientHandler.cpp" />
   </ItemGroup>
 </Project>

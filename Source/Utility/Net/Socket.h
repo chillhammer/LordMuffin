@@ -13,9 +13,11 @@ namespace Skel::Net
 		void Bind(uint16 port);
 		bool SendBuffer(const Buffer& buffer, const Address& address) const;
 		bool ReceiveBuffer(Buffer& outBuffer, Address& outAddress) const;
+		void SetLogErrors(bool log) { m_LogErrors = log; }
 	private:
 		uint64 m_Socket;
 		uint16 m_Port;
 		bool m_Bounded;
+		bool m_LogErrors;
 	};
 }

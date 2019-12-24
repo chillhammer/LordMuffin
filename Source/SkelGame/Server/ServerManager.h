@@ -1,4 +1,5 @@
 #pragma once
+#include "ClientHandler.h"
 
 #define Server Net::ServerManager::Instance()
 namespace Skel::Net
@@ -24,6 +25,7 @@ namespace Skel::Net
 		ServerManager() {};
 
 		// Properties
+		ClientHandler m_ClientHandler;
 		double m_LastUpdatedTime = 0;
 		double m_DeltaTime = 0;
 		bool m_Running = true;

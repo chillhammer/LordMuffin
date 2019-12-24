@@ -4,9 +4,9 @@
 #include "PacketTypes.h"
 #include <Logger/Log.h>
 
-namespace Skel
+namespace Skel::Net
 {
-
+	// From Client
 	class PlayerInputPacket : public Net::Packet
 	{
 	public:

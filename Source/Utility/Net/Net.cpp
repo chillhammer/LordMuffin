@@ -4,6 +4,7 @@
 
 namespace Skel::Net {
 
+
 	void Init()
 	{
 		WSADATA wsaData;

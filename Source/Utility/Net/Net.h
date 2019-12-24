@@ -7,6 +7,7 @@
 namespace Skel::Net
 {
 	class Address;
+	inline constexpr uint16 MAX_PLAYERS = 8;
 
 	void Init();
 	Address GetServerAddress();
