@@ -6,6 +6,9 @@
 namespace Skel::Net
 {
 
+// Creates a packet and writes it to buffer immediately
+#define WRITE_PACKET(packet_type, param, buffer) packet_type packet##__LINE__##param; packet##__LINE__##.WriteToBuffer(buffer);
+
 	enum PacketType : uint8
 	{
 		CUSTOM_PACKETS

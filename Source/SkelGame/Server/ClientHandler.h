@@ -10,8 +10,8 @@ namespace Skel::Net
 
 	};
 
-	// Handles the player management from the server
-	// Note an optimization can be made as to making the PlayerObjects adjacent in memory
+	// Handles the player management from the server perspective
+	// Note an optimization can be made as to making the active PlayerObjects always adjacent in memory
 	class ClientHandler
 	{
 	public:

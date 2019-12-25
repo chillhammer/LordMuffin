@@ -65,11 +65,19 @@ namespace Skel::Net {
 					JoinRequestPacket packet;
 					packet.ReadFromBuffer(buffer);
 
-					// TODO: Allocate space for client on server
+					if (m_ClientHandler.RemainingSlots() > 0) 
+					{
+						auto clientID = m_ClientHandler.AddPlayer();
+						WRITE_PACKET(JoinAcceptPacket, (clientID), buffer);
+						server.SendBuffer(buffer, fromAddress);
+					}
+					else // Reject
+					{
+						WRITE_PACKET(JoinDeclinedPacket, , buffer);
+						server.SendBuffer(buffer, fromAddress);
+					}
 
-					JoinAcceptPacket acceptPacket(1);
-					acceptPacket.WriteToBuffer(buffer);
-					server.SendBuffer(buffer, fromAddress);
+					
 				}
 					break;
 				case PACKET_INPUT:
