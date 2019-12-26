@@ -47,8 +47,7 @@ namespace Skel::Net {
 		{
 			const double startFrameTime = Server.RunningTime();
 
-			Packet p(PACKET_INPUT);
-			p.WriteToBuffer(buffer);
+
 			// Send back
 			int packetsReceived = 0;
 			while (server.ReceiveBuffer(buffer, fromAddress)) {
@@ -85,18 +84,21 @@ namespace Skel::Net {
 					PlayerInputPacket packet;
 					packet.ReadFromBuffer(buffer);
 
-					// Debug Results
-					PlayerInputState input = packet.InputState;
-					//LOG("Got buffer, state= ({0},{1})", input.Forward, input.Back);
+					ASSERT(m_ClientHandler.IsActive(packet.ClientID), "Receiving Input from inactive client");
 
-					// Writes same packet back for testing purposes
-					packet.WriteToBuffer(buffer);
-					server.SendBuffer(buffer, fromAddress);
+					PlayerInputState input = packet.InputState;
+					PlayerObject& obj = playerObjs[packet.ClientID];
+
+					obj.ProcessInput(input, GetFixedFrameDeltaTime());
 					break;
 				}
 				}
 			}
 			//LOG("Packets Received: {0}", packetsReceived);
+
+
+			// Broadcast Packets
+
 
 
 #pragma region Fixed Framerate Loop

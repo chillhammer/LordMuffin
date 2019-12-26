@@ -31,6 +31,10 @@ namespace Skel::Net {
 
 		m_ActivePlayers--;
 	}
+	bool ClientHandler::IsActive(uint16 clientID)
+	{
+		return !m_SlotAvailability[clientID];
+	}
 	uint16 ClientHandler::FindAvailableSlotIndex() const
 	{
 		for (int i = 0; i < MAX_PLAYERS; ++i) {

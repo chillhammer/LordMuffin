@@ -22,6 +22,7 @@ namespace Skel::Net
 		uint16 AddPlayer();
 		void RemovePlayer(uint16 clientIndex);
 		void SetPlayerObjectArray(class PlayerObject* arr) { m_PlayerObjectArray = arr; }
+		bool IsActive(uint16 clientID);
 
 	private:
 		// Helper Functions
