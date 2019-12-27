@@ -11,7 +11,8 @@ namespace Skel::Net
 	{
 	public:
 		PlayerInputPacket() : Net::Packet(Net::PACKET_INPUT) {}
-		PlayerInputPacket(PlayerInputState& input) : Packet(Net::PACKET_INPUT), InputState(input) {}
+		PlayerInputPacket(PlayerInputState& input, uint16 clientID) : 
+			Packet(Net::PACKET_INPUT), InputState(input), ClientID(clientID) {}
 		PlayerInputState InputState;
 		uint16 ClientID;
 	protected:
@@ -34,7 +35,7 @@ namespace Skel::Net
 			//LOG("PlayerInputPacket state: {0}", state);
 			InputState.Forward	= state & 1;
 			InputState.Back		= state & (1 << 1);
-			ASSERT(buffer.GetReadPosition() == 2, "Input Packet must be 4 bytes");
+			ASSERT(buffer.GetReadPosition() == 4, "Input Packet must be 4 bytes"); // 1 (type) + 2 (clientID) + 1(state)
 		}
 	};
 }

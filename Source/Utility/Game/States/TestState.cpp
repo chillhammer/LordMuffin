@@ -3,6 +3,7 @@
 #include <Resources/ResourceManager.h>
 #include <Packets/PlayerInputPacket.h>
 #include <Packets/JoinPackets.h>
+#include <Packets/SnapshotPacket.h>
 #include <Client/ClientManager.h>
 #include <imgui.h>
 #include "GameStates.h"
@@ -28,6 +29,15 @@ namespace Skel::GameStates
 		m_Box.ObjectTransform.Scale = Vector3(15, 0.001f, 30);
 
 		m_Player.ObjectTransform.Position = Vector3(2.0f, 1.0f, 0.0f);
+
+		for (int i = 0; i < Net::MAX_PLAYERS; ++i)
+		{
+			PlayerObject& obj = m_PlayerObjectArray[i];
+			obj.ObjectTransform.Position.x = i;
+			obj.ObjectTransform.Position.y = 1;
+		}
+
+		Client.GetSnapshotReceiver().SetPlayerObjectArray(m_PlayerObjectArray);
 	}
 	void Test::Execute(GameManager* owner)
 	{
@@ -58,31 +68,34 @@ namespace Skel::GameStates
 		{
 			// Client Receive Join Accept Or Decline
 			Net::Buffer receiveBuffer;
-			PlayerInputState input;
 			while (Client.ReceiveBuffer(receiveBuffer)) {
 
 				Net::PacketType type; 
+				receiveBuffer.ResetReadPosition();
 				receiveBuffer.Read(&type, 1);
 
 				switch (type) {
 				case Net::PACKET_JOIN_ACCEPT:
+				{
 					LOG("Connected to Server");
+					Net::JoinAcceptPacket packet;
+					packet.ReadFromBuffer(receiveBuffer);
+					Client.SetClientID(packet.ClientID);
 					Client.SetConnected(true);
 					break;
-
+				}
 				case Net::PACKET_JOIN_DECLINED:
 					LOG("Packet Join Declined");
 					break;
 
 				case Net::PACKET_INPUT:
+				{
 					Net::PlayerInputPacket packet;
 					packet.ReadFromBuffer(receiveBuffer);
-					input = packet.InputState;
+					ASSERT(false, "Client should not receive input packet");
 					break;
 				}
-				
-
-				m_Player.ProcessInput(input, Game.DeltaTime());
+				}
 			}
 		}
 
@@ -94,22 +107,25 @@ namespace Skel::GameStates
 				Net::Buffer buffer;
 
 				PlayerInputState input = { Input.IsKeyDown(KEY_W), Input.IsKeyDown(KEY_S) };
-				Net::PlayerInputPacket packet(input);
+				Net::PlayerInputPacket packet(input, Client.GetClientID());
 				packet.WriteToBuffer(buffer);
 
 				Client.SendBuffer(buffer);
 			}
 
-			// Client Receive
+			// Client Receive Snapshots
 			Net::Buffer receiveBuffer;
 			PlayerInputState input;
 			while (Client.ReceiveBuffer(receiveBuffer)) {
+				Net::PacketType type;
+				receiveBuffer.ResetReadPosition();
+				receiveBuffer.Read(&type, 1);
 
-				Net::PlayerInputPacket packet;
+				ASSERT(type == Net::PACKET_SNAPSHOT, "Client must only accept snapshots");
+				Net::PlayerSnapshotPacket packet;
 				packet.ReadFromBuffer(receiveBuffer);
-				input = packet.InputState;
 
-				m_Player.ProcessInput(input, Game.DeltaTime());
+				Client.GetSnapshotReceiver().ReceiveSnapshotPacket(packet);
 			}
 
 		}
@@ -117,8 +133,12 @@ namespace Skel::GameStates
 
 		m_Box.Draw();
 
-		m_Player.Draw();
-
+		//m_Player.Draw();
+		const auto& activePlayers = Client.GetSnapshotReceiver().GetActiveClients();
+		for (uint16 clientID : activePlayers) {
+			m_PlayerObjectArray[clientID].Draw();
+		}
+		
 	}
 	void Test::Exit(GameManager* owner)
 	{

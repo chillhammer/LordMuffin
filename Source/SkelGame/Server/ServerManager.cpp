@@ -8,6 +8,7 @@
 
 #include <Packets/PlayerInputPacket.h>
 #include <Packets/JoinPackets.h>
+#include <Packets/SnapshotPacket.h>
 #include <Net/Packet.h>
 #include <limits>
 
@@ -48,7 +49,7 @@ namespace Skel::Net {
 			const double startFrameTime = Server.RunningTime();
 
 
-			// Send back
+			// Receive Packets
 			int packetsReceived = 0;
 			while (server.ReceiveBuffer(buffer, fromAddress)) {
 				packetsReceived++;
@@ -66,7 +67,7 @@ namespace Skel::Net {
 
 					if (m_ClientHandler.RemainingSlots() > 0) 
 					{
-						auto clientID = m_ClientHandler.AddPlayer();
+						auto clientID = m_ClientHandler.AddPlayer(fromAddress);
 						WRITE_PACKET(JoinAcceptPacket, (clientID), buffer);
 						server.SendBuffer(buffer, fromAddress);
 					}
@@ -97,9 +98,17 @@ namespace Skel::Net {
 			//LOG("Packets Received: {0}", packetsReceived);
 
 
-			// Broadcast Packets
+			// Creates Snapshot
+			WRITE_PACKET(PlayerSnapshotPacket, (m_ClientHandler), buffer); // Takes snapshot of all player objects
+
+			// Broadcast to Active Clients
+			const std::vector<ClientSlot>& clientSlots = m_ClientHandler.GetClientSlots();
+			for (const ClientSlot& slot : clientSlots) {
+				server.SendBuffer(buffer, slot.ClientAddress);
+			}
 
 
+			++m_Tick;
 
 #pragma region Fixed Framerate Loop
 			const double endFrameTime = Server.RunningTime();
@@ -135,6 +144,11 @@ namespace Skel::Net {
 	bool ServerManager::IsRunning() const
 	{
 		return m_Running;
+	}
+
+	uint64 ServerManager::GetTick() const
+	{
+		return m_Tick;
 	}
 
 	double ServerManager::RunningTime() const

@@ -139,6 +139,7 @@
   <ItemGroup>
     <ClInclude Include="PCH\SkelPCH.h" />
     <ClInclude Include="SkelGame\Client\ClientManager.h" />
+    <ClInclude Include="SkelGame\Client\SnapshotReceiver.h" />
     <ClInclude Include="SkelGame\Events\GameEventTypes.h" />
     <ClInclude Include="SkelGame\Events\GameEvents.h" />
     <ClInclude Include="SkelGame\Objects\Box\BoxMesh.h" />
@@ -149,6 +150,7 @@
     <ClInclude Include="SkelGame\Packets\JoinPackets.h" />
     <ClInclude Include="SkelGame\Packets\PacketTypes.h" />
     <ClInclude Include="SkelGame\Packets\PlayerInputPacket.h" />
+    <ClInclude Include="SkelGame\Packets\SnapshotPacket.h" />
     <ClInclude Include="SkelGame\Resources\GameResources.h" />
     <ClInclude Include="SkelGame\Server\ClientHandler.h" />
     <ClInclude Include="SkelGame\Server\ServerManager.h" />
@@ -208,10 +210,12 @@
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="SkelGame\Client\ClientManager.cpp" />
+    <ClCompile Include="SkelGame\Client\SnapshotReceiver.cpp" />
     <ClCompile Include="SkelGame\Main.cpp" />
     <ClCompile Include="SkelGame\Objects\Box\BoxMesh.cpp" />
     <ClCompile Include="SkelGame\Objects\Box\WoodenBoxModel.cpp" />
     <ClCompile Include="SkelGame\Objects\Player\PlayerObject.cpp" />
+    <ClCompile Include="SkelGame\Packets\SnapshotPacket.cpp" />
     <ClCompile Include="SkelGame\Server\ClientHandler.cpp" />
     <ClCompile Include="SkelGame\Server\ServerManager.cpp" />
     <ClCompile Include="Utility\Audio\AudioEngine.cpp" />

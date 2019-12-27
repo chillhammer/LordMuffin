@@ -44,4 +44,8 @@ namespace Skel::Net
 		unsigned int m_Length;
 		unsigned int m_ReadPos;
 	};
+
+	// Shortcutes to read and write data to 'buffer'
+	#define B_WRITE(data) buffer.Write(&data, sizeof(data))
+	#define B_READ(data) buffer.Read(&data, sizeof(data))
 }

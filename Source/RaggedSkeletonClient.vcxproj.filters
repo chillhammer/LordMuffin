@@ -302,6 +302,8 @@
     </ClInclude>
     <ClInclude Include="SkelGame\Packets\JoinPackets.h" />
     <ClInclude Include="SkelGame\Server\ClientHandler.h" />
+    <ClInclude Include="SkelGame\Client\SnapshotReceiver.h" />
+    <ClInclude Include="SkelGame\Packets\SnapshotPacket.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PCH\SkelPCH.cpp">
@@ -429,5 +431,7 @@
     </ClCompile>
     <ClCompile Include="Vendor\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="SkelGame\Server\ClientHandler.cpp" />
+    <ClCompile Include="SkelGame\Client\SnapshotReceiver.cpp" />
+    <ClCompile Include="SkelGame\Packets\SnapshotPacket.cpp" />
   </ItemGroup>
 </Project>

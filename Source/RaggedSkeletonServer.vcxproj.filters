@@ -301,6 +301,10 @@
       <Filter>Vendor\stb_image</Filter>
     </ClInclude>
     <ClInclude Include="SkelGame\Server\ClientHandler.h" />
+    <ClInclude Include="SkelGame\Packets\JoinPackets.h" />
+    <ClInclude Include="SkelGame\Objects\Player\PlayerSnapshotState.h" />
+    <ClInclude Include="SkelGame\Packets\SnapshotPacket.h" />
+    <ClInclude Include="SkelGame\Client\SnapshotReceiver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PCH\SkelPCH.cpp">
@@ -428,5 +432,7 @@
     </ClCompile>
     <ClCompile Include="Vendor\ImGui\ImGuiBuild.cpp" />
     <ClCompile Include="SkelGame\Server\ClientHandler.cpp" />
+    <ClCompile Include="SkelGame\Packets\SnapshotPacket.cpp" />
+    <ClCompile Include="SkelGame\Client\SnapshotReceiver.cpp" />
   </ItemGroup>
 </Project>

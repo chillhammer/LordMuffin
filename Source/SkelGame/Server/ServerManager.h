@@ -15,6 +15,7 @@ namespace Skel::Net
 		void ServerMain();
 		bool IsRunning() const;
 
+		uint64 GetTick() const;
 		double RunningTime() const;
 		void Sleep(double time) const;
 
@@ -26,6 +27,7 @@ namespace Skel::Net
 
 		// Properties
 		ClientHandler m_ClientHandler;
+		uint64 m_Tick = 0;
 		double m_LastUpdatedTime = 0;
 		double m_DeltaTime = 0;
 		bool m_Running = true;

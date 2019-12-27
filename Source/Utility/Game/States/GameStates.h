@@ -4,6 +4,7 @@
 #include <Graphics/Model/Skybox.h>
 #include <UI/Button.h>
 #include <Game/Screens/PauseScreen.h>
+#include <Net/Net.h>
 
 #include <Objects/Player/PlayerObject.h>
 #include <Net/Socket.h>
@@ -18,6 +19,7 @@ namespace Skel::GameStates
 		ShaderPtr m_DebugShader;
 		WoodenBox m_Box;
 		PlayerObject m_Player;
+		PlayerObject m_PlayerObjectArray[Net::MAX_PLAYERS];
 		Net::Socket m_Client;
 	);
 
