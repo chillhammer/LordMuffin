@@ -95,7 +95,7 @@ namespace Skel::Net {
 				}
 				}
 			}
-			//LOG("Packets Received: {0}", packetsReceived);
+			LOG("Packets Received: {0}", packetsReceived);
 
 
 			// Creates Snapshot
