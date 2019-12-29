@@ -305,6 +305,7 @@
     <ClInclude Include="SkelGame\Objects\Player\PlayerSnapshotState.h" />
     <ClInclude Include="SkelGame\Packets\SnapshotPacket.h" />
     <ClInclude Include="SkelGame\Client\SnapshotReceiver.h" />
+    <ClInclude Include="Utility\Net\FakeLagPacketHolder.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PCH\SkelPCH.cpp">

@@ -1,6 +1,7 @@
 #pragma once
 #include <Net/Socket.h>
 #include "SnapshotReceiver.h"
+#include "ClientSynchronizer.h"
 
 #define Client Net::ClientManager::Instance()
 namespace Skel::Net
@@ -15,14 +16,17 @@ namespace Skel::Net
 		static ClientManager& Instance();
 
 		bool Connected() const { return m_Connected; }
+		bool IsSynchronizing() const { return m_Synchronizing; }
 		uint16 GetClientID() const { return m_ClientID; }
 		void SetClientID(uint16 id) { m_ClientID = id; }
 		bool SendBuffer(const Buffer& buffer);
 		bool ReceiveBuffer(Buffer& outBuffer);
 
 		void SetConnected(bool connected);
+		void SetSynchronizing(bool sync);
 
 		SnapshotReceiver& GetSnapshotReceiver() { return m_SnapshotReceiver; }
+		ClientSynchronizer& GetSynchronizer() { return m_Synchronizer; }
 
 		~ClientManager() {};
 	private:
@@ -30,9 +34,11 @@ namespace Skel::Net
 
 		// Properties
 		SnapshotReceiver m_SnapshotReceiver;
+		ClientSynchronizer m_Synchronizer;
 		Socket m_Socket;
 		uint16 m_ClientID;
 		bool m_Connected;
+		bool m_Synchronizing;
 		
 	};
 }

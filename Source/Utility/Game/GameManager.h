@@ -23,6 +23,7 @@ namespace Skel
 		State<GameManager>* GetState() const;
 		void OnEvent(const Subject* subject, Event& event);
 
+		double RunningTime() const;
 		float DeltaTime() const;
 		float DeltaTimeUnscaled() const;
 		float TimeScale() const;

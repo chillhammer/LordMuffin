@@ -48,6 +48,7 @@ namespace Skel::GameStates
 		m_DebugShader->Bind();
 		m_DebugShader->SetUniformMat4f("u_ViewProjection", m_Camera.GetProjectionMatrix() * m_Camera.GetViewMatrix());
 
+		LOG("Running Time: {0}", Game.RunningTime());
 
 		// ImGui Connection Window
 		ImGui::Begin("Network Connection Window");
@@ -108,9 +109,17 @@ namespace Skel::GameStates
 
 				PlayerInputState input = { Input.IsKeyDown(KEY_W), Input.IsKeyDown(KEY_S) };
 				Net::PlayerInputPacket packet(input, Client.GetClientID());
-				packet.WriteToBuffer(buffer);
 
-				Client.SendBuffer(buffer);
+				// Add to lag simulator
+				m_LagInputPackets.AddPacket(packet, Game.RunningTime());
+
+				// Pull from lag simulator
+				std::vector<Net::PlayerInputPacket> inputPackets = m_LagInputPackets.PopPackets(Game.RunningTime());
+				for (Net::PlayerInputPacket& inputPacket : inputPackets) {
+					inputPacket.WriteToBuffer(buffer);
+					Client.SendBuffer(buffer);
+				}
+				
 			}
 
 			// Client Receive Snapshots

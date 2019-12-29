@@ -5,6 +5,8 @@
 #include <UI/Button.h>
 #include <Game/Screens/PauseScreen.h>
 #include <Net/Net.h>
+#include <Net/FakeLagPacketHolder.h>
+#include <Packets/PlayerInputPacket.h>
 
 #include <Objects/Player/PlayerObject.h>
 #include <Net/Socket.h>
@@ -21,6 +23,7 @@ namespace Skel::GameStates
 		PlayerObject m_Player;
 		PlayerObject m_PlayerObjectArray[Net::MAX_PLAYERS];
 		Net::Socket m_Client;
+		Net::FakeLagPacketHolder<Net::PlayerInputPacket> m_LagInputPackets;
 	);
 
 	STATE_CLASS_SINGLETON(GameManager, MainMenu,

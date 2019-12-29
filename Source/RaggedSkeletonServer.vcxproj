@@ -193,6 +193,7 @@
     <ClInclude Include="Utility\Macros.h" />
     <ClInclude Include="Utility\Net\Address.h" />
     <ClInclude Include="Utility\Net\Buffer.h" />
+    <ClInclude Include="Utility\Net\FakeLagPacketHolder.h" />
     <ClInclude Include="Utility\Net\Net.h" />
     <ClInclude Include="Utility\Net\Packet.h" />
     <ClInclude Include="Utility\Net\Socket.h" />

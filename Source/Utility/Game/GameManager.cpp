@@ -7,6 +7,7 @@
 #include <imgui.h>
 #include <examples/imgui_impl_glfw.h>
 #include <examples/imgui_impl_opengl3.h>
+#include <chrono>
 #include "GameManager.h"
 
 namespace Skel
@@ -104,6 +105,11 @@ namespace Skel
 		Evnt::Dispatch<KeyPressedEvent>(event, EVENT_BIND_FN(GameManager, OnKeyPressed));
 	}
 
+	// Returns time in seconds
+	double GameManager::RunningTime() const
+	{
+		return glfwGetTime();// double(std::chrono::high_resolution_clock::now().time_since_epoch().count()) / 1000000000.0;
+	}
 
 	// Returns delta time with scale
 	// Will return 0 if paused
