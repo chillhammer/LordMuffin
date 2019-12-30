@@ -49,7 +49,7 @@ namespace Skel::Net {
 		case ADDRESS_IPV6:	toAddress = (const sockaddr*) & (address.GetSockAddr6()); break;
 		}
 		
-		int result = sendto(m_Socket, buffer.Data(), buffer.MaxSize, 0, toAddress, sizeof(*toAddress)); // change from maxsize
+		int result = sendto(m_Socket, buffer.Data(), buffer.Length(), 0, toAddress, sizeof(*toAddress));
 		if (result == SOCKET_ERROR && m_LogErrors) {
 			LOG_ERROR("send buffer failed: {0}", WSAGetLastError());
 		}

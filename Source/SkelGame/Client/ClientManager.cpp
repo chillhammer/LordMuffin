@@ -32,9 +32,4 @@ namespace Skel::Net {
 		m_Socket.SetLogErrors(connected);
 	}
 
-	void ClientManager::SetSynchronizing(bool sync)
-	{
-		m_Synchronizing = sync;
-	}
-
 }

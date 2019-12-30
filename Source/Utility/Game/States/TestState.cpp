@@ -48,7 +48,7 @@ namespace Skel::GameStates
 		m_DebugShader->Bind();
 		m_DebugShader->SetUniformMat4f("u_ViewProjection", m_Camera.GetProjectionMatrix() * m_Camera.GetViewMatrix());
 
-		LOG("Running Time: {0}", Game.RunningTime());
+		//LOG("Running Time: {0}", Game.RunningTime());
 
 		// ImGui Connection Window
 		ImGui::Begin("Network Connection Window");
@@ -79,10 +79,10 @@ namespace Skel::GameStates
 				case Net::PACKET_JOIN_ACCEPT:
 				{
 					LOG("Connected to Server");
-					Net::JoinAcceptPacket packet;
-					packet.ReadFromBuffer(receiveBuffer);
+					READ_PACKET(Net::JoinAcceptPacket, receiveBuffer);
 					Client.SetClientID(packet.ClientID);
 					Client.SetConnected(true);
+					Client.GetSynchronizer().StartSynchronizing();
 					break;
 				}
 				case Net::PACKET_JOIN_DECLINED:
@@ -103,7 +103,8 @@ namespace Skel::GameStates
 
 		if (Client.Connected())
 		{
-			// Client Send
+			// Client Send Inputs
+			if (!Client.IsSynchronizing())
 			{
 				Net::Buffer buffer;
 
@@ -121,6 +122,11 @@ namespace Skel::GameStates
 				}
 				
 			}
+			else 
+			// Client Synchronizing
+			{
+				Client.GetSynchronizer().UpdateUntilSynchronized();
+			}
 
 			// Client Receive Snapshots
 			Net::Buffer receiveBuffer;
@@ -130,11 +136,23 @@ namespace Skel::GameStates
 				receiveBuffer.ResetReadPosition();
 				receiveBuffer.Read(&type, 1);
 
-				ASSERT(type == Net::PACKET_SNAPSHOT, "Client must only accept snapshots");
-				Net::PlayerSnapshotPacket packet;
-				packet.ReadFromBuffer(receiveBuffer);
+				switch (type)
+				{
+				case Net::PACKET_SYNC_SERVER_TIME:
+				{
+					READ_PACKET(Net::SyncServerTimePacket, receiveBuffer); // creates packet object
+					Client.GetSynchronizer().ReceiveServerTimePacket(packet);
+					break;
+				}
+				case Net::PACKET_SNAPSHOT:
+				{
+					READ_PACKET(Net::PlayerSnapshotPacket, receiveBuffer); // creates packet object
+					Client.GetSnapshotReceiver().ReceiveSnapshotPacket(packet);
+					break;
+				}
 
-				Client.GetSnapshotReceiver().ReceiveSnapshotPacket(packet);
+				}
+				
 			}
 
 		}

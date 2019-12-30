@@ -9,6 +9,7 @@
 #include <Packets/PlayerInputPacket.h>
 #include <Packets/JoinPackets.h>
 #include <Packets/SnapshotPacket.h>
+#include <Packets/SyncPackets.h>
 #include <Net/Packet.h>
 #include <limits>
 
@@ -39,7 +40,7 @@ namespace Skel::Net {
 		const double startTime = Server.RunningTime();
 
 		double previousFrameTime = startTime;
-		double targetFrameTime = previousFrameTime + Server.GetFixedFrameDeltaTime();
+		double targetFrameTime = startTime + Server.GetFixedFrameDeltaTime();
 
 		Net::Buffer buffer;
 		Net::Address fromAddress;
@@ -47,6 +48,8 @@ namespace Skel::Net {
 		while (Server.IsRunning())
 		{
 			const double startFrameTime = Server.RunningTime();
+
+			LOG("Start: {0}", startFrameTime- startTime);
 
 
 			// Receive Packets
@@ -80,22 +83,35 @@ namespace Skel::Net {
 					
 				}
 					break;
+
+				case PACKET_SYNC_REQUEST:
+				{
+					READ_PACKET(SyncRequestPacket, buffer); // creates packet
+					{
+						WRITE_PACKET(SyncServerTimePacket, (packet.SyncID, RunningTime()), buffer); // sends back server time
+						server.SendBuffer(buffer, fromAddress);
+					}
+				}
+					break;
 				case PACKET_INPUT:
 				{
 					PlayerInputPacket packet;
 					packet.ReadFromBuffer(buffer);
+					if (m_ClientHandler.IsActive(packet.ClientID)) {
+						PlayerInputState input = packet.InputState;
+						PlayerObject& obj = playerObjs[packet.ClientID];
 
-					ASSERT(m_ClientHandler.IsActive(packet.ClientID), "Receiving Input from inactive client");
-
-					PlayerInputState input = packet.InputState;
-					PlayerObject& obj = playerObjs[packet.ClientID];
-
-					obj.ProcessInput(input, GetFixedFrameDeltaTime());
+						obj.ProcessInput(input, GetFixedFrameDeltaTime());
+					}
+					else
+					{
+						LOG_WARN("Receiving Input from inactive client. ID: {0}", packet.ClientID);
+					}
 					break;
 				}
 				}
 			}
-			LOG("Packets Received: {0}", packetsReceived);
+			//LOG("Packets Received: {0}", packetsReceived);
 
 
 			// Creates Snapshot
@@ -111,7 +127,7 @@ namespace Skel::Net {
 			++m_Tick;
 
 #pragma region Fixed Framerate Loop
-			const double endFrameTime = Server.RunningTime();
+			double endFrameTime = Server.RunningTime();
 			//LOG("Delta time this frame: {0} - Fixed rate: {1}", endFrameTime - startFrameTime, Server.GetFixedFrameDeltaTime());
 
 			// Find out how many dropped frames. 
@@ -119,24 +135,31 @@ namespace Skel::Net {
 			// If ended time far from target, then ignore those frames (dropped)
 			while (endFrameTime > targetFrameTime + 0.5 * Server.GetFixedFrameDeltaTime())
 			{
+				LOG("End Frame Time went past target. End: {0}\tTarget: {1}", endFrameTime - startTime, targetFrameTime-startTime);
 				targetFrameTime += Server.GetFixedFrameDeltaTime();
 				droppedFrames++;
+				endFrameTime = Server.RunningTime();
 			}
 			if (droppedFrames > 0) {
-				LOG("Dropped frames: {0}", droppedFrames);
+				LOG("Dropped frames: {0}  | Time: {1}", droppedFrames, endFrameTime-startFrameTime);
 			}
 
 			// Sleep until next frame
 			//ASSERT(nextFrameTime >= endFrameTime, "Dropped frames not handled appropriately");
-			Server.Sleep(std::max(0.0, targetFrameTime - endFrameTime));
+			Server.Sleep(std::max(0.0, targetFrameTime - Server.RunningTime()));
 
 			// Checking actual delta
 			//double actualDelta = Server.RunningTime() - startFrameTime;
-			//LOG("Actual delta: {0}", actualDelta);
+			//LOG("Actual delta: {0}\tDelta: {1}", actualDelta, endFrameTime - startFrameTime);
 
 			// Reset Target Variables
 			previousFrameTime = targetFrameTime;
 			targetFrameTime += Server.GetFixedFrameDeltaTime();
+
+			if (Server.RunningTime() > targetFrameTime) {
+				//LOG("end running time > target. end: {0}\ttarget: {1}", Server.RunningTime() - startTime, targetFrameTime - startTime);
+			}
+			LOG("End: {0}", Server.RunningTime() - startTime);
 #pragma endregion
 		}
 	}
@@ -153,7 +176,11 @@ namespace Skel::Net {
 
 	double ServerManager::RunningTime() const
 	{
-		return double(std::chrono::high_resolution_clock::now().time_since_epoch().count()) / 1000000000.0;
+		uint64_t value;
+		QueryPerformanceCounter((LARGE_INTEGER*)& value);
+
+		return double(value) / 10000000;
+		//return double(std::chrono::high_resolution_clock::now().time_since_epoch().count()) / 1000000000.0;
 	}
 
 	void ServerManager::Sleep(double time) const

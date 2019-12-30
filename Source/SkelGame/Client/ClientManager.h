@@ -16,14 +16,13 @@ namespace Skel::Net
 		static ClientManager& Instance();
 
 		bool Connected() const { return m_Connected; }
-		bool IsSynchronizing() const { return m_Synchronizing; }
+		bool IsSynchronizing() const { return m_Synchronizer.IsSynchronizing(); }
 		uint16 GetClientID() const { return m_ClientID; }
 		void SetClientID(uint16 id) { m_ClientID = id; }
 		bool SendBuffer(const Buffer& buffer);
 		bool ReceiveBuffer(Buffer& outBuffer);
 
 		void SetConnected(bool connected);
-		void SetSynchronizing(bool sync);
 
 		SnapshotReceiver& GetSnapshotReceiver() { return m_SnapshotReceiver; }
 		ClientSynchronizer& GetSynchronizer() { return m_Synchronizer; }
@@ -38,7 +37,6 @@ namespace Skel::Net
 		Socket m_Socket;
 		uint16 m_ClientID;
 		bool m_Connected;
-		bool m_Synchronizing;
 		
 	};
 }

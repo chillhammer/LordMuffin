@@ -306,6 +306,8 @@
     <ClInclude Include="SkelGame\Packets\SnapshotPacket.h" />
     <ClInclude Include="SkelGame\Client\SnapshotReceiver.h" />
     <ClInclude Include="Utility\Net\FakeLagPacketHolder.h" />
+    <ClInclude Include="SkelGame\Client\ClientSynchronizer.h" />
+    <ClInclude Include="SkelGame\Packets\SyncPackets.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PCH\SkelPCH.cpp">
@@ -435,5 +437,6 @@
     <ClCompile Include="SkelGame\Server\ClientHandler.cpp" />
     <ClCompile Include="SkelGame\Packets\SnapshotPacket.cpp" />
     <ClCompile Include="SkelGame\Client\SnapshotReceiver.cpp" />
+    <ClCompile Include="SkelGame\Client\ClientSynchronizer.cpp" />
   </ItemGroup>
 </Project>

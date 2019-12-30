@@ -139,6 +139,7 @@
   <ItemGroup>
     <ClInclude Include="PCH\SkelPCH.h" />
     <ClInclude Include="SkelGame\Client\ClientManager.h" />
+    <ClInclude Include="SkelGame\Client\ClientSynchronizer.h" />
     <ClInclude Include="SkelGame\Client\SnapshotReceiver.h" />
     <ClInclude Include="SkelGame\Events\GameEventTypes.h" />
     <ClInclude Include="SkelGame\Events\GameEvents.h" />
@@ -152,6 +153,7 @@
     <ClInclude Include="SkelGame\Packets\PacketTypes.h" />
     <ClInclude Include="SkelGame\Packets\PlayerInputPacket.h" />
     <ClInclude Include="SkelGame\Packets\SnapshotPacket.h" />
+    <ClInclude Include="SkelGame\Packets\SyncPackets.h" />
     <ClInclude Include="SkelGame\Resources\GameResources.h" />
     <ClInclude Include="SkelGame\Server\ClientHandler.h" />
     <ClInclude Include="SkelGame\Server\ServerManager.h" />
@@ -212,6 +214,7 @@
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="SkelGame\Client\ClientManager.cpp" />
+    <ClCompile Include="SkelGame\Client\ClientSynchronizer.cpp" />
     <ClCompile Include="SkelGame\Client\SnapshotReceiver.cpp" />
     <ClCompile Include="SkelGame\Main.cpp" />
     <ClCompile Include="SkelGame\Objects\Box\BoxMesh.cpp" />
