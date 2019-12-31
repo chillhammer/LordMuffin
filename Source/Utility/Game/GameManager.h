@@ -24,6 +24,7 @@ namespace Skel
 		void OnEvent(const Subject* subject, Event& event);
 
 		double RunningTime() const;
+		uint64 GetTick() const;
 		float DeltaTime() const;
 		float DeltaTimeUnscaled() const;
 		float TimeScale() const;
@@ -41,6 +42,7 @@ namespace Skel
 		bool OnKeyPressed(class KeyPressedEvent& e);
 
 		// Properties
+		uint64 m_Tick;
 		double m_LastUpdatedTime = 0;
 		double m_DeltaTime = 0;
 		double m_TimeScale = 1;

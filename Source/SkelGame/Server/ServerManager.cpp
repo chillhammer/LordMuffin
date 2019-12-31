@@ -39,8 +39,11 @@ namespace Skel::Net {
 
 		const double startTime = Server.RunningTime();
 
+		double secondMarker = startTime;
+
 		double previousFrameTime = startTime;
 		double targetFrameTime = startTime + Server.GetFixedFrameDeltaTime();
+		int noSleepTicks = 0;
 
 		Net::Buffer buffer;
 		Net::Address fromAddress;
@@ -49,8 +52,9 @@ namespace Skel::Net {
 		{
 			const double startFrameTime = Server.RunningTime();
 
-			LOG("Start: {0}", startFrameTime- startTime);
-
+			//LOG("Start: {0}", startFrameTime- startTime);
+			
+			
 
 			// Receive Packets
 			int packetsReceived = 0;
@@ -123,43 +127,41 @@ namespace Skel::Net {
 				server.SendBuffer(buffer, slot.ClientAddress);
 			}
 
+			
 
-			++m_Tick;
+			
 
 #pragma region Fixed Framerate Loop
 			double endFrameTime = Server.RunningTime();
-			//LOG("Delta time this frame: {0} - Fixed rate: {1}", endFrameTime - startFrameTime, Server.GetFixedFrameDeltaTime());
 
 			// Find out how many dropped frames. 
-			int droppedFrames = 0;
-			// If ended time far from target, then ignore those frames (dropped)
-			while (endFrameTime > targetFrameTime + 0.5 * Server.GetFixedFrameDeltaTime())
+			
+			// If ended time above target (dropped)
+			if (endFrameTime > targetFrameTime)
 			{
-				LOG("End Frame Time went past target. End: {0}\tTarget: {1}", endFrameTime - startTime, targetFrameTime-startTime);
-				targetFrameTime += Server.GetFixedFrameDeltaTime();
-				droppedFrames++;
-				endFrameTime = Server.RunningTime();
-			}
-			if (droppedFrames > 0) {
-				LOG("Dropped frames: {0}  | Time: {1}", droppedFrames, endFrameTime-startFrameTime);
+				//targetFrameTime += Server.GetFixedFrameDeltaTime(); disable temp
+				noSleepTicks++;
+			} else if (noSleepTicks > 0) {
+				LOG("Sped up Ticks: {0}  | Time: {1}", noSleepTicks, endFrameTime-startFrameTime);
+				noSleepTicks = 0;
 			}
 
 			// Sleep until next frame
-			//ASSERT(nextFrameTime >= endFrameTime, "Dropped frames not handled appropriately");
-			Server.Sleep(std::max(0.0, targetFrameTime - Server.RunningTime()));
-
-			// Checking actual delta
-			//double actualDelta = Server.RunningTime() - startFrameTime;
-			//LOG("Actual delta: {0}\tDelta: {1}", actualDelta, endFrameTime - startFrameTime);
+			Server.Sleep(std::max(0.0, targetFrameTime - Server.RunningTime() - (2.25 * 0.001)));
 
 			// Reset Target Variables
 			previousFrameTime = targetFrameTime;
 			targetFrameTime += Server.GetFixedFrameDeltaTime();
 
-			if (Server.RunningTime() > targetFrameTime) {
-				//LOG("end running time > target. end: {0}\ttarget: {1}", Server.RunningTime() - startTime, targetFrameTime - startTime);
-			}
-			LOG("End: {0}", Server.RunningTime() - startTime);
+			// Debug Ticks Per Second
+			/*if (Server.RunningTime() >= secondMarker + 1) {
+				secondMarker++;
+				LOG("Tick {0} at second: {1}", m_Tick, secondMarker - startTime);
+			}*/
+
+			++m_Tick;
+
+			
 #pragma endregion
 		}
 	}

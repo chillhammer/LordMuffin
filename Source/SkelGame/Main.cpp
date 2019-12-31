@@ -53,7 +53,6 @@ int main()
 		renderer.Clear();
 
 		Game.Run();
-
 	}
 
 

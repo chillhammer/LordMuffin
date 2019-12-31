@@ -73,6 +73,8 @@ namespace Skel
 
 		// Poll Window Events
 		m_Window.OnUpdate();
+
+		++m_Tick;
 	}
 
 	bool GameManager::IsRunning() const
@@ -109,6 +111,11 @@ namespace Skel
 	double GameManager::RunningTime() const
 	{
 		return glfwGetTime();// double(std::chrono::high_resolution_clock::now().time_since_epoch().count()) / 1000000000.0;
+	}
+
+	uint64 GameManager::GetTick() const
+	{
+		return m_Tick;
 	}
 
 	// Returns delta time with scale
