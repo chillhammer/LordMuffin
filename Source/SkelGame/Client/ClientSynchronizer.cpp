@@ -1,6 +1,7 @@
 #include "SkelPCH.h"
 #include "ClientSynchronizer.h"
 #include "ClientManager.h"
+#include "FakeLagPacketHolderManager.h"
 #include "Game/GameManager.h"
 
 namespace Skel::Net {
@@ -31,6 +32,9 @@ namespace Skel::Net {
 
 			// Otherwise, send a new packet
 			SendSyncPacket();
+			// Using fake lag here and in sendSyncPacket();
+			Buffer buffer;
+			FakeLagPackets.PopAndSendToServer<SyncRequestPacket>(buffer);
 		}
 	}
 	void ClientSynchronizer::ReceiveServerTimePacket(SyncServerTimePacket& packet)
@@ -52,6 +56,7 @@ namespace Skel::Net {
 	// Called when you complete synchronizing process
 	void ClientSynchronizer::ConcludeSynchronization()
 	{
+		if (m_Synchronized) return;
 		m_Synchronized = true;
 		double sumRTT = 0.0;
 		uint8 received = 0;
@@ -110,7 +115,9 @@ namespace Skel::Net {
 		}
 		Buffer buffer; // Creating buffer here since we only use this function a few times
 		WRITE_PACKET(SyncRequestPacket, (Client.GetClientID(), m_ToBeSentIndex), buffer); // SyncId is the Index in array
-		if (Client.SendBuffer(buffer)) {
+		FakeLagPackets.AddPacket<SyncRequestPacket>(packet);
+		//if (/*Client.SendBuffer(buffer)*/ ) 
+		{
 
 			// Log Time of Sent Packet
 			m_SyncDataSlots[m_ToBeSentIndex].SentTime = Game.RunningTime();

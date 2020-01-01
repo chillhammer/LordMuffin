@@ -43,4 +43,5 @@ namespace Skel::Net
 	private:
 		std::queue<PacketQueueEntry> m_PacketEntries;
 	};
+
 }

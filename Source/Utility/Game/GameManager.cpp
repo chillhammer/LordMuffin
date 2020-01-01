@@ -120,7 +120,7 @@ namespace Skel
 
 	// Returns delta time with scale
 	// Will return 0 if paused
-	float GameManager::DeltaTime() const
+	double GameManager::DeltaTime() const
 	{
 		// Pause / Glitch
 		if (m_DeltaTime > 1) {
@@ -131,7 +131,7 @@ namespace Skel
 
 	// Returns delta time ignoring time scale, eg. pause
 	// Useful for debug methods
-	float GameManager::DeltaTimeUnscaled() const
+	double GameManager::DeltaTimeUnscaled() const
 	{
 		return m_DeltaTime;
 	}

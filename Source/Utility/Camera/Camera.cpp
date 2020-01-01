@@ -35,27 +35,27 @@ namespace Skel
 		{
 			if (Input.IsKeyDown(KEY_W))
 			{
-				ObjectTransform.Position += ObjectTransform.GetHeading() * m_Speed * Game.DeltaTimeUnscaled();
+				ObjectTransform.Position += ObjectTransform.GetHeading() * m_Speed * float(Game.DeltaTimeUnscaled());
 			}
 			if (Input.IsKeyDown(KEY_S))
 			{
-				ObjectTransform.Position -= ObjectTransform.GetHeading() * m_Speed * Game.DeltaTimeUnscaled();
+				ObjectTransform.Position -= ObjectTransform.GetHeading() * m_Speed * float(Game.DeltaTimeUnscaled());
 			}
 			if (Input.IsKeyDown(KEY_D))
 			{
-				ObjectTransform.Position += ObjectTransform.GetSide() * m_Speed * Game.DeltaTimeUnscaled();
+				ObjectTransform.Position += ObjectTransform.GetSide() * m_Speed * float(Game.DeltaTimeUnscaled());
 			}
 			if (Input.IsKeyDown(KEY_A))
 			{
-				ObjectTransform.Position -= ObjectTransform.GetSide() * m_Speed * Game.DeltaTimeUnscaled();
+				ObjectTransform.Position -= ObjectTransform.GetSide() * m_Speed * float(Game.DeltaTimeUnscaled());
 			}
 			if (Input.IsKeyDown(KEY_LEFT_SHIFT))
 			{
-				ObjectTransform.Position -= Vector3(0.f, 2.f, 0.f) * m_Speed * Game.DeltaTimeUnscaled();
+				ObjectTransform.Position -= Vector3(0.f, 2.f, 0.f) * m_Speed * float(Game.DeltaTimeUnscaled());
 			}
 			if (Input.IsKeyDown(KEY_SPACE))
 			{
-				ObjectTransform.Position += Vector3(0.f, 2.f, 0.f) * m_Speed * Game.DeltaTimeUnscaled();
+				ObjectTransform.Position += Vector3(0.f, 2.f, 0.f) * m_Speed * float(Game.DeltaTimeUnscaled());
 			}
 
 			// Look Around

@@ -99,8 +99,7 @@ namespace Skel::Net {
 					break;
 				case PACKET_INPUT:
 				{
-					PlayerInputPacket packet;
-					packet.ReadFromBuffer(buffer);
+					READ_PACKET(PlayerInputPacket, buffer);
 					if (m_ClientHandler.IsActive(packet.ClientID)) {
 						PlayerInputState input = packet.InputState;
 						PlayerObject& obj = playerObjs[packet.ClientID];

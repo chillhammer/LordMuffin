@@ -140,6 +140,7 @@
     <ClInclude Include="PCH\SkelPCH.h" />
     <ClInclude Include="SkelGame\Client\ClientManager.h" />
     <ClInclude Include="SkelGame\Client\ClientSynchronizer.h" />
+    <ClInclude Include="SkelGame\Client\FakeLagPacketHolderManager.h" />
     <ClInclude Include="SkelGame\Client\SnapshotReceiver.h" />
     <ClInclude Include="SkelGame\Events\GameEventTypes.h" />
     <ClInclude Include="SkelGame\Events\GameEvents.h" />

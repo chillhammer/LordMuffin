@@ -5,6 +5,8 @@
 #include <Packets/JoinPackets.h>
 #include <Packets/SnapshotPacket.h>
 #include <Client/ClientManager.h>
+#include <Client/FakeLagPacketHolderManager.h>
+#include <Net/Net.h>
 #include <imgui.h>
 #include "GameStates.h"
 /**
@@ -59,6 +61,7 @@ namespace Skel::GameStates
 				packet.WriteToBuffer(buffer);
 				Client.SendBuffer(buffer);
 			}
+			ImGui::SliderFloat("Fake Lag (s)", &Net::FAKE_LAG_S, 0.0f, 1.0f, "ratio = %.3f");
 		}
 		else {
 			ImGui::Text("Connected");
@@ -109,17 +112,13 @@ namespace Skel::GameStates
 				Net::Buffer buffer;
 
 				PlayerInputState input = { Input.IsKeyDown(KEY_W), Input.IsKeyDown(KEY_S) };
-				Net::PlayerInputPacket packet(input, Client.GetClientID());
+				Net::PlayerInputPacket packet(input, Client.GetClientID(), Game.GetTick(), Game.DeltaTimeUnscaled());
 
 				// Add to lag simulator
-				m_LagInputPackets.AddPacket(packet, Game.RunningTime());
+				FakeLagPackets.AddPacket<Net::PlayerInputPacket>(packet);
 
 				// Pull from lag simulator
-				std::vector<Net::PlayerInputPacket> inputPackets = m_LagInputPackets.PopPackets(Game.RunningTime());
-				for (Net::PlayerInputPacket& inputPacket : inputPackets) {
-					inputPacket.WriteToBuffer(buffer);
-					Client.SendBuffer(buffer);
-				}
+				FakeLagPackets.PopAndSendToServer<Net::PlayerInputPacket>(buffer);
 				
 			}
 			else 
@@ -142,6 +141,7 @@ namespace Skel::GameStates
 				{
 					READ_PACKET(Net::SyncServerTimePacket, receiveBuffer); // creates packet object
 					Client.GetSynchronizer().ReceiveServerTimePacket(packet);
+					FakeLagPackets.PopAndSendToServer<Net::SyncRequestPacket>(receiveBuffer);
 					break;
 				}
 				case Net::PACKET_SNAPSHOT:

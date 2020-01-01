@@ -25,8 +25,8 @@ namespace Skel
 
 		double RunningTime() const;
 		uint64 GetTick() const;
-		float DeltaTime() const;
-		float DeltaTimeUnscaled() const;
+		double DeltaTime() const;
+		double DeltaTimeUnscaled() const;
 		float TimeScale() const;
 		void SetTimeScale(float timeScale);
 		void SetTimeScaleFreeze(bool freeze);
