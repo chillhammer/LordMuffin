@@ -24,6 +24,12 @@ namespace Skel::Net {
 
 		return playerIndex;
 	}
+	uint16 ClientHandler::GetClientIndex(const Address& address)
+	{
+		auto slot = std::find_if(m_ClientSlots.begin(), m_ClientSlots.end(),
+			[&addr = address](const ClientSlot& s) -> bool { return addr == s.ClientAddress; });
+		return slot->ID;
+	}
 	void ClientHandler::RemovePlayer(uint16 clientIndex)
 	{
 		ASSERT(!m_SlotAvailability[clientIndex], "Cannot remove empty slot");

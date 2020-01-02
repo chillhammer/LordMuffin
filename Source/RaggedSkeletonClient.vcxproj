@@ -200,6 +200,7 @@
     <ClInclude Include="Utility\Net\Packet.h" />
     <ClInclude Include="Utility\Net\Socket.h" />
     <ClInclude Include="Utility\Profiler\ProfileBlock.h" />
+    <ClInclude Include="Utility\Random\Random.h" />
     <ClInclude Include="Utility\Resources\ResourceManager.h" />
     <ClInclude Include="Utility\StateMachine\State.h" />
     <ClInclude Include="Utility\StateMachine\StateMachine.h" />

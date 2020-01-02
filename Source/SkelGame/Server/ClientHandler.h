@@ -22,6 +22,7 @@ namespace Skel::Net
 		uint16 ActivePlayers() const { return m_ActivePlayers; }
 		uint16 RemainingSlots() const { return MAX_PLAYERS - m_ActivePlayers; }
 		uint16 AddPlayer(Address address);
+		uint16 GetClientIndex(const Address& address);
 		void RemovePlayer(uint16 clientIndex);
 		void SetPlayerObjectArray(class PlayerObject* arr) { m_PlayerObjectArray = arr; }
 		bool IsActive(uint16 clientID) const;

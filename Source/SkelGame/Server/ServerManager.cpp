@@ -112,21 +112,29 @@ namespace Skel::Net {
 					}
 					break;
 				}
+				// Remove player if they leave
+				case PACKET_QUIT:
+					m_ClientHandler.RemovePlayer(m_ClientHandler.GetClientIndex(fromAddress));
+					break;
 				}
 			}
 			//LOG("Packets Received: {0}", packetsReceived);
 
+			m_TimeSinceSnapshotSent += GetFixedFrameDeltaTime();
 
-			// Creates Snapshot
-			WRITE_PACKET(PlayerSnapshotPacket, (m_ClientHandler), buffer); // Takes snapshot of all player objects
+			if (m_TimeSinceSnapshotSent >= SNAPSHOT_RATE)
+			{
+				m_TimeSinceSnapshotSent = 0.0;
+				// Creates Snapshot
+				WRITE_PACKET(PlayerSnapshotPacket, (m_ClientHandler), buffer); // Takes snapshot of all player objects
 
-			// Broadcast to Active Clients
-			const std::vector<ClientSlot>& clientSlots = m_ClientHandler.GetClientSlots();
-			for (const ClientSlot& slot : clientSlots) {
-				server.SendBuffer(buffer, slot.ClientAddress);
+				// Broadcast to Active Clients
+				const std::vector<ClientSlot>& clientSlots = m_ClientHandler.GetClientSlots();
+				for (const ClientSlot& slot : clientSlots) {
+					server.SendBuffer(buffer, slot.ClientAddress);
+				}
+
 			}
-
-			
 
 			
 

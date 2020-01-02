@@ -32,10 +32,10 @@ namespace Skel::Net {
 
 			// Otherwise, send a new packet
 			SendSyncPacket();
-			// Using fake lag here and in sendSyncPacket();
-			Buffer buffer;
-			FakeLagPackets.PopAndSendToServer<SyncRequestPacket>(buffer);
 		}
+		// Using fake lag here and in sendSyncPacket();
+		Buffer buffer;
+		FakeLagPackets.PopAndSendToServer<SyncRequestPacket>(buffer);
 	}
 	void ClientSynchronizer::ReceiveServerTimePacket(SyncServerTimePacket& packet)
 	{

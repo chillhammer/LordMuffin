@@ -7,6 +7,8 @@
 #include <imgui.h>
 #include <examples/imgui_impl_glfw.h>
 #include <examples/imgui_impl_opengl3.h>
+#include <Random/Random.h>
+#include <Client/ClientManager.h>
 #include <chrono>
 #include "GameManager.h"
 
@@ -35,10 +37,13 @@ namespace Skel
 		// Setup Platform/Renderer bindings
 		ImGui_ImplGlfw_InitForOpenGL(m_Window.m_Window, false);
 		ImGui_ImplOpenGL3_Init("#version 410");
+
+		Random::Seed();
 	}
 	// Called to enter first state
 	void GameManager::Start()
 	{
+
 	}
 	//static WindowProps props;
 	GameManager::GameManager() : m_Window(g_WindowProperties),
@@ -86,6 +91,14 @@ namespace Skel
 	{
 		LOG("Shutting down game");
 		m_Running = false;
+
+		// Send Quit Packet
+		if (Client.Connected())
+		{
+			Net::Buffer buffer;
+			WRITE_PACKET(Net::Packet, (Net::PACKET_QUIT), buffer);
+			Client.SendBuffer(buffer);
+		}
 
 		ImGui_ImplOpenGL3_Shutdown();
 		ImGui_ImplGlfw_Shutdown();

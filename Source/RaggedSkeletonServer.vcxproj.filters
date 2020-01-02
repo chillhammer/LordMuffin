@@ -309,6 +309,7 @@
     <ClInclude Include="SkelGame\Client\ClientSynchronizer.h" />
     <ClInclude Include="SkelGame\Packets\SyncPackets.h" />
     <ClInclude Include="SkelGame\Client\FakeLagPacketHolderManager.h" />
+    <ClInclude Include="Utility\Random\Random.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PCH\SkelPCH.cpp">

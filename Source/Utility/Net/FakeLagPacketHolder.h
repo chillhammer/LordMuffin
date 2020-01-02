@@ -1,5 +1,6 @@
 #pragma once
 #include "Packet.h"
+#include <Random/Random.h>
 #include <queue>
 
 namespace Skel::Net
@@ -20,7 +21,7 @@ namespace Skel::Net
 			PacketQueueEntry(P packet, double time) : DelayedPacket(packet), EnteredTime(time) {}
 		};
 
-		void AddPacket(P packet, double time) { m_PacketEntries.emplace(packet, time); };
+		void AddPacket(P packet, double time) { m_PacketEntries.emplace(packet, time + Random::Float(FAKE_JITTER_S)); };
 		std::vector<P> PopPackets(double time)
 		{
 			std::vector<P> popped;
@@ -32,7 +33,9 @@ namespace Skel::Net
 			while (time - front.EnteredTime > FAKE_LAG_S)
 			{
 				m_PacketEntries.pop();
-				popped.push_back(front.DelayedPacket);
+				if (Random::Roll(1.0f - FAKE_PACKET_LOSS))
+					popped.push_back(front.DelayedPacket);
+
 				if (m_PacketEntries.empty())
 					break;
 

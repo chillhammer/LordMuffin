@@ -28,9 +28,7 @@ namespace Skel::Net
 		// Properties
 		ClientHandler m_ClientHandler;
 		uint64 m_Tick = 0;
-		double m_LastUpdatedTime = 0;
-		double m_DeltaTime = 0;
+		double m_TimeSinceSnapshotSent = 0;
 		bool m_Running = true;
-		bool m_Paused = false;
 	};
 }

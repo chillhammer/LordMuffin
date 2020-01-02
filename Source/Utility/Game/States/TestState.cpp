@@ -62,9 +62,12 @@ namespace Skel::GameStates
 				Client.SendBuffer(buffer);
 			}
 			ImGui::SliderFloat("Fake Lag (s)", &Net::FAKE_LAG_S, 0.0f, 1.0f, "ratio = %.3f");
+			ImGui::SliderFloat("Fake Jitter (s)", &Net::FAKE_JITTER_S, 0.0f, 0.5f, "ratio = %.3f");
+			ImGui::SliderFloat("Fake Packet Loss (%)", &Net::FAKE_PACKET_LOSS, 0.0f, 1.0f, "ratio = %.3f");
 		}
 		else {
 			ImGui::Text("Connected");
+			ImGui::Text("Fake Lag (%f), Jitter(%f), Packet Loss(%f)", Net::FAKE_LAG_S, Net::FAKE_JITTER_S, Net::FAKE_PACKET_LOSS);
 		}
 		ImGui::End();
 
