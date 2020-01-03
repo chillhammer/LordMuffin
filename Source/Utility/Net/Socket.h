@@ -15,7 +15,7 @@ namespace Skel::Net
 		bool ReceiveBuffer(Buffer& outBuffer, Address& outAddress) const;
 		void SetLogErrors(bool log) { m_LogErrors = log; }
 	private:
-		uint64 m_Socket;
+		uint64 m_Socket = 0;
 		uint16 m_Port;
 		bool m_Bounded;
 		bool m_LogErrors;

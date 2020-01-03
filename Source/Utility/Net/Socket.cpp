@@ -31,8 +31,7 @@ namespace Skel::Net {
 		local_address.sin_addr.s_addr = INADDR_ANY;
 		if (bind(m_Socket, (SOCKADDR*)& local_address, sizeof(local_address)) == SOCKET_ERROR)
 		{
-			if (m_LogErrors)
-				LOG_ERROR("bind failed: {0}", WSAGetLastError());
+			LOG_ERROR("bind failed: {0}", WSAGetLastError());
 			return;
 		}
 		m_Bounded = true;

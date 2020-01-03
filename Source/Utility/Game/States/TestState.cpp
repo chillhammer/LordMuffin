@@ -5,7 +5,7 @@
 #include <Packets/JoinPackets.h>
 #include <Packets/SnapshotPacket.h>
 #include <Client/ClientManager.h>
-#include <Client/FakeLagPacketHolderManager.h>
+#include <FakeLag/FakeLagPacketHolderManager.h>
 #include <Net/Net.h>
 #include <imgui.h>
 #include "GameStates.h"
@@ -130,7 +130,7 @@ namespace Skel::GameStates
 				Client.GetSynchronizer().UpdateUntilSynchronized();
 			}
 
-			// Client Receive Snapshots
+			// Client Receive Snapshots and Sync Packets
 			Net::Buffer receiveBuffer;
 			PlayerInputState input;
 			while (Client.ReceiveBuffer(receiveBuffer)) {
@@ -144,7 +144,6 @@ namespace Skel::GameStates
 				{
 					READ_PACKET(Net::SyncServerTimePacket, receiveBuffer); // creates packet object
 					Client.GetSynchronizer().ReceiveServerTimePacket(packet);
-					FakeLagPackets.PopAndSendToServer<Net::SyncRequestPacket>(receiveBuffer);
 					break;
 				}
 				case Net::PACKET_SNAPSHOT:

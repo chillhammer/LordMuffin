@@ -68,6 +68,8 @@ namespace Skel::Net
 
 		bool IsValid() const;
 
+		Address(const Address& other);
+
 		bool operator ==(const Address& other) const;
 
 		bool operator !=(const Address& other) const;

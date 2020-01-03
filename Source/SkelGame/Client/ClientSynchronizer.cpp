@@ -1,7 +1,7 @@
 #include "SkelPCH.h"
 #include "ClientSynchronizer.h"
 #include "ClientManager.h"
-#include "FakeLagPacketHolderManager.h"
+#include <FakeLag/FakeLagPacketHolderManager.h>
 #include "Game/GameManager.h"
 
 namespace Skel::Net {
@@ -116,6 +116,7 @@ namespace Skel::Net {
 		Buffer buffer; // Creating buffer here since we only use this function a few times
 		WRITE_PACKET(SyncRequestPacket, (Client.GetClientID(), m_ToBeSentIndex), buffer); // SyncId is the Index in array
 		FakeLagPackets.AddPacket<SyncRequestPacket>(packet);
+		FakeLagPackets.PopAndSendToServer<Net::SyncRequestPacket>(buffer);
 		//if (/*Client.SendBuffer(buffer)*/ ) 
 		{
 

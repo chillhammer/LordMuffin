@@ -36,7 +36,13 @@ typedef int32 bool32;
 typedef float float32;
 typedef double float64;
 
-
+// Used to get the running time shared with no regard if it's server or game
+#ifdef SERVER
+//#define RUNNING_TIME Server.RunningTime()
+#define RUNNING_TIME Server.GetFixedFrameDeltaTime() * Server.GetTick()
+#else
+#define RUNNING_TIME Game.RunningTime()
+#endif
 
 #pragma region Debug OpenGl Call
 #define GLCall(x)	\

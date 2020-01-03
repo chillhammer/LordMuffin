@@ -8,10 +8,19 @@ namespace Skel::Net
 {
 	class Address;
 	inline constexpr uint16	 MAX_PLAYERS = 8;
+
+#ifndef SERVER
 	// Not const because ImGui editable
-	inline			float	 FAKE_LAG_S = 0.6f; //seconds
-	inline			float	 FAKE_JITTER_S = 0.1f; //seconds
-	inline			float	 FAKE_PACKET_LOSS = 0.3f; //seconds
+	inline			float	 FAKE_LAG_S = 0.5f; //seconds
+	inline			float	 FAKE_JITTER_S = 0.0f; //seconds
+	inline			float	 FAKE_PACKET_LOSS = 0.0f; //seconds
+#endif
+
+#ifdef SERVER
+	inline			 float	 FAKE_LAG_S = 0.1f; //seconds
+	inline			 float	 FAKE_JITTER_S = 0.0f; //seconds
+	inline			 float	 FAKE_PACKET_LOSS = 0.0f; //seconds
+#endif
 
 
 	inline constexpr uint16	 SYNC_SAMPLES = 30; // how many sync packets are sent out

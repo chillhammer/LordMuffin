@@ -5,6 +5,7 @@
 #include <thread>
 #include <Resources/ResourceManager.h>
 #include <Objects/Player/PlayerObject.h>
+#include <FakeLag/FakeLagPacketHolderManager.h>
 
 #include <Packets/PlayerInputPacket.h>
 #include <Packets/JoinPackets.h>
@@ -27,12 +28,9 @@ namespace Skel::Net {
 
 	// Server Main Function!
 	void ServerManager::ServerMain()
-	{
-		// Setting Up Dependencies
-		Net::Init();
+	{	
 
-		Net::Socket server;
-		server.Bind(Net::GetServerAddress().GetPort());
+		m_Server.Bind(Net::GetServerAddress().GetPort());
 
 		Skel::PlayerObject playerObjs[MAX_PLAYERS];
 		m_ClientHandler.SetPlayerObjectArray(&(*playerObjs));
@@ -58,7 +56,7 @@ namespace Skel::Net {
 
 			// Receive Packets
 			int packetsReceived = 0;
-			while (server.ReceiveBuffer(buffer, fromAddress)) {
+			while (m_Server.ReceiveBuffer(buffer, fromAddress)) {
 				packetsReceived++;
 
 				// Find out what packet is being received
@@ -76,12 +74,12 @@ namespace Skel::Net {
 					{
 						auto clientID = m_ClientHandler.AddPlayer(fromAddress);
 						WRITE_PACKET(JoinAcceptPacket, (clientID), buffer);
-						server.SendBuffer(buffer, fromAddress);
+						m_Server.SendBuffer(buffer, fromAddress);
 					}
 					else // Reject
 					{
 						WRITE_PACKET(JoinDeclinedPacket, , buffer);
-						server.SendBuffer(buffer, fromAddress);
+						m_Server.SendBuffer(buffer, fromAddress);
 					}
 
 					
@@ -93,7 +91,8 @@ namespace Skel::Net {
 					READ_PACKET(SyncRequestPacket, buffer); // creates packet
 					{
 						WRITE_PACKET(SyncServerTimePacket, (packet.SyncID, RunningTime()), buffer); // sends back server time
-						server.SendBuffer(buffer, fromAddress);
+						FakeLagPackets.AddPacket(packet, fromAddress);
+						//m_Server.SendBuffer(buffer, fromAddress);
 					}
 				}
 					break;
@@ -131,11 +130,15 @@ namespace Skel::Net {
 				// Broadcast to Active Clients
 				const std::vector<ClientSlot>& clientSlots = m_ClientHandler.GetClientSlots();
 				for (const ClientSlot& slot : clientSlots) {
-					server.SendBuffer(buffer, slot.ClientAddress);
+
+					FakeLagPackets.AddPacket(packet, slot.ClientAddress);
+					//m_Server.SendBuffer(buffer, slot.ClientAddress);
 				}
 
 			}
 
+			FakeLagPackets.PopAndSendToRecipient<PlayerSnapshotPacket>(buffer);
+			FakeLagPackets.PopAndSendToRecipient<SyncServerTimePacket>(buffer);
 			
 
 #pragma region Fixed Framerate Loop

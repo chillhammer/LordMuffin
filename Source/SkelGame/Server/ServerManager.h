@@ -1,5 +1,6 @@
 #pragma once
 #include "ClientHandler.h"
+#include <Net/Socket.h>
 
 #define Server Net::ServerManager::Instance()
 namespace Skel::Net
@@ -19,7 +20,8 @@ namespace Skel::Net
 		double RunningTime() const;
 		void Sleep(double time) const;
 
-		double GetFixedFrameDeltaTime() const { return 1.0 / 60.0; }
+		double GetFixedFrameDeltaTime() const { return 1.0 / 60.0; };
+		Socket& GetSocket() { return m_Server; }
 
 		~ServerManager() {};
 	private:
@@ -30,5 +32,6 @@ namespace Skel::Net
 		uint64 m_Tick = 0;
 		double m_TimeSinceSnapshotSent = 0;
 		bool m_Running = true;
+		Socket m_Server; // server socket
 	};
 }

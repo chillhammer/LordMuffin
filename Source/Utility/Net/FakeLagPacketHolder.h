@@ -17,12 +17,19 @@ namespace Skel::Net
 		{
 			P DelayedPacket;
 			double EnteredTime;
+			Address Recipient;
 
-			PacketQueueEntry(P packet, double time) : DelayedPacket(packet), EnteredTime(time) {}
+			PacketQueueEntry(P packet, double time) : DelayedPacket(packet), EnteredTime(time), Recipient() {}
+			PacketQueueEntry(P packet, double time, Address addr) : DelayedPacket(packet), EnteredTime(time), Recipient(addr) {}
 		};
 
+		// Adds packet to queue to be sent at a later time
 		void AddPacket(P packet, double time) { m_PacketEntries.emplace(packet, time + Random::Float(FAKE_JITTER_S)); };
-		std::vector<P> PopPackets(double time)
+		// Adds packet with a target recipient. Useful for sending packets to clients
+		void AddPacket(P packet, double time, Address addr) { m_PacketEntries.emplace(packet, time + Random::Float(FAKE_JITTER_S), addr); };
+		// Tries to pop off queue and returns list of packets. 
+		// If given a sender and buffer, will send to recipients
+		std::vector<P> PopPackets(double time, Socket* sender = nullptr, Buffer* buffer = nullptr)
 		{
 			std::vector<P> popped;
 			if (m_PacketEntries.empty())
@@ -33,8 +40,14 @@ namespace Skel::Net
 			while (time - front.EnteredTime > FAKE_LAG_S)
 			{
 				m_PacketEntries.pop();
-				if (Random::Roll(1.0f - FAKE_PACKET_LOSS))
+				// Send this packet
+				if (Random::Roll(1.0f - FAKE_PACKET_LOSS)) {
 					popped.push_back(front.DelayedPacket);
+					if (sender != nullptr && buffer != nullptr) {
+						front.DelayedPacket.WriteToBuffer(*buffer);
+						sender->SendBuffer(*buffer, front.Recipient);
+					}
+				}
 
 				if (m_PacketEntries.empty())
 					break;

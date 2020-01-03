@@ -31,6 +31,7 @@ namespace Skel {
 int main()
 {
 	Log::Init();
+	Net::Init();
 #ifdef SERVER
 	Server.ServerMain();
 	return 0;
@@ -39,7 +40,6 @@ int main()
 	// Setting Up Dependencies
 	Input.Init();
 	Game.Init();
-	Net::Init();
 	// Loads All Resources
 	Resources.Init();
 

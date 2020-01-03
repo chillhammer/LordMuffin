@@ -276,6 +276,16 @@ namespace Skel::Net
 		return m_type != ADDRESS_UNDEFINED;
 	}
 
+	Address::Address(const Address& other)
+	{
+		m_type = other.m_type;
+		m_port = other.m_port;
+		if (m_type == ADDRESS_IPV4)
+			m_address4 = other.m_address4;
+		else if (m_type == ADDRESS_IPV6)
+			memcpy(m_address6, other.m_address6, sizeof(m_address6));
+	}
+
 	bool Address::operator ==(const Address& other) const
 	{
 		if (m_type != other.m_type)
