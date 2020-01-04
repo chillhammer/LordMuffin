@@ -7,6 +7,7 @@ namespace Skel::Net {
 	PlayerSnapshotPacket::PlayerSnapshotPacket(const ClientHandler& handler) : Packet(Net::PACKET_SNAPSHOT)
 	{
 		TickNumber = Server.GetTick();
+		Timestamp = Server.RunningTime();
 		ServerTakeSnapshot(handler);
 	}
 	void PlayerSnapshotPacket::ServerTakeSnapshot(const ClientHandler& handler)

@@ -140,10 +140,10 @@
     <ClInclude Include="PCH\SkelPCH.h" />
     <ClInclude Include="SkelGame\Client\ClientManager.h" />
     <ClInclude Include="SkelGame\Client\ClientSynchronizer.h" />
-    <ClInclude Include="SkelGame\Client\FakeLagPacketHolderManager.h" />
     <ClInclude Include="SkelGame\Client\SnapshotReceiver.h" />
     <ClInclude Include="SkelGame\Events\GameEventTypes.h" />
     <ClInclude Include="SkelGame\Events\GameEvents.h" />
+    <ClInclude Include="SkelGame\FakeLag\FakeLagPacketHolderManager.h" />
     <ClInclude Include="SkelGame\Objects\Box\BoxMesh.h" />
     <ClInclude Include="SkelGame\Objects\Box\WoodenBox.h" />
     <ClInclude Include="SkelGame\Objects\Box\WoodenBoxModel.h" />
@@ -160,6 +160,7 @@
     <ClInclude Include="SkelGame\Server\ServerManager.h" />
     <ClInclude Include="Utility\Audio\AudioEngine.h" />
     <ClInclude Include="Utility\Camera\Camera.h" />
+    <ClInclude Include="Utility\Containers\BitArray.h" />
     <ClInclude Include="Utility\Containers\PackedIDMap.h" />
     <ClInclude Include="Utility\EventSystem\Event.h" />
     <ClInclude Include="Utility\EventSystem\EventType.h" />

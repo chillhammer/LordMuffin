@@ -106,6 +106,18 @@ namespace Skel::Net {
 		return m_SyncDataSlots[m_ToBeSentIndex - 1].SentTime;
 	}
 
+	// Average latency in seconds
+	double ClientSynchronizer::Latency()
+	{
+		return m_AverageLatency;
+	}
+
+	// ServerTime - ClientTime
+	double ClientSynchronizer::Offset()
+	{
+		return m_AverageOffset;
+	}
+
 	// Helper function to send packet and record entry
 	void ClientSynchronizer::SendSyncPacket()
 	{

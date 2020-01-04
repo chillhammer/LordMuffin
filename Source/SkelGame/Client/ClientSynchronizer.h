@@ -23,6 +23,8 @@ namespace Skel::Net
 		bool IsSynchronized() const { return m_Synchronized; }	// Is complete
 		bool IsSynchronizing() const { return m_ToBeSentIndex >= 0 && m_ToBeSentIndex < SYNC_SAMPLES || !m_Synchronized; } // Is in process
 		double LastSentTime();
+		double Latency();
+		double Offset();
 	private:
 		void SendSyncPacket();
 		void ConcludeSynchronization();

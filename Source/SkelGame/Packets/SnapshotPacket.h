@@ -24,6 +24,7 @@ namespace Skel::Net
 		PlayerSnapshotPacket(const ClientHandler& handler); // Only for creation on server
 
 		uint64 TickNumber;
+		double Timestamp;
 		
 		const std::vector<SnapshotEntry>& GetSnapshotEntries() const {
 			return m_Entries;
@@ -38,6 +39,7 @@ namespace Skel::Net
 
 			// Tick
 			B_WRITE(TickNumber);
+			B_WRITE(Timestamp);
 
 			// Num Players1
 			uint16 activePlayers = m_Entries.size();
@@ -60,6 +62,7 @@ namespace Skel::Net
 
 			// Tick
 			B_READ(TickNumber);
+			B_READ(Timestamp);
 
 			// Num Players
 			uint16 entriesNum = 0;
