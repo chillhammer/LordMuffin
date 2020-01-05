@@ -11,13 +11,13 @@ namespace Skel::Net
 
 #ifndef SERVER
 	// Not const because ImGui editable
-	inline			float	 FAKE_LAG_S = 0.5f; //seconds
+	inline			float	 FAKE_LAG_S = 0.0f; //seconds
 	inline			float	 FAKE_JITTER_S = 0.0f; //seconds
 	inline			float	 FAKE_PACKET_LOSS = 0.0f; //seconds
 #endif
 
 #ifdef SERVER
-	inline			 float	 FAKE_LAG_S = 0.1f; //seconds
+	inline			 float	 FAKE_LAG_S = 0.0f; //seconds
 	inline			 float	 FAKE_JITTER_S = 0.0f; //seconds
 	inline			 float	 FAKE_PACKET_LOSS = 0.0f; //seconds
 #endif
@@ -27,6 +27,8 @@ namespace Skel::Net
 	inline constexpr uint8	 SNAPSHOT_PER_SEC = 20; // how many snapshot packets are sent out
 
 	inline constexpr double	 SNAPSHOT_RATE = 1.0 / double(SNAPSHOT_PER_SEC);
+
+	inline constexpr double	 SNAPSHOT_INTER_BUFFER = 0.1; // seconds to delay snapshots for interpolation
 
 	void Init();
 	Address GetServerAddress();

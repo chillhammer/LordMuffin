@@ -19,7 +19,7 @@ namespace Skel
 	{
 		// Textures
 		LoadTexture(textures, "Wood",			"../Assets/Textures/wood.png");
-		LoadCubemap(textures, "Sky",			"../Assets/Textures/Skybox/Skybox");
+		//LoadCubemap(textures, "Sky",			"../Assets/Textures/Skybox/Skybox");
 		LoadTexture(textures, "TitleScreen",	"../Assets/Textures/TitleScreen.png");
 		LoadTexture(textures, "BlueScoreboard",	"../Assets/Textures/BlueScoreboard.png");
 		LoadTexture(textures, "RedScoreboard",	"../Assets/Textures/RedScoreboard.png");

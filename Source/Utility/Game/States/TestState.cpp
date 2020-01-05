@@ -156,6 +156,7 @@ namespace Skel::GameStates
 				}
 				
 			}
+			Client.GetSnapshotReceiver().Update();
 
 		}
 		
