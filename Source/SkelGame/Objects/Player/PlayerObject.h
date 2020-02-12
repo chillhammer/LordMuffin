@@ -10,5 +10,6 @@ namespace Skel
 		PlayerObject() : GameObject("WoodenBox") {}
 
 		void ProcessInput(const PlayerInputState& input, float dt);
+		void ApplySnapshotState(const class PlayerSnapshotState& state);
 	};
 }

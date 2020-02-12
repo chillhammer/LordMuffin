@@ -2,6 +2,7 @@
 #include <Net/Socket.h>
 #include "SnapshotReceiver.h"
 #include "ClientSynchronizer.h"
+#include <Objects/Player/PlayerPredictionStateHistory.h>
 
 #define Client Net::ClientManager::Instance()
 namespace Skel::Net
@@ -26,6 +27,7 @@ namespace Skel::Net
 
 		SnapshotReceiver& GetSnapshotReceiver() { return m_SnapshotReceiver; }
 		ClientSynchronizer& GetSynchronizer() { return m_Synchronizer; }
+		PlayerPredictionStateHistory& GetPredictionHistory() { return m_PredictionHistory; }
 
 		~ClientManager() {};
 	private:
@@ -34,6 +36,7 @@ namespace Skel::Net
 		// Properties
 		SnapshotReceiver m_SnapshotReceiver;
 		ClientSynchronizer m_Synchronizer;
+		PlayerPredictionStateHistory m_PredictionHistory;
 		Socket m_Socket;
 		uint16 m_ClientID;
 		bool m_Connected;

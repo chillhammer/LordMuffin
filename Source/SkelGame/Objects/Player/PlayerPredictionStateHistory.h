@@ -6,10 +6,10 @@
 namespace Skel {
 
 	struct PredictedMove {
-		PlayerInputState Input;
+		PlayerInputState InputState;
 		double DeltaTime;
-		PredictedMove() : Input(), DeltaTime(0) {};
-		PredictedMove(PlayerInputState input, double dt) : Input(input), DeltaTime(dt) {};
+		PredictedMove() : InputState(), DeltaTime(0) {};
+		PredictedMove(PlayerInputState input, double dt) : InputState(input), DeltaTime(dt) {};
 	};
 
 	struct PredictedMoveResult {
@@ -23,10 +23,18 @@ namespace Skel {
 	class PlayerPredictionStateHistory
 	{
 	public:
+		void RecordState(PlayerInputState input, PlayerSnapshotState state);
+		void RemoveOldest();
 
+		bool CorrectState(const PlayerSnapshotState& corrected, PlayerObject& obj, double time);
 
 	private:
 		PredictedMove m_PredictedMoves[Net::PREDICTED_STATES];
 		PredictedMoveResult m_PredictedMoveResults[Net::PREDICTED_STATES];
+		double m_LastValidatedTime = 0;
+
+		uint32 m_Start;
+		uint32 m_End;
+		uint32 m_Count;
 	};
 }

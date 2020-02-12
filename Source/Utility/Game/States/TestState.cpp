@@ -126,8 +126,11 @@ namespace Skel::GameStates
 				FakeLagPackets.PopAndSendToServer<Net::PlayerInputPacket>(buffer);
 				
 				// Client-predict for player
-				m_PlayerObjectArray[Client.GetClientID()].ProcessInput(input, Game.DeltaTimeUnscaled());
-				// TODO: Record personal inputs so that we can rollback
+				PlayerObject& playerObj = m_PlayerObjectArray[Client.GetClientID()];
+				playerObj.ProcessInput(input, Game.DeltaTimeUnscaled());
+
+				// Record personal input & state so that we can rollback
+				Client.GetPredictionHistory().RecordState(input, PlayerSnapshotState(playerObj));
 			}
 			else 
 			// Client Synchronizing

@@ -2,6 +2,7 @@
 #include "SnapshotReceiver.h"
 #include <Client/ClientManager.h>
 #include <Game/GameManager.h>
+#include <Objects/Player/PlayerPredictionStateHistory.h>
 namespace Skel::Net {
 
 	void SnapshotReceiver::ReceiveSnapshotPacket(const PlayerSnapshotPacket& packet)
@@ -86,8 +87,7 @@ namespace Skel::Net {
 	// Applies snapshot to object directly. No interpolation
 	void SnapshotReceiver::ApplySnapshotState(const PlayerSnapshotState& state, PlayerObject& player)
 	{
-		player.ObjectTransform.Position = state.Position;
-		// TODO: pitch and yaw
+		player.ApplySnapshotState(state);
 	}
 
 	// Apply list of snapshot entries
@@ -97,11 +97,15 @@ namespace Skel::Net {
 
 		for (const SnapshotEntry& entry : entries) {
 			m_ActiveClients.push_back(entry.ClientID);
-			if (entry.ClientID == Client.GetClientID()) {
-				continue;
-				// TODO: check against predicted output and do corrections
-			}
 			PlayerObject& playerObj = m_PlayerObjectArray[entry.ClientID];
+
+			if (entry.ClientID == Client.GetClientID()) {
+				// Check against predicted output and do corrections. Updates player object state if needed
+				double calculatedClientTime = Game.RunningTime() - (Client.GetSynchronizer().Latency() + Net::SNAPSHOT_INTER_BUFFER);
+				Client.GetPredictionHistory().CorrectState(entry.State, playerObj, calculatedClientTime);
+
+				continue;
+			}
 			ApplySnapshotState(entry.State, playerObj);
 		}
 	}

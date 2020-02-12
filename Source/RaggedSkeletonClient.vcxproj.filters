@@ -310,7 +310,7 @@
     <ClInclude Include="Utility\Random\Random.h" />
     <ClInclude Include="SkelGame\FakeLag\FakeLagPacketHolderManager.h" />
     <ClInclude Include="SkelGame\Objects\Player\PlayerSnapshotState.h" />
-    <ClInclude Include="SkelGame\Objects\Player\PlayerStateHistory.h" />
+    <ClInclude Include="SkelGame\Objects\Player\PlayerPredictionStateHistory.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PCH\SkelPCH.cpp">
@@ -441,5 +441,6 @@
     <ClCompile Include="SkelGame\Client\SnapshotReceiver.cpp" />
     <ClCompile Include="SkelGame\Packets\SnapshotPacket.cpp" />
     <ClCompile Include="SkelGame\Client\ClientSynchronizer.cpp" />
+    <ClCompile Include="SkelGame\Objects\Player\PlayerPredictionStateHistory.cpp" />
   </ItemGroup>
 </Project>

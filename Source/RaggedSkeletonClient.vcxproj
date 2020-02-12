@@ -150,7 +150,7 @@
     <ClInclude Include="SkelGame\Objects\Player\PlayerInputState.h" />
     <ClInclude Include="SkelGame\Objects\Player\PlayerObject.h" />
     <ClInclude Include="SkelGame\Objects\Player\PlayerSnapshotState.h" />
-    <ClInclude Include="SkelGame\Objects\Player\PlayerStateHistory.h" />
+    <ClInclude Include="SkelGame\Objects\Player\PlayerPredictionStateHistory.h" />
     <ClInclude Include="SkelGame\Packets\JoinPackets.h" />
     <ClInclude Include="SkelGame\Packets\PacketTypes.h" />
     <ClInclude Include="SkelGame\Packets\PlayerInputPacket.h" />
@@ -223,6 +223,7 @@
     <ClCompile Include="SkelGame\Objects\Box\BoxMesh.cpp" />
     <ClCompile Include="SkelGame\Objects\Box\WoodenBoxModel.cpp" />
     <ClCompile Include="SkelGame\Objects\Player\PlayerObject.cpp" />
+    <ClCompile Include="SkelGame\Objects\Player\PlayerPredictionStateHistory.cpp" />
     <ClCompile Include="SkelGame\Packets\SnapshotPacket.cpp" />
     <ClCompile Include="SkelGame\Server\ClientHandler.cpp" />
     <ClCompile Include="SkelGame\Server\ServerManager.cpp" />

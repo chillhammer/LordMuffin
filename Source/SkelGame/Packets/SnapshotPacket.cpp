@@ -26,8 +26,7 @@ namespace Skel::Net {
 				const PlayerObject* obj = handler.GetPlayerObject(i);
 				ASSERT(obj != nullptr, "Only enter objects that are active");
 
-				PlayerSnapshotState state;
-				state.Position = obj->ObjectTransform.Position;
+				PlayerSnapshotState state(*obj);
 
 				m_Entries.emplace_back(i, state);
 			}
