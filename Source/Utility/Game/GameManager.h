@@ -30,6 +30,7 @@ namespace Skel
 		float TimeScale() const;
 		void SetTimeScale(float timeScale);
 		void SetTimeScaleFreeze(bool freeze);
+		void Sleep(double time) const;
 		void SetPause(bool pause);
 		bool IsPaused() const;
 

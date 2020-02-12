@@ -171,6 +171,11 @@ namespace Skel
 		}
 	}
 
+	void GameManager::Sleep(double time) const
+	{
+		std::this_thread::sleep_for(std::chrono::milliseconds((int64_t)(time * 1000.0f)));
+	}
+
 	void GameManager::SetPause(bool pause)
 	{
 		m_Paused = pause;

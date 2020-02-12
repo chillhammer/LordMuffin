@@ -28,7 +28,10 @@ namespace Skel::Net
 
 	inline constexpr double	 SNAPSHOT_RATE = 1.0 / double(SNAPSHOT_PER_SEC);
 
-	inline constexpr double	 SNAPSHOT_INTER_BUFFER = 0.1; // seconds to delay snapshots for interpolation
+	inline constexpr double	 SNAPSHOT_INTER_BUFFER = 0.5; // seconds to delay snapshots for interpolation
+
+
+	inline constexpr int	 PREDICTED_STATES = 512; // ticks to keep in memory
 
 	void Init();
 	Address GetServerAddress();

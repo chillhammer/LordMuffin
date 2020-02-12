@@ -71,6 +71,7 @@ namespace Skel::GameStates
 		}
 		ImGui::End();
 
+		// Connecting to Server!
 		if (!Client.Connected()) 
 		{
 			// Client Receive Join Accept Or Decline
@@ -97,14 +98,15 @@ namespace Skel::GameStates
 
 				case Net::PACKET_INPUT:
 				{
-					Net::PlayerInputPacket packet;
-					packet.ReadFromBuffer(receiveBuffer);
+					//Net::PlayerInputPacket packet;
+					//packet.ReadFromBuffer(receiveBuffer);
 					ASSERT(false, "Client should not receive input packet");
 					break;
 				}
 				}
 			}
 		}
+		///////////////////////////
 
 
 		if (Client.Connected())
@@ -123,6 +125,9 @@ namespace Skel::GameStates
 				// Pull from lag simulator
 				FakeLagPackets.PopAndSendToServer<Net::PlayerInputPacket>(buffer);
 				
+				// Client-predict for player
+				m_PlayerObjectArray[Client.GetClientID()].ProcessInput(input, Game.DeltaTimeUnscaled());
+				// TODO: Record personal inputs so that we can rollback
 			}
 			else 
 			// Client Synchronizing

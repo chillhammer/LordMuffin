@@ -16,6 +16,7 @@ namespace Skel::Net {
 
 			const auto& entries = packet.GetSnapshotEntries();
 
+			// Add to queue to update the world state in Update()
 			m_ReceivedStates.emplace(entries, snapshotTime);
 		}
 	}
@@ -32,7 +33,7 @@ namespace Skel::Net {
 			m_ReceivedStates.pop();
 		}
 
-		double baseTime = m_BaseSnapshot.Time;
+		double baseTime = m_BaseSnapshot.Time; // Time of snapshot you are interpolating from
 		double gameTime = Game.RunningTime();
 
 		if (baseTime < gameTime && !m_ReceivedStates.empty()) {
@@ -70,13 +71,14 @@ namespace Skel::Net {
 		{
 			if (m_Interpolating) {
 				// Apply interpolated snapshot
-
-				ApplySnapshotEntries(InterpolateRecords(m_BaseSnapshot, m_TargetSnapshot));
+				auto& entries = InterpolateRecords(m_BaseSnapshot, m_TargetSnapshot);
+				ApplySnapshotEntries(entries);
 			}
 			else {
 				// Apply base snapshot
 				const auto& entries = m_BaseSnapshot.Entries;
 				ApplySnapshotEntries(entries);
+				//LOG("Stuck at base snapshot: {0}", m_BaseSnapshot.Time);
 			}
 		}
 	}
@@ -94,15 +96,20 @@ namespace Skel::Net {
 		m_ActiveClients.clear();
 
 		for (const SnapshotEntry& entry : entries) {
+			m_ActiveClients.push_back(entry.ClientID);
+			if (entry.ClientID == Client.GetClientID()) {
+				continue;
+				// TODO: check against predicted output and do corrections
+			}
 			PlayerObject& playerObj = m_PlayerObjectArray[entry.ClientID];
 			ApplySnapshotState(entry.State, playerObj);
-			m_ActiveClients.push_back(entry.ClientID);
 		}
 	}
 
 	std::vector<SnapshotEntry> SnapshotReceiver::InterpolateRecords(const SnapshotRecord& a , const SnapshotRecord& b)
 	{
 		std::vector<SnapshotEntry> result;
+		result.reserve(a.Entries.size());
 
 		uint16 aIndex = 0;
 		uint16 bIndex = 0;

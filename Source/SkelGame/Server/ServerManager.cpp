@@ -102,8 +102,8 @@ namespace Skel::Net {
 					if (m_ClientHandler.IsActive(packet.ClientID)) {
 						PlayerInputState input = packet.InputState;
 						PlayerObject& obj = playerObjs[packet.ClientID];
-
-						obj.ProcessInput(input, GetFixedFrameDeltaTime());
+						
+						obj.ProcessInput(input, packet.DeltaTime);
 					}
 					else
 					{

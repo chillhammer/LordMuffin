@@ -149,6 +149,8 @@
     <ClInclude Include="SkelGame\Objects\Box\WoodenBoxModel.h" />
     <ClInclude Include="SkelGame\Objects\Player\PlayerInputState.h" />
     <ClInclude Include="SkelGame\Objects\Player\PlayerObject.h" />
+    <ClInclude Include="SkelGame\Objects\Player\PlayerSnapshotState.h" />
+    <ClInclude Include="SkelGame\Objects\Player\PlayerStateHistory.h" />
     <ClInclude Include="SkelGame\Packets\JoinPackets.h" />
     <ClInclude Include="SkelGame\Packets\PacketTypes.h" />
     <ClInclude Include="SkelGame\Packets\PlayerInputPacket.h" />

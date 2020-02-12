@@ -4,6 +4,7 @@
 #include "SnapshotPacket.h"
 
 namespace Skel::Net {
+	// Creates packet and takes snapshot of world state
 	PlayerSnapshotPacket::PlayerSnapshotPacket(const ClientHandler& handler) : Packet(Net::PACKET_SNAPSHOT)
 	{
 		TickNumber = Server.GetTick();
