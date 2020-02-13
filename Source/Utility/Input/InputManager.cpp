@@ -46,7 +46,18 @@ namespace Skel
 
 	bool InputManager::IsKeyDown(int keyCode)
 	{
-		return m_KeysDown[keyCode];
+		return m_KeysDown.GetBit(keyCode);
+	}
+
+	bool InputManager::IsKeyPressed(int keyCode)
+	{
+		return m_KeysPressed.GetBit(keyCode);
+	}
+
+	// Should be done once per frame before reading input
+	void InputManager::ResetKeyPressedStates()
+	{
+		m_KeysPressed.Clear();
 	}
 
 	#pragma region Callbacks
@@ -75,14 +86,16 @@ namespace Skel
 	bool InputManager::OnKeyPressed(KeyPressedEvent e)
 	{
 		int key = e.KeyCode;
-		m_KeysDown[key] = true;
+		m_KeysDown.SetBit(key);
+		m_KeysPressed.SetBit(key);
+		ASSERT(m_KeysPressed.GetBit(key) > 0, "Must be true since you just set it");
 		return false;
 	}
 
 	bool InputManager::OnKeyReleased(KeyReleasedEvent e)
 	{
 		int key = e.KeyCode;
-		m_KeysDown[key] = false;
+		m_KeysDown.ClearBit(key);
 		return false;
 	}
 	#pragma endregion

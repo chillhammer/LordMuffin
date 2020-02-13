@@ -7,6 +7,8 @@ namespace Skel {
 	{
 		float forward = (input.Forward ? 1 : 0) - (input.Back ? 1 : 0);
 		ObjectTransform.Position += ObjectTransform.GetHeading() * forward * dt;
+		
+		ObjectTransform.Position += ObjectTransform.GetSide() * (input.Jump ? 1.f : 0.f);
 	}
 	void PlayerObject::ApplySnapshotState(const PlayerSnapshotState& state)
 	{

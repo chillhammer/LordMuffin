@@ -5,8 +5,9 @@
 
 namespace Skel::Net {
 	// Creates packet and takes snapshot of world state
-	PlayerSnapshotPacket::PlayerSnapshotPacket(const ClientHandler& handler) : Packet(Net::PACKET_SNAPSHOT)
+	PlayerSnapshotPacket::PlayerSnapshotPacket(const ClientHandler& handler, uint16 clientID) : Packet(Net::PACKET_SNAPSHOT)
 	{
+		ClientTickNumber = handler.GetClientTick(clientID);
 		TickNumber = Server.GetTick();
 		Timestamp = Server.RunningTime();
 		ServerTakeSnapshot(handler);

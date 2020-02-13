@@ -32,6 +32,7 @@ namespace Skel::Net
 
 
 	inline constexpr int	 PREDICTED_STATES = 512; // ticks to keep in memory
+	inline constexpr int	 INPUTS_PACKED = 16;		 // amount of previous inputs to send
 
 	void Init();
 	Address GetServerAddress();

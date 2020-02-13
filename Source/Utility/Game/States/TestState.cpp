@@ -116,7 +116,9 @@ namespace Skel::GameStates
 			{
 				Net::Buffer buffer;
 
-				PlayerInputState input = { Input.IsKeyDown(KEY_W), Input.IsKeyDown(KEY_S) };
+				if (Input.IsKeyPressed(KEY_SPACE))
+					LOG("Jumped at time: {0}", Game.RunningTime());
+				PlayerInputState input = { Input.IsKeyDown(KEY_W), Input.IsKeyDown(KEY_S), Input.IsKeyPressed(KEY_SPACE) };
 				Net::PlayerInputPacket packet(input, Client.GetClientID(), Game.GetTick(), Game.DeltaTimeUnscaled());
 
 				// Add to lag simulator

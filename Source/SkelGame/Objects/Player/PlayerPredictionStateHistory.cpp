@@ -33,38 +33,55 @@ namespace Skel {
 	}
 	// Will see if it needs to correct state, then returns new state with input applied
 	// Time parameter is time to look for
-	bool PlayerPredictionStateHistory::CorrectState(const PlayerSnapshotState& corrected, PlayerObject& player, double time)
+	bool PlayerPredictionStateHistory::CorrectState(const PlayerSnapshotState& corrected, PlayerObject& player, double time, uint64 clientTick)
 	{
+		uint64 ticksBehind = Game.GetTick() - clientTick;
+
+		m_LastValidatedTime = time; // debug purposes
+
+		// Exit out if same tick. Rare edge case. Impossible in high latency
+		if (ticksBehind == 0) return false;
+
 		// If nothing to compare to, snap to 'corrected' state 
-		if (m_Count == 0 || (m_PredictedMoveResults[m_Start].Time > time && m_LastValidatedTime < time)) {
-			m_LastValidatedTime = time;
+		if (m_Count == 0 || (ticksBehind > m_Count) ) {
+			LOG_WARN("Correcting client state. Cannot find appropriate record");
 			player.ApplySnapshotState(corrected);
+			
 			return true;
 		}
-		// Loop to find the relevant state in history
-		while (m_PredictedMoveResults[m_Start].Time < time) {
+		// Loop to find the relevant state in history. The state to compare corrected to
+		// Target State should be the state that the action occurred
+		uint64 targetStart = (m_End - ticksBehind - 1) % Net::PREDICTED_STATES;
+		while (m_Start != targetStart) {
+
 			RemoveOldest();
 			// If emptied history, corrected state is in the future. Should just snap to it.
 			// This may happen if your client is on pause/breakpoint
 			if (m_Count == 0) {
-				m_LastValidatedTime = time;
 				player.ApplySnapshotState(corrected);
 				LOG_WARN("Predicted move time is ahead of corrected state time. Delta: {0}", time - m_PredictedMoveResults[(m_Start - 1) % Net::PREDICTED_STATES].Time);
 				return true;
 			}
 		}
-		m_LastValidatedTime = m_PredictedMoveResults[m_Start].Time; // Rounding validation time up to next state time
-
+		
+		// The state in which the action occured
+		PredictedMoveResult relevant = m_PredictedMoveResults[m_Start];
 		const float sqrPosDeltaThreshold = 0.2f;
-		float sqrPosDelta = glm::length2(m_PredictedMoveResults[m_Start].State.Position - corrected.Position);
-		if (sqrPosDelta > sqrPosDeltaThreshold) {
+		float sqrPosDelta = glm::length2(relevant.State.Position - corrected.Position);
+
+		// Check next state also
+		PredictedMoveResult relevant2 = m_PredictedMoveResults[(m_Start + 1) % Net::PREDICTED_STATES];
+		float sqrPosDelta2 = glm::length2(relevant2.State.Position - corrected.Position);
+		
+		if (sqrPosDelta > sqrPosDeltaThreshold && sqrPosDelta2 > sqrPosDeltaThreshold) {
 			LOG("Correcting state at Time {0} | Pos Sqrd Difference: {1} | Delta Time: {2}",
-				time, sqrPosDelta, time - m_PredictedMoveResults[m_Start].Time);
-			m_PredictedMoveResults[m_Start].State = corrected;
+				time, sqrPosDelta, time - relevant.Time);
+
 			// Update player to corrected state. [buffer + latency] ms in the past
 			player.ApplySnapshotState(corrected);
+
 			// Update all states after with the correction
-			for (int i = 1; i < m_Count; ++i) {
+			for (int i = 0; i < m_Count; ++i) {
 				int index = (m_Start + i) % Net::PREDICTED_STATES;
 				PredictedMove& move = m_PredictedMoves[index];
 				player.ProcessInput(move.InputState, move.DeltaTime);
@@ -74,5 +91,20 @@ namespace Skel {
 			return true;
 		}
 		return false;
+	}
+	// Returns the n newest states (excluding newest)
+	std::vector<PlayerInputState> PlayerPredictionStateHistory::RecentInputs(uint8 num) const
+	{
+		std::vector<PlayerInputState> recent;
+		recent.reserve(num);
+		
+		int index = ((m_End - 2) + Net::PREDICTED_STATES) % Net::PREDICTED_STATES; // State before newest
+		for (int i = 0; i < num; i++) {
+			ASSERT(index >= 0, "index must be non-negative")
+			recent.push_back(m_PredictedMoves[index].InputState);
+			index = ((index - 1) + Net::PREDICTED_STATES )% Net::PREDICTED_STATES;
+		}
+
+		return recent;
 	}
 }

@@ -3,6 +3,7 @@
 #include <EventSystem/Events/MouseEvent.h>
 #include <EventSystem/Events/KeyEvent.h>
 #include <EventSystem/Subject.h>
+#include <Containers/BitArray.h>
 #include "Keys.h"
 
 #define Input InputManager::Instance()
@@ -25,11 +26,15 @@ namespace Skel
 		Vector2 GetMousePosition() const;
 		void SetMousePosition(Vector2 mousePos);
 		bool IsKeyDown(int keyCode);
+		bool IsKeyPressed(int keyCode);
+		void ResetKeyPressedStates();
 	private:
-		InputManager() {};
-
 		static const int MAX_KEYS = 1024;
-		bool m_KeysDown[MAX_KEYS];
+		InputManager() : m_KeysDown(MAX_KEYS), m_KeysPressed(MAX_KEYS) {};
+
+		
+		BitArray m_KeysDown;
+		BitArray m_KeysPressed;
 		Vector2 m_MousePosition;
 
 		// Callback functions

@@ -3,22 +3,23 @@
 
 namespace Skel
 {
-	template <class N>
+	// Bit Array where N is how many bits you want
 	class BitArray
 	{
 	public:
 
 		BitArray(int size)
 		{
-			ASSERT(size > 0, "BitArray must have starting size");
 			m_Size = size;
-			// calculates # of bytes needed by multiples of 8 bytes at a time
-			m_Bytes = 8 * ((size / 64) + ((size % 64) ? 1 : 0)); 
-			ASSERT(m_Bytes > 0, "Bytes needed must be positive");
+			ASSERT(m_Size > 0, "BitArray must have starting size");
+			m_Bytes = 8* ((m_Size / 64) + ((m_Size % 64) ? 1 : 0));
+			m_Data = new uint64[m_Bytes];
 			Clear();
 		}
 
-		~BitArray() { }
+		~BitArray() {
+			delete[] m_Data;
+		}
 
 		void Clear()
 		{
@@ -32,7 +33,8 @@ namespace Skel
 			const int data_index = index >> 6;
 			const int bit_index = index & ((1 << 6) - 1);
 			ASSERT(bit_index >= 0 && bit_index < 64, "Bit index out of bounds");
-			m_Data[data_index] |= BIT(bit_index);
+			uint64 bit = uint64(1) << index;
+			m_Data[data_index] |= bit;
 		}
 
 		void ClearBit(int index)
@@ -40,7 +42,8 @@ namespace Skel
 			ASSERT(index >= 0 && index < m_Size, "Index out of bounds");
 			const int data_index = index >> 6;
 			const int bit_index = index & ((1 << 6) - 1);
-			m_Data[data_index] &= ~(BIT(bit_index));
+			uint64 bit = uint64(1) << index;
+			m_Data[data_index] &= ~(bit);
 		}
 
 		uint64_t GetBit(int index) const
@@ -53,14 +56,15 @@ namespace Skel
 		}
 
 		int GetSize() const { return m_Size; }
+		int GetBytes() const { return m_Bytes; }
 
 	private:
-		BitArray(const BitArray& other);
-		BitArray& operator = (const BitArray& other);
+		BitArray(const BitArray& other) {};
+		BitArray& operator = (const BitArray& other) {ASSERT(false, "Not supported")};
 
 		int m_Size;
 		int m_Bytes;
-		uint64_t m_Data[N];
+		uint64_t* m_Data;
 
 		
 	};

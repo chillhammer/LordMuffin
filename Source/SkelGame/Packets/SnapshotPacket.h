@@ -21,9 +21,10 @@ namespace Skel::Net
 	{
 	public:
 		PlayerSnapshotPacket() : Net::Packet(Net::PACKET_SNAPSHOT) {}
-		PlayerSnapshotPacket(const ClientHandler& handler); // Only for creation on server
+		PlayerSnapshotPacket(const ClientHandler& handler, uint16 clientID); // Only for creation on server
 
-		uint64 TickNumber;
+		uint64 ClientTickNumber;	// used for client-side prediction
+		uint64 TickNumber;			// server tick
 		double Timestamp;
 		
 		const std::vector<SnapshotEntry>& GetSnapshotEntries() const {
@@ -38,6 +39,7 @@ namespace Skel::Net
 		void WriteToBuffer_Internal(Net::Buffer& buffer) override {
 
 			// Tick
+			B_WRITE(ClientTickNumber);
 			B_WRITE(TickNumber);
 			B_WRITE(Timestamp);
 
@@ -61,6 +63,7 @@ namespace Skel::Net
 		void ReadFromBuffer_Internal(Net::Buffer& buffer) override {
 
 			// Tick
+			B_READ(ClientTickNumber);
 			B_READ(TickNumber);
 			B_READ(Timestamp);
 

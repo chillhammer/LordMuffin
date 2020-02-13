@@ -102,8 +102,29 @@ namespace Skel::Net {
 					if (m_ClientHandler.IsActive(packet.ClientID)) {
 						PlayerInputState input = packet.InputState;
 						PlayerObject& obj = playerObjs[packet.ClientID];
+
+						// Update latest client tick, will also ack and process input
+						if (packet.ClientTick > m_ClientHandler.GetClientTick(packet.ClientID)) {
+							m_ClientHandler.UpdateClientTick(packet.ClientID, packet.ClientTick);
+							obj.ProcessInput(input, packet.DeltaTime);
+							//if (packet.InputState.Jump) LOG("Jumping from New Packet");
+						} 
+						// Process Old Input (stale tick)
+						else if (m_ClientHandler.TryInputAck(packet.ClientID, packet.ClientTick)) {
+							obj.ProcessInput(input, packet.DeltaTime);
+							// if (packet.InputState.Jump) LOG("Jumping from Stale Tick Input");
+						}
 						
-						obj.ProcessInput(input, packet.DeltaTime);
+						// Check Recent Previous Inputs for un-acked states
+						for (int i = 0; i < Net::INPUTS_PACKED; ++i) {
+							uint64 oldTick = packet.ClientTick - 1 - i;
+							if (m_ClientHandler.TryInputAck(packet.ClientID, oldTick)) {
+								// Processing Old Inputs using new input delta time
+								// This is bad, but I think it's better than having to do N delta times (8 bytes each)
+								obj.ProcessInput(packet.RecentInputs[i], packet.DeltaTime); 
+								// if (packet.RecentInputs[i].Jump) LOG("Jumping from Input Ack");
+							}
+						}
 					}
 					else
 					{
@@ -124,12 +145,14 @@ namespace Skel::Net {
 			if (m_TimeSinceSnapshotSent >= SNAPSHOT_RATE)
 			{
 				m_TimeSinceSnapshotSent = 0.0;
-				// Creates Snapshot
-				WRITE_PACKET(PlayerSnapshotPacket, (m_ClientHandler), buffer); // Takes snapshot of all player objects
+				
 
 				// Broadcast to Active Clients
 				const std::vector<ClientSlot>& clientSlots = m_ClientHandler.GetClientSlots();
 				for (const ClientSlot& slot : clientSlots) {
+					// Creates Snapshot
+					WRITE_PACKET(PlayerSnapshotPacket, (m_ClientHandler, slot.ID), buffer); // Takes snapshot of all player objects
+
 
 					FakeLagPackets.AddPacket(packet, slot.ClientAddress);
 					//m_Server.SendBuffer(buffer, slot.ClientAddress);

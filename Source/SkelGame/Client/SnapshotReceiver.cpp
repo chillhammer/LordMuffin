@@ -8,14 +8,23 @@ namespace Skel::Net {
 	void SnapshotReceiver::ReceiveSnapshotPacket(const PlayerSnapshotPacket& packet)
 	{
 		uint64 tick = packet.TickNumber;
-		double snapshotTime = packet.Timestamp - Client.GetSynchronizer().Offset() + Client.GetSynchronizer().Latency() + SNAPSHOT_INTER_BUFFER;
+		double snapshotTime = packet.Timestamp - Client.GetSynchronizer().Offset() + std::max(0.0, /*- Client.GetSynchronizer().Latency()*/ + SNAPSHOT_INTER_BUFFER);
 
-		if (tick > m_LastReceivedTick && Client.GetSynchronizer().IsSynchronized()) {
-			m_LastReceivedTick = tick;
+		if (tick > m_LastReceivedServerTick && Client.GetSynchronizer().IsSynchronized()) {
+			m_LastReceivedServerTick = tick;
+			m_LastReceivedClientTick = packet.ClientTickNumber;
 
 			m_ActiveClients.clear();
 
 			const auto& entries = packet.GetSnapshotEntries();
+
+			// Validate Client-Side Prediction
+			auto& playerEntry = std::find_if(entries.begin(), entries.end(), [](const SnapshotEntry& s) { return s.ClientID == Client.GetClientID(); });
+
+			// Check against predicted output and do corrections. Updates player object state if needed
+			double calculatedClientTime = Game.RunningTime() - (Client.GetSynchronizer().Latency() * 2 + Net::SNAPSHOT_INTER_BUFFER);
+			// Calculated time is off... I think i should send prediction ID instead
+			Client.GetPredictionHistory().CorrectState(playerEntry->State, m_PlayerObjectArray[playerEntry->ClientID], calculatedClientTime, m_LastReceivedClientTick);
 
 			// Add to queue to update the world state in Update()
 			m_ReceivedStates.emplace(entries, snapshotTime);
@@ -90,7 +99,8 @@ namespace Skel::Net {
 		player.ApplySnapshotState(state);
 	}
 
-	// Apply list of snapshot entries
+	// Apply list of snapshot entries. Runs once a tick
+	// Will handle Player edge-case for client-side prediction validation
 	void SnapshotReceiver::ApplySnapshotEntries(const std::vector<SnapshotEntry>& entries)
 	{
 		m_ActiveClients.clear();
@@ -100,9 +110,7 @@ namespace Skel::Net {
 			PlayerObject& playerObj = m_PlayerObjectArray[entry.ClientID];
 
 			if (entry.ClientID == Client.GetClientID()) {
-				// Check against predicted output and do corrections. Updates player object state if needed
-				double calculatedClientTime = Game.RunningTime() - (Client.GetSynchronizer().Latency() + Net::SNAPSHOT_INTER_BUFFER);
-				Client.GetPredictionHistory().CorrectState(entry.State, playerObj, calculatedClientTime);
+				
 
 				continue;
 			}

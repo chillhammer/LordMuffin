@@ -22,7 +22,10 @@ namespace Skel::Net
 		uint16 ActivePlayers() const { return m_ActivePlayers; }
 		uint16 RemainingSlots() const { return MAX_PLAYERS - m_ActivePlayers; }
 		uint16 AddPlayer(Address address);
-		uint16 GetClientIndex(const Address& address);
+		uint16 GetClientIndex(const Address& address) const;
+		uint64 GetClientTick(uint16 clientIndex) const;
+		void   UpdateClientTick(uint16 clientIndex, uint64 tick);
+		bool   TryInputAck(uint16 clientIndex, uint64 tick);
 		void RemovePlayer(uint16 clientIndex);
 		void SetPlayerObjectArray(class PlayerObject* arr) { m_PlayerObjectArray = arr; }
 		bool IsActive(uint16 clientID) const;
@@ -36,6 +39,10 @@ namespace Skel::Net
 
 	private:
 		bool m_SlotAvailability[MAX_PLAYERS];
+		uint64 m_LatestTick[MAX_PLAYERS];
+		uint64 m_InputAcks[MAX_PLAYERS];
+
+
 		std::vector<ClientSlot> m_ClientSlots; // List of active player addresses
 		class PlayerObject* m_PlayerObjectArray; // Active/Non-active player objects
 		uint16 m_ActivePlayers = 0;

@@ -76,6 +76,7 @@ namespace Skel
 
 		#pragma endregion
 
+		Input.ResetKeyPressedStates();
 		// Poll Window Events
 		m_Window.OnUpdate();
 

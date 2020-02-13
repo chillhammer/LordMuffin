@@ -6,5 +6,6 @@ namespace Skel
 	{
 		bool Forward = false;
 		bool Back = false;
+		bool Jump = false;
 	};
 }

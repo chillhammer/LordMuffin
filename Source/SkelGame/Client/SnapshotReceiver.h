@@ -30,7 +30,8 @@ namespace Skel::Net
 		std::vector<SnapshotEntry> InterpolateRecords(const SnapshotRecord& a, const SnapshotRecord& b);
 		std::queue<SnapshotRecord> m_ReceivedStates;
 		PlayerSnapshotState m_LastReceivedState;
-		uint64 m_LastReceivedTick = 0;
+		uint64 m_LastReceivedServerTick = 0;
+		uint64 m_LastReceivedClientTick = 0;
 		class PlayerObject* m_PlayerObjectArray; // Active/Non-active player objects
 		std::vector<uint16> m_ActiveClients;
 		bool m_ReceivedFirst = false;

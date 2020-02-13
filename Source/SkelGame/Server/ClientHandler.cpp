@@ -8,6 +8,8 @@ namespace Skel::Net {
 		m_ClientSlots.reserve(MAX_PLAYERS);
 		for (int i = 0; i < MAX_PLAYERS; ++i) {
 			m_SlotAvailability[i] = true;
+			m_LatestTick[i] = 0;	// acceptable cache-thrash
+			m_InputAcks[i] = 0;
 		}
 	}
 	uint16 ClientHandler::AddPlayer(Address playerAddress)
@@ -24,17 +26,51 @@ namespace Skel::Net {
 
 		return playerIndex;
 	}
-	uint16 ClientHandler::GetClientIndex(const Address& address)
+	uint16 ClientHandler::GetClientIndex(const Address& address) const
 	{
 		auto slot = std::find_if(m_ClientSlots.begin(), m_ClientSlots.end(),
 			[&addr = address](const ClientSlot& s) -> bool { return addr == s.ClientAddress; });
 		return slot->ID;
+	}
+	uint64 ClientHandler::GetClientTick(uint16 clientIndex) const
+	{
+		return m_LatestTick[clientIndex];
+	}
+	void ClientHandler::UpdateClientTick(uint16 clientIndex, uint64 tick)
+	{
+		TryInputAck(clientIndex, tick);
+
+		m_LatestTick[clientIndex] = tick;
+	}
+	// Input acks. Will shift if needed. Returns true if not input acked, and thus successfully acks
+	bool ClientHandler::TryInputAck(uint16 clientIndex, uint64 tick)
+	{
+		uint64 latest = GetClientTick(clientIndex);
+		uint64& ack = m_InputAcks[clientIndex];
+		ASSERT(latest != tick, "Should not Ack current tick");
+		// Shifts to make space and then acks
+		if (tick > latest) {
+			uint16 offset = tick - latest;
+			ack <<= offset;
+			ack |= 1;
+		}
+		// Finds and acks appropriate bit
+		else {
+			uint16 offset = latest - tick;
+			// Return false if already acked
+			uint64 bitState = m_InputAcks[clientIndex] & (uint64(1) << offset);
+			if (bitState > 0) return false;
+
+			ack |= (uint64(1) << offset);
+		}
+		return true;
 	}
 	void ClientHandler::RemovePlayer(uint16 clientIndex)
 	{
 		ASSERT(!m_SlotAvailability[clientIndex], "Cannot remove empty slot");
 
 		m_SlotAvailability[clientIndex] = true;
+		m_LatestTick[clientIndex] = 0;
 
 		auto toBeRemoved = std::find_if(m_ClientSlots.begin(), m_ClientSlots.end(),
 			[&index = clientIndex] (const ClientSlot& s) -> bool { return index == s.ID; });

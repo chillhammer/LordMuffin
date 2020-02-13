@@ -106,7 +106,7 @@ namespace Skel::Net {
 		return m_SyncDataSlots[m_ToBeSentIndex - 1].SentTime;
 	}
 
-	// Average latency in seconds
+	// Average latency in seconds. Half of RTT
 	double ClientSynchronizer::Latency()
 	{
 		return m_AverageLatency;
