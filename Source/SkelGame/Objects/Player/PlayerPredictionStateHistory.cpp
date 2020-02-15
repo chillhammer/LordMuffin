@@ -74,7 +74,7 @@ namespace Skel {
 		float sqrPosDelta2 = glm::length2(relevant2.State.Position - corrected.Position);
 		
 		if (sqrPosDelta > sqrPosDeltaThreshold && sqrPosDelta2 > sqrPosDeltaThreshold) {
-			LOG("Correcting state at Time {0} | Pos Sqrd Difference: {1} | Delta Time: {2}",
+  			LOG("Correcting state at Time {0} | Pos Sqrd Difference: {1} | Delta Time: {2}",
 				time, sqrPosDelta, time - relevant.Time);
 
 			// Update player to corrected state. [buffer + latency] ms in the past
@@ -93,12 +93,13 @@ namespace Skel {
 		return false;
 	}
 	// Returns the n newest states (excluding newest)
+	// When this called, this tick's input should not be in state history
 	std::vector<PlayerInputState> PlayerPredictionStateHistory::RecentInputs(uint8 num) const
 	{
 		std::vector<PlayerInputState> recent;
 		recent.reserve(num);
 		
-		int index = ((m_End - 2) + Net::PREDICTED_STATES) % Net::PREDICTED_STATES; // State before newest
+		int index = ((m_End - 1) + Net::PREDICTED_STATES) % Net::PREDICTED_STATES; // All states
 		for (int i = 0; i < num; i++) {
 			ASSERT(index >= 0, "index must be non-negative")
 			recent.push_back(m_PredictedMoves[index].InputState);

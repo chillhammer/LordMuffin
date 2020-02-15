@@ -107,12 +107,12 @@ namespace Skel::Net {
 						if (packet.ClientTick > m_ClientHandler.GetClientTick(packet.ClientID)) {
 							m_ClientHandler.UpdateClientTick(packet.ClientID, packet.ClientTick);
 							obj.ProcessInput(input, packet.DeltaTime);
-							//if (packet.InputState.Jump) LOG("Jumping from New Packet");
+							//if (packet.InputState.Jump) LOG("Jumping from New Packet. Tick: {0}", packet.ClientTick);
 						} 
 						// Process Old Input (stale tick)
 						else if (m_ClientHandler.TryInputAck(packet.ClientID, packet.ClientTick)) {
 							obj.ProcessInput(input, packet.DeltaTime);
-							// if (packet.InputState.Jump) LOG("Jumping from Stale Tick Input");
+							//if (packet.InputState.Jump) LOG("Jumping from Stale Tick Input");
 						}
 						
 						// Check Recent Previous Inputs for un-acked states
@@ -122,7 +122,8 @@ namespace Skel::Net {
 								// Processing Old Inputs using new input delta time
 								// This is bad, but I think it's better than having to do N delta times (8 bytes each)
 								obj.ProcessInput(packet.RecentInputs[i], packet.DeltaTime); 
-								// if (packet.RecentInputs[i].Jump) LOG("Jumping from Input Ack");
+								 //if (packet.RecentInputs[i].Jump) 
+ 									 //LOG("Jumping from Input Ack");
 							}
 						}
 					}

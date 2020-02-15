@@ -48,6 +48,17 @@ namespace Skel::Net
 						sender->SendBuffer(*buffer, front.Recipient);
 					}
 				}
+				else {
+					// DEBUG: Print jump packet
+					if (typeid(P) == typeid(PlayerInputPacket)) {
+
+						//PlayerInputPacket& packet = reinterpret_cast<PlayerInputPacket>(front.DelayedPacket);
+						PlayerInputPacket* packet = (PlayerInputPacket*)&front.DelayedPacket;	
+						if (packet->InputState.Jump) {
+							LOG("Jump was missed! Tick: {0}", packet->ClientTick);
+						}
+					}
+				}
 
 				if (m_PacketEntries.empty())
 					break;

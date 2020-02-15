@@ -13,7 +13,10 @@ namespace Skel::Net
 	public:
 		PlayerInputPacket() : Net::Packet(Net::PACKET_INPUT) {}
 		PlayerInputPacket(PlayerInputState& input, uint16 clientID, uint64 clientTick, double delta) : 
-			Packet(Net::PACKET_INPUT), InputState(input), ClientID(clientID), ClientTick(clientTick), DeltaTime(delta) {}
+			Packet(Net::PACKET_INPUT), InputState(input), ClientID(clientID), ClientTick(clientTick), DeltaTime(delta) {
+			// Grabbing Recent Inputs here and not WriteToBuffer because of FakeLag
+			RecentInputs = Client.GetPredictionHistory().RecentInputs(Net::INPUTS_PACKED);
+		}
 		PlayerInputState InputState;
 		std::vector<PlayerInputState> RecentInputs;
 		uint16 ClientID;
@@ -34,7 +37,7 @@ namespace Skel::Net
 
 			B_WRITE(state);
 
-			RecentInputs = Client.GetPredictionHistory().RecentInputs(Net::INPUTS_PACKED);
+			ASSERT(RecentInputs.size() == Net::INPUTS_PACKED, "RecentInputs should be filled in constructor");
 			for (const PlayerInputState& recentInput : RecentInputs) {
 				state = 0;
 				state |= recentInput.Forward;

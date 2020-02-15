@@ -116,8 +116,8 @@ namespace Skel::GameStates
 			{
 				Net::Buffer buffer;
 
-				if (Input.IsKeyPressed(KEY_SPACE))
-					LOG("Jumped at time: {0}", Game.RunningTime());
+				//if (Input.IsKeyPressed(KEY_SPACE))
+					//LOG("Jumped at time: {0}\tTick: {1}", Game.RunningTime(), Game.GetTick());
 				PlayerInputState input = { Input.IsKeyDown(KEY_W), Input.IsKeyDown(KEY_S), Input.IsKeyPressed(KEY_SPACE) };
 				Net::PlayerInputPacket packet(input, Client.GetClientID(), Game.GetTick(), Game.DeltaTimeUnscaled());
 
