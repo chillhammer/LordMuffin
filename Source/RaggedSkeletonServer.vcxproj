@@ -177,6 +177,9 @@
     <ClInclude Include="Utility\GameObject\GameObject.h" />
     <ClInclude Include="Utility\Graphics\Model\ImportedMesh.h" />
     <ClInclude Include="Utility\Graphics\Model\ImportedModel.h" />
+    <ClInclude Include="Utility\Graphics\Model\ImportedSkinnedAnimation.h" />
+    <ClInclude Include="Utility\Graphics\Model\ImportedSkinnedMesh.h" />
+    <ClInclude Include="Utility\Graphics\Model\ImportedSkinnedModel.h" />
     <ClInclude Include="Utility\Graphics\Model\Mesh.h" />
     <ClInclude Include="Utility\Graphics\Model\Model.h" />
     <ClInclude Include="Utility\Graphics\Model\SingleMeshModel.h" />
@@ -239,6 +242,8 @@
     <ClCompile Include="Utility\GameObject\GameObject.cpp" />
     <ClCompile Include="Utility\Graphics\Model\ImportedMesh.cpp" />
     <ClCompile Include="Utility\Graphics\Model\ImportedModel.cpp" />
+    <ClCompile Include="Utility\Graphics\Model\ImportedSkinnedMesh.cpp" />
+    <ClCompile Include="Utility\Graphics\Model\ImportedSkinnedModel.cpp" />
     <ClCompile Include="Utility\Graphics\Model\Mesh.cpp" />
     <ClCompile Include="Utility\Graphics\Model\Skybox.cpp" />
     <ClCompile Include="Utility\Graphics\OpenGL\Cubemap.cpp" />

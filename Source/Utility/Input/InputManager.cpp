@@ -86,6 +86,7 @@ namespace Skel
 	bool InputManager::OnKeyPressed(KeyPressedEvent e)
 	{
 		int key = e.KeyCode;
+		if (key == -1) return false;
 		m_KeysDown.SetBit(key);
 		m_KeysPressed.SetBit(key);
 		ASSERT(m_KeysPressed.GetBit(key) > 0, "Must be true since you just set it");

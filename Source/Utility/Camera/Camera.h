@@ -4,7 +4,7 @@
 
 namespace Skel
 {
-	enum CameraMode { NoClip, Pivot, Frozen };
+	enum CameraMode { NoClip, Pivot, FirstPerson, Frozen };
 	class Camera : IObserver
 	{
 	public:

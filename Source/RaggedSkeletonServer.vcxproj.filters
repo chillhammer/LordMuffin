@@ -312,6 +312,9 @@
     <ClInclude Include="SkelGame\FakeLag\FakeLagPacketHolderManager.h" />
     <ClInclude Include="Utility\Containers\BitArray.h" />
     <ClInclude Include="SkelGame\Objects\Player\PlayerPredictionStateHistory.h" />
+    <ClInclude Include="Utility\Graphics\Model\ImportedSkinnedModel.h" />
+    <ClInclude Include="Utility\Graphics\Model\ImportedSkinnedMesh.h" />
+    <ClInclude Include="Utility\Graphics\Model\ImportedSkinnedAnimation.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PCH\SkelPCH.cpp">
@@ -443,5 +446,7 @@
     <ClCompile Include="SkelGame\Client\SnapshotReceiver.cpp" />
     <ClCompile Include="SkelGame\Client\ClientSynchronizer.cpp" />
     <ClCompile Include="SkelGame\Objects\Player\PlayerPredictionStateHistory.cpp" />
+    <ClCompile Include="Utility\Graphics\Model\ImportedSkinnedModel.cpp" />
+    <ClCompile Include="Utility\Graphics\Model\ImportedSkinnedMesh.cpp" />
   </ItemGroup>
 </Project>

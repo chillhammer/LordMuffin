@@ -18,6 +18,7 @@ namespace Skel::GameStates
 		Camera m_Camera;
 		Vector3 m_Light;
 		ShaderPtr m_Shader;
+		ShaderPtr m_SkinnedShader;
 		ShaderPtr m_DebugShader;
 		WoodenBox m_Box;
 		PlayerObject m_Player;

@@ -2,6 +2,7 @@
 #include <SkelPCH.h>
 #include <Graphics/Model/Mesh.h>
 #include <Graphics/Model/Model.h>
+#include <Graphics/Model/ImportedSkinnedModel.h>
 #include <Graphics/OpenGL/Texture.h>
 #include <Graphics/Text/Font.h>
 
@@ -35,16 +36,18 @@ namespace Skel
 		models.emplace("SuitRed",		new ImportedModel("../Assets/Models/Suit/suit-red.obj"));
 		models.emplace("FedoraAgent",	new ImportedModel("../Assets/Models/FedoraAgent/fedora-agent.obj"));
 		models.emplace("Fedora",		new ImportedModel("../Assets/Models/Fedora/fedora.obj"));
+		models.emplace("Bendy",			new ImportedSkinnedModel("../Assets/Models/Bendy/Bendy.fbx"));
 		models.emplace("WoodenBox",		new WoodenBoxModel());
 
 
 		// Shaders
-		shaders.emplace("Basic",	new Shader("Shaders/Basic.shader"));
-		shaders.emplace("Model",	new Shader("Shaders/Model.shader"));
-		shaders.emplace("Debug",	new Shader("Shaders/Debug.shader"));
-		shaders.emplace("UI",		new Shader("Shaders/UI.shader"));
-		shaders.emplace("Text",		new Shader("Shaders/Text.shader"));
-		shaders.emplace("Skybox",	new Shader("Shaders/Skybox.shader"));
+		shaders.emplace("Basic",		new Shader("Shaders/Basic.shader"));
+		shaders.emplace("Model",		new Shader("Shaders/Model.shader"));
+		shaders.emplace("SkinnedModel",	new Shader("Shaders/SkinnedModel.shader"));
+		shaders.emplace("Debug",		new Shader("Shaders/Debug.shader"));
+		shaders.emplace("UI",			new Shader("Shaders/UI.shader"));
+		shaders.emplace("Text",			new Shader("Shaders/Text.shader"));
+		shaders.emplace("Skybox",		new Shader("Shaders/Skybox.shader"));
 
 
 		// Fonts

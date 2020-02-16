@@ -11,7 +11,7 @@ namespace Skel
 {
 	Camera::Camera()
 		:	m_Speed(7.8f), m_Sensitivity(12.f), m_Yaw(180), m_TargetYaw(180),
-			Mode(CameraMode::Pivot), m_PivotLength(4.9f), m_PivotOffset(0, 2.3f, 0.4f),
+			Mode(CameraMode::FirstPerson), m_PivotLength(4.9f), m_PivotOffset(0, 2.3f, 0.4f),
 			m_PivotPosition(0, 0, 0)
 	{
 		ObjectTransform.Position.z = 2.f;
@@ -66,12 +66,12 @@ namespace Skel
 			ObjectTransform.SetPitch(m_Pitch);
 			ObjectTransform.SetYaw(m_Yaw);
 		}
-		// Third-Person Pivoting
-		if (Mode == CameraMode::Pivot)
+		// Third-Person Pivoting or First Person
+		if (Mode == CameraMode::Pivot || Mode == CameraMode::FirstPerson)
 		{
 			// Look Around
-			m_Pitch -= m_DeltaMousePosition.y * m_Sensitivity * Game.DeltaTime();
-			m_Yaw += m_DeltaMousePosition.x * m_Sensitivity * Game.DeltaTime();
+			m_Pitch -= m_DeltaMousePosition.y * m_Sensitivity * Game.DeltaTimeUnscaled();
+			m_Yaw += m_DeltaMousePosition.x * m_Sensitivity * Game.DeltaTimeUnscaled();
 			m_Pitch = glm::clamp<float>(m_Pitch, -10, -10);
 
 			ObjectTransform.SetPitch(m_Pitch);
@@ -79,6 +79,7 @@ namespace Skel
 
 			UpdatePivotPosition();
 		}
+
 
 
 		// Reset Delta Movement
@@ -129,9 +130,9 @@ namespace Skel
 	// Calculate new position when pivoting
 	void Camera::UpdatePivotPosition()
 	{
-		if (Mode != CameraMode::Pivot)
+		if (Mode != CameraMode::Pivot && Mode != CameraMode::FirstPerson)
 			return;
-		Vector3 pivotStick = m_PivotLength * -1 * ObjectTransform.GetHeading();
+		Vector3 pivotStick = m_PivotLength * -1 * ObjectTransform.GetHeading() * (Mode == CameraMode::Pivot ? 1.0f : 0.0f);
 		Matrix4x4 rotMat = glm::eulerAngleXYZ(0.f, glm::radians(-ObjectTransform.GetYaw()), 0.f);
 		Vector3 rotatedPivotOffset = rotMat * Vector4(m_PivotOffset, 1);
 		ObjectTransform.Position = m_PivotPosition + rotatedPivotOffset + pivotStick;
@@ -148,7 +149,7 @@ namespace Skel
 		if (Input.GetMousePosition() != Vector2(0, 0) && !Game.IsPaused()) // Initial Mouse Delta Jump Ignored
 		{
 			m_DeltaMousePosition = Vector2(e.MouseX - midWindowX, e.MouseY - midWindowY);
-			if (glm::length2(m_DeltaMousePosition) > DELTA_CAP * DELTA_CAP)
+			if (glm::length2(m_DeltaMousePosition) > DELTA_CAP * DELTA_CAP || Game.TimeScale() == 0.0f)
 				m_DeltaMousePosition = Vector2(0.0f, 0.0f);
 		}
 		if (!Game.IsPaused() && Game.TimeScale() != 0.0f)
@@ -162,7 +163,10 @@ namespace Skel
 		switch (e.KeyCode)
 		{
 		case KEY_C:
-			Mode = (Mode == CameraMode::NoClip ? CameraMode::Pivot : CameraMode::NoClip);
+			Mode = (Mode == CameraMode::NoClip ? CameraMode::FirstPerson : CameraMode::NoClip);
+			break;
+		case KEY_B:
+			Mode = (Mode == CameraMode::Pivot ? CameraMode::FirstPerson : CameraMode::Pivot);
 			break;
 		case KEY_V:
 			if (Mode == CameraMode::Frozen)

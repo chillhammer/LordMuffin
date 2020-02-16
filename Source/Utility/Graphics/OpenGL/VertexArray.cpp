@@ -41,8 +41,14 @@ namespace Skel
 		{
 			const auto& element = elements[i];
 			GLCall(glEnableVertexAttribArray(i));
-			GLCall(glVertexAttribPointer(i, element.count, element.type,
-				element.normalized, layout.GetStride(), (const void*)offset));
+			if (element.type != GL_UNSIGNED_INT) {
+				GLCall(glVertexAttribPointer(i, element.count, element.type,
+					element.normalized, layout.GetStride(), (const void*)offset));
+			}
+			else {
+				GLCall(glVertexAttribIPointer(i, element.count, element.type,
+					layout.GetStride(), (const void*)offset));
+			}
 			offset += element.count * VertexBufferElement::GetSizeOfType(element.type);
 		}
 

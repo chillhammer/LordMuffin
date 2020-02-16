@@ -38,7 +38,7 @@ namespace Skel
 		template<typename T>
 		void Push(unsigned int count)
 		{
-			ASSERT(false);
+			ASSERT(false, "Failed");
 		}
 		
 		// Specified types
