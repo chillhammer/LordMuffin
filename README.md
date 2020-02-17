@@ -18,4 +18,4 @@ Includes a few minimalistic libraries: GLM, Assimp, GLFW, GLEW, spdlog, irrklang
 NOTE: RaggedSkeleton is the codename for this project.
 
 ### Test Scene Showcasing Multiple Players ###
-![early screenshot](https://imgur.com/4pHtZfv)
+![early screenshot](https://i.imgur.com/4pHtZfv.png)
