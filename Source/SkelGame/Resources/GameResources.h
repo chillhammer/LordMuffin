@@ -37,6 +37,8 @@ namespace Skel
 		models.emplace("FedoraAgent",	new ImportedModel("../Assets/Models/FedoraAgent/fedora-agent.obj"));
 		models.emplace("Fedora",		new ImportedModel("../Assets/Models/Fedora/fedora.obj"));
 		models.emplace("Bendy",			new ImportedSkinnedModel("../Assets/Models/Bendy/Bendy.fbx"));
+		models.emplace("Soldier",		new ImportedSkinnedModel("../Assets/Models/Soldier/Soldier.fbx"));
+		models.emplace("SoldierHead",	new ImportedModel("../Assets/Models/Soldier/SoldierHead.obj"));
 		models.emplace("WoodenBox",		new WoodenBoxModel());
 
 

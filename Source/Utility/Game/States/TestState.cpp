@@ -83,12 +83,30 @@ namespace Skel::GameStates
 		bendy->UpdateBoneShader(Resources.GetShader("SkinnedModel"));
 		bendy->Draw(Resources.GetShader("SkinnedModel"), Matrix4x4(0.5f));*/
 		//ModelPtr bendy = Resources.GetModel("Bendy");
-		/*ImportedSkinnedModel* bendy = (ImportedSkinnedModel*) & (*Resources.GetModel("Bendy"));
+
+
+		//ImportedSkinnedModel* bendy = (ImportedSkinnedModel*) & (*Resources.GetModel("Soldier"));
+		ImportedSkinnedModel* bendy = (ImportedSkinnedModel*) & (*Resources.GetModel("Bendy"));
+		if (Input.IsKeyDown(KEY_T)) {
+			bendy->SetAnimationIndex(1);
+		}
+		else {
+			bendy->SetAnimationIndex(0);
+		}
 		bendy->UpdateBoneTransforms(Game.RunningTime());
 		bendy->UpdateBoneShader(Resources.GetShader("SkinnedModel"));
-		bendy->Draw(Resources.GetShader("SkinnedModel"), Matrix4x4(0.1f));*/
+		Matrix4x4 bendyMatrix = Matrix4x4(1.0f);
 
+		Matrix4x4 posMat = glm::translate(posMat, Vector3(1.0f, 0.0f, 0.0f));
 
+		bendyMatrix *= posMat;
+
+		//bendy->Draw(Resources.GetShader("SkinnedModel"), bendyMatrix);
+
+		PlayerObject p;
+		p.ObjectTransform.Position = Vector3(-1.0f, 0.0f, -1.0f);
+		p.ObjectTransform.SetYaw(180.0f);
+		p.Draw(m_SkinnedShader);
 
 		// Connecting to Server!
 		if (!Client.Connected()) 
@@ -135,9 +153,14 @@ namespace Skel::GameStates
 			{
 				Net::Buffer buffer;
 
-				PlayerInputState input = { Input.IsKeyDown(KEY_W), Input.IsKeyDown(KEY_S), Input.IsKeyPressed(KEY_SPACE) };
-				if (m_Camera.Mode == CameraMode::NoClip)
+				PlayerObject& playerObj = m_PlayerObjectArray[Client.GetClientID()];
+				playerObj.ObjectTransform.SetYaw(m_Camera.ObjectTransform.GetYaw());
+
+				PlayerInputState input = { Input.IsKeyDown(KEY_W), Input.IsKeyDown(KEY_S), Input.IsKeyPressed(KEY_SPACE), playerObj.ObjectTransform.GetYaw() };
+				if (m_Camera.Mode == CameraMode::NoClip) {
 					input = PlayerInputState();
+					input.Yaw = playerObj.ObjectTransform.GetYaw();
+				}
 
 				Net::PlayerInputPacket packet(input, Client.GetClientID(), Game.GetTick(), Game.DeltaTimeUnscaled());
 
@@ -148,7 +171,6 @@ namespace Skel::GameStates
 				FakeLagPackets.PopAndSendToServer<Net::PlayerInputPacket>(buffer);
 				
 				// Client-predict for player
-				PlayerObject& playerObj = m_PlayerObjectArray[Client.GetClientID()];
 				playerObj.ProcessInput(input, Game.DeltaTimeUnscaled());
 
 				// Record personal input & state so that we can rollback
@@ -197,7 +219,7 @@ namespace Skel::GameStates
 		//m_Player.Draw();
 		const auto& activePlayers = Client.GetSnapshotReceiver().GetActiveClients();
 		for (uint16 clientID : activePlayers) {
-			m_PlayerObjectArray[clientID].Draw();
+			m_PlayerObjectArray[clientID].Draw(m_SkinnedShader);
 		}
 		
 	}

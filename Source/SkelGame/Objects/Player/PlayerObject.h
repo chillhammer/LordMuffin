@@ -7,9 +7,12 @@ namespace Skel
 	class PlayerObject : public GameObject
 	{
 	public:
-		PlayerObject() : GameObject("WoodenBox") {}
+		PlayerObject();
 
 		void ProcessInput(const PlayerInputState& input, float dt);
 		void ApplySnapshotState(const class PlayerSnapshotState& state);
+		virtual void PreDraw() override;
+	private:
+		ModelPtr m_HeadModel;
 	};
 }

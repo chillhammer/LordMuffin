@@ -32,13 +32,13 @@ namespace Skel
 			return;
 		}
 
-		aiAnimation* animation = m_Scene->mAnimations[0];
+		aiAnimation* animation = m_Scene->mAnimations[m_CurrentAnimationIndex];
 		float ticksPerSecond = (float)(animation->mTicksPerSecond != 0 ? animation->mTicksPerSecond : 25.0f);
 		float timeInTicks = runningTime * ticksPerSecond;
 		float animationDuration = (float)animation->mDuration;
 		float animationTime = std::fmod(timeInTicks, animationDuration);
 
-		LOG("TPS: {0} | TimeInTicks: {1} | Duration: {2}, Time {3}", ticksPerSecond, timeInTicks, animationDuration, animationTime);
+		//LOG("Name: {4} | TPS: {0} | TimeInTicks: {1} | Duration: {2}, Time {3}", ticksPerSecond, timeInTicks, animationDuration, animationTime, animation->mName.C_Str());
 
 
 		UpdateBoneNodeRecursive(animationTime, m_Scene->mRootNode, identity);
@@ -76,7 +76,7 @@ namespace Skel
 	{
 		std::string nodeName(node->mName.data);
 		
-		aiAnimation* animation = m_Scene->mAnimations[0];
+		aiAnimation* animation = m_Scene->mAnimations[m_CurrentAnimationIndex];
 
 		aiMatrix4x4 nodeTransformation(node->mTransformation);
 

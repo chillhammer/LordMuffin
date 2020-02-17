@@ -73,6 +73,7 @@ namespace Skel
 	}
 	void GameObject::Draw(const ShaderPtr & shader)
 	{
+		PreDraw();
 		if (m_Model == nullptr)
 			return;
 		m_Model->Draw(shader, ObjectTransform.GetMatrix());

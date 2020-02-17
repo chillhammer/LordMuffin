@@ -24,6 +24,9 @@ namespace Skel
 		void Draw(const ShaderPtr& shader, const Matrix4x4& model);
 		void UpdateBoneTransforms(float runningTime);
 		void UpdateBoneShader(ShaderPtr shader);
+		void SetAnimationIndex(uint16 index) {
+			m_CurrentAnimationIndex = index;
+		}
 	private:
 		struct BoneInfo
 		{
@@ -49,6 +52,7 @@ namespace Skel
 		std::map<aiAnimation*, std::map<std::string, aiNodeAnim*>> m_AnimationNodeMap;	// animation struct to animation node
 		const aiScene* m_Scene;
 		Assimp::Importer m_Importer;
+		uint16 m_CurrentAnimationIndex = 0;
 		aiMatrix4x4 m_GlobalInverseTransform;
 		// These are a tracker that are used to see how much we have as we load
 		uint8 m_NumBones = 0;

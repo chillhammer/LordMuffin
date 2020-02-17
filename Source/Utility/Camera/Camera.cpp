@@ -11,7 +11,7 @@ namespace Skel
 {
 	Camera::Camera()
 		:	m_Speed(7.8f), m_Sensitivity(12.f), m_Yaw(180), m_TargetYaw(180),
-			Mode(CameraMode::FirstPerson), m_PivotLength(4.9f), m_PivotOffset(0, 2.3f, 0.4f),
+			Mode(CameraMode::FirstPerson), m_PivotLength(4.9f), m_PivotOffset(0, 2.8f, 0.4f),
 			m_PivotPosition(0, 0, 0)
 	{
 		ObjectTransform.Position.z = 2.f;

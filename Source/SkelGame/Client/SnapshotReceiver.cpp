@@ -147,6 +147,9 @@ namespace Skel::Net {
 				interpolatedState.Position = (b.Entries[bIndex].State.Position - a.Entries[aIndex].State.Position) * t
 					+ a.Entries[aIndex].State.Position;
 
+				interpolatedState.Yaw = LerpAngle(a.Entries[aIndex].State.Yaw, b.Entries[bIndex].State.Yaw, t);
+				interpolatedState.Pitch = LerpAngle(a.Entries[aIndex].State.Pitch, b.Entries[bIndex].State.Pitch, t);
+
 				result.emplace_back(aID, interpolatedState);
 				++aIndex; ++bIndex;
 			}

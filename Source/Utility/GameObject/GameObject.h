@@ -23,6 +23,7 @@ namespace Skel
 		void Draw();
 		void Draw(const ShaderPtr& shader);
 		void DrawBoundingBox() const;
+		virtual void PreDraw() {}
 	public:
 		Transform ObjectTransform;
 		void SetBoundingBox(Vector3 center, Vector3 halfExtents);

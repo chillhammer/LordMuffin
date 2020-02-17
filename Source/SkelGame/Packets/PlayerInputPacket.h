@@ -36,6 +36,7 @@ namespace Skel::Net
 			state |= InputState.Jump	 << 2;
 
 			B_WRITE(state);
+			B_WRITE(InputState.Yaw);
 
 			ASSERT(RecentInputs.size() == Net::INPUTS_PACKED, "RecentInputs should be filled in constructor");
 			for (const PlayerInputState& recentInput : RecentInputs) {
@@ -44,12 +45,11 @@ namespace Skel::Net
 				state |= recentInput.Back << 1;
 				state |= recentInput.Jump << 2;
 				B_WRITE(state);
-				if (recentInput.Jump) {
-					int a = 1;
-				}
+				float recentYaw = recentInput.Yaw;
+				B_WRITE(recentYaw);
 			}
 
-			ASSERT(buffer.Length() == 20 + Net::INPUTS_PACKED, "Input Packet must be 20 + inputs_packed");
+			//ASSERT(buffer.Length() == 20 + Net::INPUTS_PACKED, "Input Packet must be 20 + inputs_packed");
 		}
 		// Inner function used to transcribe input
 		void ReadFromBuffer_Internal(Net::Buffer& buffer) override {
@@ -62,6 +62,7 @@ namespace Skel::Net
 			InputState.Forward	= state & BIT(0);
 			InputState.Back		= state & BIT(1);
 			InputState.Jump		= state & BIT(2);
+			B_READ(InputState.Yaw);
 
 			RecentInputs.clear();
 			RecentInputs.reserve(Net::INPUTS_PACKED);
@@ -72,14 +73,12 @@ namespace Skel::Net
 				input.Forward = state & BIT(0);
 				input.Back = state & BIT(1);
 				input.Jump = state & BIT(2);
-				if (input.Jump) {
-					
-				}
+				B_READ(input.Yaw);
 				RecentInputs.push_back(input);
 			}
 
 			// 1 (type) + 2 (clientID) + 8 (tick) + 8 (deltaTime) + 1(state) + inputs_packed(states)
-			ASSERT(buffer.GetReadPosition() == 20 + Net::INPUTS_PACKED, "Input Packet must be 20 bytes + inputs_packed"); 
+			//ASSERT(buffer.GetReadPosition() == 20 + Net::INPUTS_PACKED, "Input Packet must be 20 bytes + inputs_packed"); 
 		}
 	};
 }
