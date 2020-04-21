@@ -4,7 +4,8 @@
 #include "PlayerSnapshotState.h"
 
 namespace Skel {
-	PlayerObject::PlayerObject() : GameObject("Soldier"), m_HeadModel(Resources.GetModel("SoldierHead")) {}
+	PlayerObject::PlayerObject() : GameObject("Soldier"), m_HeadModel(Resources.GetModel("SoldierHead")), 
+		m_AnimationController(m_Model){}
 
 	void PlayerObject::ProcessInput(const PlayerInputState& input, float dt)
 	{
@@ -14,6 +15,18 @@ namespace Skel {
 		ObjectTransform.Position += ObjectTransform.GetHeading() * forward * dt;
 		
 		ObjectTransform.Position += ObjectTransform.GetSide() * (input.Jump ? 1.f : 0.f);
+
+	}
+	// Process animation via latest input.
+	void PlayerObject::ProcessAnimation(const PlayerInputState& input)
+	{
+		float forward = (input.Forward ? 1 : 0) - (input.Back ? 1 : 0);
+		if (forward != 0) {
+			m_AnimationController.PlayAnimation("AnimStack::Armature|T-Pose");
+		}
+		else {
+			m_AnimationController.PlayAnimation("AnimStack::Armature|Stand");
+		}
 	}
 	void PlayerObject::ApplySnapshotState(const PlayerSnapshotState& state)
 	{

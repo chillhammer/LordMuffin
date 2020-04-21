@@ -25,8 +25,14 @@ namespace Skel
 		void UpdateBoneTransforms(float runningTime);
 		void UpdateBoneShader(ShaderPtr shader);
 		void SetAnimationIndex(uint16 index) {
-			m_CurrentAnimationIndex = index;
+			m_CurrentAnimation = m_Scene->mAnimations[index];
 		}
+		void SetAnimation(const std::string& animationName) {
+			auto animIt = m_AnimationMap.find(animationName);
+			ASSERT(animIt != m_AnimationMap.end(), "Animation does not exist");
+			m_CurrentAnimation = animIt->second.first;
+		}
+		uint8 GetAnimationIndex(const std::string& animName) const;
 	private:
 		struct BoneInfo
 		{
@@ -48,11 +54,11 @@ namespace Skel
 		std::vector<ImportedSkinnedMesh> m_Meshes;
 		std::vector<BoneInfo> m_BoneInfos;
 		std::map<std::string, uint8> m_BoneIDMap;	// bone name to bone index
-		std::map<std::string, aiAnimation*> m_AnimationMap;	// animation name to animation struct
+		std::map<std::string, std::pair<aiAnimation*, uint8>> m_AnimationMap;	// animation name to animation struct & animationID
 		std::map<aiAnimation*, std::map<std::string, aiNodeAnim*>> m_AnimationNodeMap;	// animation struct to animation node
 		const aiScene* m_Scene;
 		Assimp::Importer m_Importer;
-		uint16 m_CurrentAnimationIndex = 0;
+		aiAnimation* m_CurrentAnimation;
 		aiMatrix4x4 m_GlobalInverseTransform;
 		// These are a tracker that are used to see how much we have as we load
 		uint8 m_NumBones = 0;

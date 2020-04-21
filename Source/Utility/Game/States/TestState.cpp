@@ -49,12 +49,7 @@ namespace Skel::GameStates
 	{
 		m_Camera.Update();
 
-		m_Shader->Bind();
-		m_Shader->SetUniformMat4f("u_ViewProjection", m_Camera.GetProjectionMatrix() * m_Camera.GetViewMatrix());
-		m_SkinnedShader->Bind();
-		m_SkinnedShader->SetUniformMat4f("u_ViewProjection", m_Camera.GetProjectionMatrix() * m_Camera.GetViewMatrix());
-		m_DebugShader->Bind();
-		m_DebugShader->SetUniformMat4f("u_ViewProjection", m_Camera.GetProjectionMatrix() * m_Camera.GetViewMatrix());
+		
 
 		//LOG("Running Time: {0}", Game.RunningTime());
 
@@ -172,6 +167,7 @@ namespace Skel::GameStates
 				
 				// Client-predict for player
 				playerObj.ProcessInput(input, Game.DeltaTimeUnscaled());
+				playerObj.ProcessAnimation(input);
 
 				// Record personal input & state so that we can rollback
 				Client.GetPredictionHistory().RecordState(input, PlayerSnapshotState(playerObj));
@@ -214,6 +210,13 @@ namespace Skel::GameStates
 		// Update Camera
 		m_Camera.SetPivotPosition(m_PlayerObjectArray[Client.GetClientID()].ObjectTransform.Position);
 
+		m_Shader->Bind();
+		m_Shader->SetUniformMat4f("u_ViewProjection", m_Camera.GetProjectionMatrix()* m_Camera.GetViewMatrix());
+		m_SkinnedShader->Bind();
+		m_SkinnedShader->SetUniformMat4f("u_ViewProjection", m_Camera.GetProjectionMatrix()* m_Camera.GetViewMatrix());
+		m_DebugShader->Bind();
+		m_DebugShader->SetUniformMat4f("u_ViewProjection", m_Camera.GetProjectionMatrix()* m_Camera.GetViewMatrix());
+
 		m_Box.Draw();
 
 		//m_Player.Draw();
@@ -221,6 +224,8 @@ namespace Skel::GameStates
 		for (uint16 clientID : activePlayers) {
 			m_PlayerObjectArray[clientID].Draw(m_SkinnedShader);
 		}
+
+
 		
 	}
 	void Test::Exit(GameManager* owner)

@@ -177,7 +177,7 @@
     <ClInclude Include="Utility\GameObject\GameObject.h" />
     <ClInclude Include="Utility\Graphics\Model\ImportedMesh.h" />
     <ClInclude Include="Utility\Graphics\Model\ImportedModel.h" />
-    <ClInclude Include="Utility\Graphics\Model\ImportedSkinnedAnimation.h" />
+    <ClInclude Include="Utility\Graphics\Model\ModelAnimationController.h" />
     <ClInclude Include="Utility\Graphics\Model\ImportedSkinnedMesh.h" />
     <ClInclude Include="Utility\Graphics\Model\ImportedSkinnedModel.h" />
     <ClInclude Include="Utility\Graphics\Model\Mesh.h" />

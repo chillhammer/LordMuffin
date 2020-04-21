@@ -5,9 +5,10 @@
 namespace Skel
 {
 	// Imports model through given file path
-	ImportedSkinnedModel::ImportedSkinnedModel(char* path)
+	ImportedSkinnedModel::ImportedSkinnedModel(char* path) : m_CurrentAnimation(nullptr)
 	{
 		LoadModel(path);
+		m_CurrentAnimation = m_Scene->mAnimations[0];
 		LOG("Imported Model: {0}", path);
 	}
 
@@ -32,7 +33,8 @@ namespace Skel
 			return;
 		}
 
-		aiAnimation* animation = m_Scene->mAnimations[m_CurrentAnimationIndex];
+		aiAnimation* animation = m_CurrentAnimation;
+		ASSERT(animation != nullptr, "Animation does not exist");
 		float ticksPerSecond = (float)(animation->mTicksPerSecond != 0 ? animation->mTicksPerSecond : 25.0f);
 		float timeInTicks = runningTime * ticksPerSecond;
 		float animationDuration = (float)animation->mDuration;
@@ -76,7 +78,7 @@ namespace Skel
 	{
 		std::string nodeName(node->mName.data);
 		
-		aiAnimation* animation = m_Scene->mAnimations[m_CurrentAnimationIndex];
+		aiAnimation* animation = m_CurrentAnimation;
 
 		aiMatrix4x4 nodeTransformation(node->mTransformation);
 
@@ -165,6 +167,13 @@ namespace Skel
 		return 0;
 	}
 
+	uint8 ImportedSkinnedModel::GetAnimationIndex(const std::string& animName) const
+	{
+		auto animIt = m_AnimationMap.find(animName);
+		ASSERT(animIt != m_AnimationMap.end(), "Animation does not exist");
+		return animIt->second.second;
+	}
+
 	void ImportedSkinnedModel::CalcInterpolatedPosition(aiVector3D& out, float animationTime, const aiNodeAnim* nodeAnim)
 	{
 		if (nodeAnim->mNumPositionKeys == 1) {
@@ -227,8 +236,8 @@ namespace Skel
 		for (int i = 0; i < m_Scene->mNumAnimations; ++i) {
 			aiAnimation* animation = m_Scene->mAnimations[i];
 			std::string animName = animation->mName.C_Str();
-			LOG("Loading animation: {1}", animName);
-			m_AnimationMap[animName] = animation;
+			LOG("Loading animation[{0}]: {1}", i, animName);
+			m_AnimationMap[animName] = std::pair<aiAnimation*, uint8>(animation, i);
 			std::map<std::string, aiNodeAnim*> nodeAnimMap;
 			for (int o = 0; o < animation->mNumChannels; ++o) {
 				std::string animNodeName = animation->mChannels[o]->mNodeName.C_Str();
