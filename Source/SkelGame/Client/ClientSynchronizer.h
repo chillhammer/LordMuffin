@@ -13,7 +13,8 @@ namespace Skel::Net
 		double RTT() const { return ReturnTime - SentTime; }
 	};
 
-	// Handles syncing with server from client
+	// Handles syncing with server from client. (Used by client)
+	// Used once upon connection with server. Stores average latency.
 	class ClientSynchronizer
 	{
 	public:

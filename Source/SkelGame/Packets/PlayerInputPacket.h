@@ -33,7 +33,9 @@ namespace Skel::Net
 			uint8 state = 0;
 			state |= InputState.Forward;
 			state |= InputState.Back	 << 1;
-			state |= InputState.Jump	 << 2;
+			state |= InputState.Right << 2;
+			state |= InputState.Left << 3;
+			state |= InputState.Jump	 << 4;
 
 			B_WRITE(state);
 			B_WRITE(InputState.Yaw);
@@ -43,7 +45,9 @@ namespace Skel::Net
 				state = 0;
 				state |= recentInput.Forward;
 				state |= recentInput.Back << 1;
-				state |= recentInput.Jump << 2;
+				state |= recentInput.Right << 2;
+				state |= recentInput.Left << 3;
+				state |= recentInput.Jump << 4;
 				B_WRITE(state);
 				float recentYaw = recentInput.Yaw;
 				B_WRITE(recentYaw);
@@ -61,7 +65,9 @@ namespace Skel::Net
 			B_READ(state);
 			InputState.Forward	= state & BIT(0);
 			InputState.Back		= state & BIT(1);
-			InputState.Jump		= state & BIT(2);
+			InputState.Right	= state & BIT(2);
+			InputState.Left		= state & BIT(3);
+			InputState.Jump		= state & BIT(4);
 			B_READ(InputState.Yaw);
 
 			RecentInputs.clear();
@@ -72,7 +78,9 @@ namespace Skel::Net
 				PlayerInputState input;
 				input.Forward = state & BIT(0);
 				input.Back = state & BIT(1);
-				input.Jump = state & BIT(2);
+				input.Right = state & BIT(2);
+				input.Left = state & BIT(3);
+				input.Jump = state & BIT(4);
 				B_READ(input.Yaw);
 				RecentInputs.push_back(input);
 			}

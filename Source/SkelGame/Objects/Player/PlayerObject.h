@@ -19,6 +19,7 @@ namespace Skel
 		void ProcessInput(const PlayerInputState& input, float dt);
 		void ProcessAnimation(const PlayerInputState& input);
 		void ApplySnapshotState(const class PlayerSnapshotState& state);
+		uint8 GetAnimation() const { return m_AnimationController.GetCurrentAnimationIndex(); }
 		virtual void PreDraw() override;
 	private:
 		ModelAnimationController m_AnimationController;

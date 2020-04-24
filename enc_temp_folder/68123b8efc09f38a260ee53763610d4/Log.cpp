@@ -9,7 +9,7 @@ namespace Skel {
 	void Log::Init()
 	{
 		spdlog::set_pattern("%^[%T] %n: %v%$");
-		s_Logger = spdlog::stdout_color_mt("LordMuffin");
+		s_Logger = spdlog::stdout_color_mt("FedoraFrisbee");
 		s_Logger->set_level(spdlog::level::trace);
 
 		LOG("Initialized Logger");

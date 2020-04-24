@@ -55,20 +55,16 @@ namespace Skel
 			memset(uniformName, 0, sizeof(uniformName));
 
 			snprintf(uniformName, sizeof(uniformName), "u_Bones[%d]", i);
-			std::stringstream ss;
-			ss.clear();
-			ss << "u_Bones[" << i << "]";
+			std::string uniformNameStr(uniformName);
 			aiMatrix4x4& boneTrans = m_BoneInfos[i].FinalTransformation;
 			boneTrans = boneTrans.Transpose();
 			Matrix4x4 matrix(boneTrans.a1, boneTrans.a2, boneTrans.a3, boneTrans.a4,
 				boneTrans.b1, boneTrans.b2, boneTrans.b3, boneTrans.b4,
 				boneTrans.c1, boneTrans.c2, boneTrans.c3, boneTrans.c4,
 				boneTrans.d1, boneTrans.d2, boneTrans.d3, boneTrans.d4);
-			//matrix = Matrix4x4::transpose_type(matrix);
-			//matrix = Matrix4x4(1.0f);
 
 			shader->Bind();
-			shader->SetUniformMat4f(ss.str(), matrix);
+			shader->SetUniformMat4f(uniformNameStr, matrix);
 		}
 	}
 

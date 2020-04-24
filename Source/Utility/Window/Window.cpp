@@ -64,6 +64,8 @@ Skel::Window::Window(const WindowProps & props)
 	//GLCall(glEnable(GL_BLEND));
 	//GLCall(glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA));
 
+
+
 	glViewport(0, 0, props.Width, props.Height);
 
 	GLCall(glEnable(GL_DEPTH_TEST));

@@ -150,6 +150,9 @@ namespace Skel::Net {
 				interpolatedState.Yaw = LerpAngle(a.Entries[aIndex].State.Yaw, b.Entries[bIndex].State.Yaw, t);
 				interpolatedState.Pitch = LerpAngle(a.Entries[aIndex].State.Pitch, b.Entries[bIndex].State.Pitch, t);
 
+				// Take the later animation index
+				interpolatedState.AnimationIndex = b.Entries[bIndex].State.AnimationIndex;
+
 				result.emplace_back(aID, interpolatedState);
 				++aIndex; ++bIndex;
 			}

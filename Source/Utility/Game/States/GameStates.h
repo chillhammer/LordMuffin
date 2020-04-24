@@ -25,6 +25,7 @@ namespace Skel::GameStates
 		PlayerObject m_PlayerObjectArray[Net::MAX_PLAYERS];
 		Net::Socket m_Client;
 		Net::FakeLagPacketHolder<Net::PlayerInputPacket> m_LagInputPackets;
+		float m_FrameTime;
 	);
 
 	STATE_CLASS_SINGLETON(GameManager, MainMenu,

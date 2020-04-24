@@ -57,6 +57,7 @@ namespace Skel::Net
 				B_WRITE(entry.State.Position.x);
 				B_WRITE(entry.State.Position.y);
 				B_WRITE(entry.State.Position.z);
+				B_WRITE(entry.State.AnimationIndex);
 			}
 		}
 		// Inner function used to transcribe input
@@ -82,6 +83,7 @@ namespace Skel::Net
 				B_READ(state.Position.x);
 				B_READ(state.Position.y);
 				B_READ(state.Position.z);
+				B_READ(state.AnimationIndex);
 
 				m_Entries.emplace_back(clientID, state);
 			}

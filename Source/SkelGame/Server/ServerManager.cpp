@@ -107,7 +107,7 @@ namespace Skel::Net {
 						if (packet.ClientTick > m_ClientHandler.GetClientTick(packet.ClientID)) {
 							m_ClientHandler.UpdateClientTick(packet.ClientID, packet.ClientTick);
 							obj.ProcessInput(input, packet.DeltaTime);
-							//if (packet.InputState.Jump) LOG("Jumping from New Packet. Tick: {0}", packet.ClientTick);
+							obj.ProcessAnimation(input);
 						} 
 						// Process Old Input (stale tick)
 						else if (m_ClientHandler.TryInputAck(packet.ClientID, packet.ClientTick)) {

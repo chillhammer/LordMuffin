@@ -47,11 +47,13 @@ namespace Skel::GameStates
 	}
 	void Test::Execute(GameManager* owner)
 	{
+		ProfilerBlock fpsCounter(false);
 		m_Camera.Update();
 
-		
-
-		//LOG("Running Time: {0}", Game.RunningTime());
+		// FPS
+		ImGui::Begin("FPS");
+		ImGui::Text("MS: %f", m_FrameTime * 1e-6);
+		ImGui::End();
 
 		// ImGui Connection Window
 		ImGui::Begin("Network Connection Window");
@@ -151,7 +153,8 @@ namespace Skel::GameStates
 				PlayerObject& playerObj = m_PlayerObjectArray[Client.GetClientID()];
 				playerObj.ObjectTransform.SetYaw(m_Camera.ObjectTransform.GetYaw());
 
-				PlayerInputState input = { Input.IsKeyDown(KEY_W), Input.IsKeyDown(KEY_S), Input.IsKeyPressed(KEY_SPACE), playerObj.ObjectTransform.GetYaw() };
+				PlayerInputState input = { Input.IsKeyDown(KEY_W), Input.IsKeyDown(KEY_S), Input.IsKeyDown(KEY_D), 
+					Input.IsKeyDown(KEY_A), Input.IsKeyPressed(KEY_SPACE), playerObj.ObjectTransform.GetYaw() };
 				if (m_Camera.Mode == CameraMode::NoClip) {
 					input = PlayerInputState();
 					input.Yaw = playerObj.ObjectTransform.GetYaw();
@@ -225,7 +228,8 @@ namespace Skel::GameStates
 			m_PlayerObjectArray[clientID].Draw(m_SkinnedShader);
 		}
 
-
+		// Record Frame Time
+		m_FrameTime = fpsCounter.RecordTime();
 		
 	}
 	void Test::Exit(GameManager* owner)

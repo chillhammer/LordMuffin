@@ -22,10 +22,17 @@ namespace Skel
 			m_EndTime = Clock::now();
 			if (m_Active)
 			{
+				m_Active = false;
 				std::chrono::duration<float, std::milli> dur = m_EndTime - m_StartTime;
 				LOG("Timer [{0}]: {1} ms", m_Name, dur.count());
 			}
 		}
+
+		float RecordTime() {
+			End();
+			return (m_EndTime - m_StartTime).count();
+		}
+
 		void SetActive(bool active) { m_Active = active; }
 		~ProfilerBlock() {
 			End();
