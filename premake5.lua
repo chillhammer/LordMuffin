@@ -19,6 +19,7 @@ IncludeDir["spdlog"] = 		"Vendor/Lib/spdlog/include"
 IncludeDir["Assimp"] = 		"Vendor/Lib/Assimp/include"
 IncludeDir["freetype"] =	"Vendor/Lib/freetype/include"
 IncludeDir["irrKlang"] =	"Vendor/Lib/irrKlang/include"
+IncludeDir["json"] =		"Vendor/Lib/json/include"
 
 include "Vendor/Lib/GLFW"
 include "Vendor/Lib/GLAD"

@@ -47,7 +47,7 @@ namespace Skel::GameStates
 	}
 	void Test::Execute(GameManager* owner)
 	{
-		ProfilerBlock fpsCounter(false);
+		ProfilerBlock fpsCounter("FPS", false);
 		m_Camera.Update();
 
 		// FPS
@@ -58,7 +58,7 @@ namespace Skel::GameStates
 		// ImGui Connection Window
 		ImGui::Begin("Network Connection Window");
 		if (!Client.Connected()) {
-			if (ImGui::Button("Connect!")) {
+			if (ImGui::Button("Connect!") || Input.IsKeyPressed(KEY_E)) {
 				Net::Buffer buffer;
 				Net::JoinRequestPacket packet;
 				packet.WriteToBuffer(buffer);
