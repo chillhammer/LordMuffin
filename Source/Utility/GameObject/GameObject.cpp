@@ -53,6 +53,11 @@ namespace Skel
 		// Process Rotation
 		ObjectTransform.Rotation = ProcessAngleVector(ObjectTransform.Rotation);
 	}
+	void GameObject::AddComponent(ComponentPtr ptr)
+	{
+		ptr->SetOwner(this);
+		m_Components.emplace_back(std::move(ptr));
+	}
 	// Returns whether two bounding boxes intersect
 	bool GameObject::IsColliding(const GameObject & other) const
 	{
@@ -63,6 +68,13 @@ namespace Skel
 		Transform temp(ObjectTransform);
 		temp.Position = newPos;
 		return m_BoundingBox.IsIntersecting(temp, other.ObjectTransform, other.m_BoundingBox);
+	}
+	void GameObject::DrawComponents()
+	{
+		for (auto& component : m_Components)
+		{
+			component->Draw();
+		}
 	}
 	void GameObject::Draw()
 	{

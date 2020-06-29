@@ -45,7 +45,7 @@ int main()
 
 	Renderer renderer;
 	Game.Start();
-	Game.ChangeState(Skel::GameStates::Test::Instance());
+	Game.ChangeState(Skel::GameStates::TestEntity::Instance());
 
 	while (Game.IsRunning())
 	{

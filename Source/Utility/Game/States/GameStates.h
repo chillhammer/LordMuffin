@@ -7,6 +7,7 @@
 #include <Net/Net.h>
 #include <Net/FakeLagPacketHolder.h>
 #include <Packets/PlayerInputPacket.h>
+#include <GameObject/GameObjectTemplate.h>
 
 #include <Objects/Player/PlayerObject.h>
 #include <Net/Socket.h>
@@ -26,6 +27,18 @@ namespace Skel::GameStates
 		Net::Socket m_Client;
 		Net::FakeLagPacketHolder<Net::PlayerInputPacket> m_LagInputPackets;
 		float m_FrameTime;
+	);
+
+	STATE_CLASS_SINGLETON(GameManager, TestEntity,
+		Camera m_Camera;
+		Vector3 m_Light;
+		ShaderPtr m_Shader;
+		ShaderPtr m_SkinnedShader;
+		GameObject m_Object;
+		GameObjectPtr m_ObjectPtr;
+		GameObjectPtr m_ObjectPtr2;
+		GameObjectTemplate m_ObjectTemplate;
+		GameObjectTemplate m_ObjectTemplate2;
 	);
 
 	STATE_CLASS_SINGLETON(GameManager, MainMenu,
