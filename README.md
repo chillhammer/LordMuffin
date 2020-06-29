@@ -1,7 +1,7 @@
 # LordMuffin
 (WIP) An online multiplayer FPS in my C++ engine. Now with skeletal animations too!
 
-Includes a few minimalistic libraries: GLM, Assimp, GLFW, GLEW, spdlog, irrklang, freetype, ImGui
+Includes a few minimalistic libraries: GLM, Assimp, GLFW, GLEW, spdlog, irrklang, freetype, ImGui, json by nlohmann, rttr
 
 ### Current Features: ###
 - Server & Client Code for snapshot interpolation, input ACKing, clock synchronization, client-side prediction <br>
