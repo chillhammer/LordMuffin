@@ -1,0 +1,14 @@
+{
+    "Name": "Test Level",
+    "Objects" :
+    [
+        {
+            "position" : 1,
+            "rotation" : 2
+        },
+        {
+            "position" : 3,
+            "rotation" : 4
+        }
+    ]
+}

@@ -11,9 +11,12 @@ namespace Skel
 	{
 	public:
 		Scene() {};
+		Scene(const std::string&);
+		CreateFromFile(const std::string& path);
 
 	private:
 		std::vector<GameObject> m_Objects; // TODO: Game object templates
+		bool m_CreatedFromFile = false;
 
 		// TODO: Scene serialization
 	};
