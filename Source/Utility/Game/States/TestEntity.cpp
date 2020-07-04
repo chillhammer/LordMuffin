@@ -19,7 +19,6 @@ namespace Skel::GameStates
 	// Test State
 	void TestEntity::Enter(GameManager* owner)
 	{
-		m_Camera.Init();
 		m_Light = Vector3(0.f, 10.f, -5.f);
 
 		m_Shader = Resources.GetShader("Model");
@@ -34,16 +33,10 @@ namespace Skel::GameStates
 	}
 	void TestEntity::Execute(GameManager* owner)
 	{
-		m_Camera.Update();
 
 		///////////////////////////
 		// Update Camera
 		// m_Camera.SetPivotPosition(m_PlayerObjectArray[Client.GetClientID()].ObjectTransform.Position);
-
-		m_Shader->Bind();
-		m_Shader->SetUniformMat4f("u_ViewProjection", m_Camera.GetProjectionMatrix() * m_Camera.GetViewMatrix());
-		m_SkinnedShader->Bind();
-		m_SkinnedShader->SetUniformMat4f("u_ViewProjection", m_Camera.GetProjectionMatrix() * m_Camera.GetViewMatrix());
 	}
 	void TestEntity::Exit(GameManager* owner)
 	{

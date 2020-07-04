@@ -379,6 +379,7 @@
       <Filter>Vendor\stb_image</Filter>
     </ClInclude>
     <ClInclude Include="Utility\Graphics\Model\ModelAnimationComponent.h" />
+    <ClInclude Include="Utility\Camera\CameraComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PCH\SkelPCH.cpp">
@@ -543,5 +544,6 @@
     <ClCompile Include="Utility\Components\ComponentTemplate.cpp" />
     <ClCompile Include="Utility\Graphics\Model\ModelAnimationComponent.cpp" />
     <ClCompile Include="Utility\Game\Scene\Scene.cpp" />
+    <ClCompile Include="Utility\Camera\CameraComponent.cpp" />
   </ItemGroup>
 </Project>

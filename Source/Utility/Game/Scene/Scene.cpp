@@ -28,6 +28,7 @@ namespace Skel {
 		JSON_TO_VARIANT(int);
 		JSON_TO_VARIANT(float);
 		JSON_TO_VARIANT(std::string);
+		JSON_TO_VARIANT(std::vector<std::string>);
 
 		ASSERT(false, "Failed to convert Json Type");
 		return rttr::variant();

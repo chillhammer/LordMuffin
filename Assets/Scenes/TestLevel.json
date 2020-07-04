@@ -25,6 +25,15 @@
                 },
                 "ModelAnimation" : {}
             }
+        },
+        {
+            "Components" :
+            {
+                "Camera" :
+                {
+                    "Shaders" : ["Model", "Debug", "SkinnedModel"]
+                }
+            }
         }
     ]
 }
