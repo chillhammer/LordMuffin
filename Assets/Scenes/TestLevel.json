@@ -3,12 +3,28 @@
     "Objects" :
     [
         {
-            "position" : 1,
-            "rotation" : 2
+            "Name" : "Wooden Floor",
+            "Scale" : [15, 0.001, 30],
+            "Components" :
+            {
+                "ModelRenderer" : 
+                {
+                    "Model" : "WoodenBox"
+                }
+            }
         },
         {
-            "position" : 3,
-            "rotation" : 4
+            "Name" :"Bendy",
+            "Position" : [ 0, 1, 6 ],
+            "Components" :
+            {
+                "ModelRenderer" : 
+                {
+                    "Model" : "Bendy",
+                    "Shader" : "SkinnedModel"
+                },
+                "ModelAnimation" : {}
+            }
         }
     ]
 }

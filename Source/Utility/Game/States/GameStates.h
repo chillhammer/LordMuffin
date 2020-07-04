@@ -34,11 +34,6 @@ namespace Skel::GameStates
 		Vector3 m_Light;
 		ShaderPtr m_Shader;
 		ShaderPtr m_SkinnedShader;
-		GameObject m_Object;
-		GameObjectPtr m_ObjectPtr;
-		GameObjectPtr m_ObjectPtr2;
-		GameObjectTemplate m_ObjectTemplate;
-		GameObjectTemplate m_ObjectTemplate2;
 	);
 
 	STATE_CLASS_SINGLETON(GameManager, MainMenu,

@@ -244,6 +244,7 @@
     <ClCompile Include="Utility\Components\ComponentTemplate.cpp" />
     <ClCompile Include="Utility\EventSystem\Subject.cpp" />
     <ClCompile Include="Utility\Game\GameManager.cpp" />
+    <ClCompile Include="Utility\Game\Scene\Scene.cpp" />
     <ClCompile Include="Utility\Game\Screens\PauseScreen.cpp" />
     <ClCompile Include="Utility\Game\States\MainMenu.cpp" />
     <ClCompile Include="Utility\Game\States\TestEntity.cpp" />

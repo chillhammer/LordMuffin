@@ -542,5 +542,6 @@
     </ClCompile>
     <ClCompile Include="Utility\Components\ComponentTemplate.cpp" />
     <ClCompile Include="Utility\Graphics\Model\ModelAnimationComponent.cpp" />
+    <ClCompile Include="Utility\Game\Scene\Scene.cpp" />
   </ItemGroup>
 </Project>

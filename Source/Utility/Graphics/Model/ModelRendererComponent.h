@@ -21,11 +21,13 @@ namespace Skel
 
 		virtual void Draw() override;
 		
+
 		RTTR_ENABLE(GameObjectComponent)
 		RTTR_REGISTRATION_FRIEND
 	private:
 		std::string m_ModelName;
 		std::string m_ShaderName;
+		
 
 		ModelPtr m_Model;
 		ShaderPtr m_Shader;

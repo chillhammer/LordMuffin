@@ -16,7 +16,7 @@ namespace Skel
 	void LoadResources(
 		std::unordered_map<std::string, TexturePtr>& textures,	std::unordered_map<std::string, MeshPtr>&   meshes,
 		std::unordered_map<std::string, ModelPtr>&	 models,	std::unordered_map<std::string, ShaderPtr>& shaders, 
-		std::unordered_map<std::string, FontPtr>&	 fonts)
+		std::unordered_map<std::string, FontPtr>&	 fonts,		std::unordered_map<std::string, ScenePtr>&	scenes)
 	{
 		// Textures
 		LoadTexture(textures, "Wood",			"../Assets/Textures/wood.png");
@@ -55,6 +55,9 @@ namespace Skel
 		// Fonts
 		fonts.emplace("Arial",	new Font("../Assets/Fonts/arial.ttf"));
 		fonts.emplace("InGame", new Font("../Assets/Fonts/BunnyFunny.ttf"));
+
+		// Scenes
+		scenes.emplace("TestLevel", new Scene("../Assets/Scenes/TestLevel.json"));
 	}
 
 	// Specialized loading function for textures due to loading sepearte from contructor

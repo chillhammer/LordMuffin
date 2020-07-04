@@ -52,14 +52,19 @@ namespace Skel
 			return T();
 		}
 
+		void SetName(const std::string& name) { m_Name = name; }
+		const std::string& GetName() { return m_Name; }
+
 		bool IsColliding(const GameObject& other) const;
 		bool IsCollidingAtPosition(const GameObject& other, Vector3 newPos) const;
+		void UpdateComponents();
 		void DrawComponents();
 
 		void Draw();
 		void Draw(const ShaderPtr& shader);
 		void DrawBoundingBox() const;
 		virtual void PreDraw() {}
+		virtual ~GameObject();
 	public:
 		Transform ObjectTransform;
 		void SetBoundingBox(Vector3 center, Vector3 halfExtents);
@@ -71,7 +76,6 @@ namespace Skel
 		static int GetNextID();
 		std::vector<ComponentPtr> m_Components;
 		int m_ID;
+		std::string m_Name;
 	};
-
-	typedef std::shared_ptr<GameObject> GameObjectPtr;
 }

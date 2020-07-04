@@ -1,9 +1,10 @@
 #include "SkelPCH.h"
+#include "GameObject.h"
 #include "GameObjectTemplate.h"
 
 namespace Skel
 {
-	GameObjectTemplate::GameObjectTemplate() : Scale(1.0f)
+	GameObjectTemplate::GameObjectTemplate() : Position(0.0f), Rotation(0.0f), Scale(1.0f)
 	{
 	}
 	ComponentTemplatePtr GameObjectTemplate::AddComponentTemplate(const std::string& component)
@@ -17,9 +18,9 @@ namespace Skel
 		}
 		return newComponentPtr;
 	}
-	GameObjectPtr GameObjectTemplate::Instantiate()
+	GameObject* GameObjectTemplate::Instantiate()
 	{
-		GameObjectPtr obj(new GameObject());
+		GameObject* obj = new GameObject();
 		obj->ObjectTransform.Position = Position;
 		obj->ObjectTransform.Rotation = Rotation;
 		obj->ObjectTransform.Scale = Scale;
@@ -30,7 +31,7 @@ namespace Skel
 			obj->AddComponent(comp);
 		}
 
-		for (ComponentPtr& comp : obj->m_Components)
+		for (ComponentPtr comp : obj->m_Components)
 		{
 			comp->OnCreated();
 		}

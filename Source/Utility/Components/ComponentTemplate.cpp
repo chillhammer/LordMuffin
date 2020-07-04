@@ -25,11 +25,12 @@ namespace Skel
 	}
 
 	// Creates an instance of a component using data from component template
+	// Creates a raw pointer from heap, make sure to delete if calling it outside of object creation code
 	ComponentPtr ComponentTemplate::Instatiate()
 	{
 		rttr::variant newComponentVariant = m_Type.create();
 
-		ComponentPtr newComponent(newComponentVariant.get_value< ComponentPtr>());
+		ComponentPtr newComponent = newComponentVariant.get_value<ComponentPtr>();
 		ASSERT(newComponent, "New component failed to initialize");
 		for (std::pair<const std::string, rttr::variant>& pair : m_PropertyValueMap)
 		{

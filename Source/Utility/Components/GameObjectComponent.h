@@ -10,10 +10,7 @@ namespace Skel
 	{
 	public:
 
-		GameObjectComponent() : m_Owner(nullptr), m_Name("NullComponent") { };
-		GameObjectComponent(const std::string& name) : m_Owner(nullptr), m_Name(name) { };
-	
-		static const std::string& GetName() { return "NullComponent"; }
+		GameObjectComponent() : m_Owner(nullptr) { };
 
 		// Call when all components are created for object
 		virtual void OnCreated() {};
@@ -29,9 +26,7 @@ namespace Skel
 
 	protected:
 		class GameObject* m_Owner;
-		std::string m_Name;
 		RTTR_ENABLE()	
 	};
-
 	typedef std::shared_ptr<GameObjectComponent> ComponentPtr;
 }

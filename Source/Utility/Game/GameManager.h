@@ -22,6 +22,7 @@ namespace Skel
 		void ChangeState(State<GameManager>* state);
 		State<GameManager>* GetState() const;
 		void OnEvent(const Subject* subject, Event& event);
+		void LoadScene(const std::string& scene);
 
 		double RunningTime() const;
 		uint64 GetTick() const;
@@ -36,6 +37,7 @@ namespace Skel
 
 		const class Window& GetWindow() const;
 		Subject& GetWindowResizedSubject();
+		const std::vector<class GameObject*>& Objects() const;
 		~GameManager();
 	private:
 		GameManager();
@@ -55,6 +57,7 @@ namespace Skel
 		Window m_Window;
 	private:
 		StateMachine<GameManager> m_StateMachine;
+		std::vector<GameObject*> m_GameObjects;
 	};
 
 	extern WindowProps g_WindowProperties;

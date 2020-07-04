@@ -16,7 +16,7 @@ namespace Skel
 	void ResourceManager::Init()
 	{
 		// Loads in game-specfic resources
-		LoadResources(m_TextureTable, m_MeshTable, m_ModelTable, m_ShaderTable, m_FontTable);
+		LoadResources(m_TextureTable, m_MeshTable, m_ModelTable, m_ShaderTable, m_FontTable, m_SceneTable);
 		LOG("Initialized Resource Manager");
 	}
 #ifndef SERVER
@@ -44,6 +44,11 @@ namespace Skel
 	{
 		ASSERT(m_FontTable[name], "Cannot load font: " + name);
 		return m_FontTable[name];
+	}
+	ScenePtr ResourceManager::GetScene(std::string name)
+	{
+		ASSERT(m_SceneTable[name], "Cannot load scene: " + name);
+		return m_SceneTable[name];
 	}
 #else
 	TexturePtr ResourceManager::GetTexture(std::string name) { return nullptr; }

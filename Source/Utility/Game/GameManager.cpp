@@ -9,6 +9,7 @@
 #include <examples/imgui_impl_opengl3.h>
 #include <Random/Random.h>
 #include <Client/ClientManager.h>
+#include <Resources/ResourceManager.h>
 #include <chrono>
 #include "GameManager.h"
 
@@ -65,7 +66,16 @@ namespace Skel
 		ImGui::NewFrame();
 		#pragma endregion
 
+		for (GameObject* o : m_GameObjects)
+		{
+			o->UpdateComponents();
+		}
 		m_StateMachine.Update();
+
+		for (GameObject* o : m_GameObjects)
+		{
+			o->DrawComponents();
+		}
 
 		#pragma region ImGui End
 		ImGuiIO& io = ImGui::GetIO();
@@ -119,6 +129,20 @@ namespace Skel
 	void GameManager::OnEvent(const Subject * subject, Event & event)
 	{
 		Evnt::Dispatch<KeyPressedEvent>(event, EVENT_BIND_FN(GameManager, OnKeyPressed));
+	}
+
+	void GameManager::LoadScene(const std::string& scene)
+	{
+		for (GameObject* obj : m_GameObjects)
+		{
+			delete obj;
+		}
+		m_GameObjects.clear();
+		auto& objTempls = Resources.GetScene(scene)->GetObjectTemplates();
+		for (auto objTemplPtr : objTempls)
+		{
+			m_GameObjects.emplace_back(objTemplPtr->Instantiate());
+		}
 	}
 
 	// Returns time in seconds
@@ -196,6 +220,11 @@ namespace Skel
 	Subject& GameManager::GetWindowResizedSubject()
 	{
 		return m_Window.WindowResized;
+	}
+
+	const std::vector<GameObject*>& GameManager::Objects() const
+	{
+		return m_GameObjects;
 	}
 
 	// Delta time allows objects to move despite rendering lag

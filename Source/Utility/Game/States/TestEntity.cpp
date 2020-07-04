@@ -29,28 +29,12 @@ namespace Skel::GameStates
 		m_SkinnedShader = Resources.GetShader("SkinnedModel");
 		m_SkinnedShader->Bind();
 		m_SkinnedShader->SetUniform3f("u_LightPosition", m_Light.x, m_Light.y, m_Light.z);
-
-		auto modelRend = m_ObjectTemplate.AddComponentTemplate("ModelRenderer");
-		modelRend->SetProperty("Model", "WoodenBox");
-
-		m_ObjectTemplate.Scale = Vector3(15, 0.001f, 30);
-		m_ObjectPtr = m_ObjectTemplate.Instantiate();
-
-		m_ObjectTemplate2.AddComponentTemplate("ModelRenderer")->SetProperty("Model", "Bendy");
-		m_ObjectTemplate2.AddComponentTemplate("ModelAnimation");
-
-		m_ObjectTemplate2.Position.z = 5.0f;
-		m_ObjectPtr2 = m_ObjectTemplate2.Instantiate();
+		
+		Game.LoadScene("TestLevel");
 	}
 	void TestEntity::Execute(GameManager* owner)
 	{
 		m_Camera.Update();
-
-		
-
-		m_ObjectPtr->DrawComponents();
-
-		m_ObjectPtr2->DrawComponents();
 
 		///////////////////////////
 		// Update Camera

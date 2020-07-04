@@ -2,7 +2,7 @@
 #include <Game/GameManager.h>
 #include <StateMachine/State.h>
 #include <StateMachine/StateMachine.h>
-#include <GameObject/GameObject.h>
+#include <GameObject/GameObjectTemplate.h>
 
 namespace Skel
 {
@@ -12,12 +12,14 @@ namespace Skel
 	public:
 		Scene() {};
 		Scene(const std::string&);
-		CreateFromFile(const std::string& path);
-
+		void CreateFromFile(const std::string& path);
+		const std::vector<GameObjectTemplatePtr>& GetObjectTemplates() const;
 	private:
-		std::vector<GameObject> m_Objects; // TODO: Game object templates
-		bool m_CreatedFromFile = false;
+		GameObjectTemplatePtr AddObjectTemplate();
 
-		// TODO: Scene serialization
+		std::vector<GameObjectTemplatePtr> m_ObjectTemplates;
+		bool m_CreatedFromFile = false;
+		std::string m_Name;
 	};
+	typedef std::shared_ptr<Scene> ScenePtr;
 }

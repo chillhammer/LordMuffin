@@ -69,6 +69,13 @@ namespace Skel
 		temp.Position = newPos;
 		return m_BoundingBox.IsIntersecting(temp, other.ObjectTransform, other.m_BoundingBox);
 	}
+	void GameObject::UpdateComponents()
+	{
+		for (auto& component : m_Components)
+		{
+			component->Update();
+		}
+	}
 	void GameObject::DrawComponents()
 	{
 		for (auto& component : m_Components)
@@ -95,6 +102,14 @@ namespace Skel
 	{
 		if (!m_BoundingBox.IsEmpty())
 			m_BoundingBox.DebugDraw(ObjectTransform);
+	}
+	// Delete all components on destruction
+	GameObject::~GameObject()
+	{
+		for (ComponentPtr comp : m_Components)
+		{
+			// TODO: Destroy components. Maybe send event in case other components hold them still
+		}
 	}
 	// Allows children to customize shape of bounding box
 	void GameObject::SetBoundingBox(Vector3 center, Vector3 halfExtents)
