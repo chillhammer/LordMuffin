@@ -56,7 +56,10 @@ namespace Skel
 	void GameObject::AddComponent(ComponentPtr ptr)
 	{
 		ptr->SetOwner(this);
-		m_Components.emplace_back(std::move(ptr));
+		m_Components.emplace_back(ptr);
+		uint64 componentID = ptr->get_type().get_id();
+		ASSERT(m_ComponentMap.find(componentID) == m_ComponentMap.end(), "Trying to add component that exists");
+		m_ComponentMap[componentID] = std::move(ptr);
 	}
 	// Returns whether two bounding boxes intersect
 	bool GameObject::IsColliding(const GameObject & other) const

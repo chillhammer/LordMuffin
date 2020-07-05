@@ -27,6 +27,7 @@
 #include <Logger/Log.h>
 #include <Macros.h>
 #include <Profiler/ProfileBlock.h>
+#include <GameObject/GameObject.h>
 
 
 #ifdef SKEL_PLATFORM_WINDOWS

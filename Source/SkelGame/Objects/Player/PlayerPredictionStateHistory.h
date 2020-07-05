@@ -20,6 +20,7 @@ namespace Skel {
 	};
 
 	// Stores the input and state info of the player 
+	// This allows for client side prediction and will correct the player if needed
 	class PlayerPredictionStateHistory
 	{
 	public:

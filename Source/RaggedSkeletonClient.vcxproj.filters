@@ -380,6 +380,8 @@
     </ClInclude>
     <ClInclude Include="Utility\Graphics\Model\ModelAnimationComponent.h" />
     <ClInclude Include="Utility\Camera\CameraComponent.h" />
+    <ClInclude Include="SkelGame\Objects\Network\NetworkComponent.h" />
+    <ClInclude Include="SkelGame\Objects\Player\PlayerComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PCH\SkelPCH.cpp">
@@ -545,5 +547,8 @@
     <ClCompile Include="Utility\Graphics\Model\ModelAnimationComponent.cpp" />
     <ClCompile Include="Utility\Game\Scene\Scene.cpp" />
     <ClCompile Include="Utility\Camera\CameraComponent.cpp" />
+    <ClCompile Include="SkelGame\Objects\Network\NetworkComponent.cpp" />
+    <ClCompile Include="SkelGame\Server\HandleServerPackets.cpp" />
+    <ClCompile Include="SkelGame\Objects\Player\PlayerComponent.cpp" />
   </ItemGroup>
 </Project>

@@ -45,6 +45,11 @@ namespace Skel
 		ASSERT(m_FontTable[name], "Cannot load font: " + name);
 		return m_FontTable[name];
 	}
+	GameObjectTemplatePtr ResourceManager::GetPrefab(std::string name)
+	{
+		ASSERT(m_PrefabTable[name], "Cannot load scene: " + name);
+		return m_PrefabTable[name];
+	}
 	ScenePtr ResourceManager::GetScene(std::string name)
 	{
 		ASSERT(m_SceneTable[name], "Cannot load scene: " + name);

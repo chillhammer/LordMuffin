@@ -23,33 +23,34 @@ namespace Skel
 		void AttachToParent(const GameObject* parent);
 
 
+		// Add new component
 		template<typename T, typename... TArgs>
 		T& AddComponent(TArgs&& ... args)
 		{
 			// Assert has component
-			T* componentPtr(new T(std::forward<TArgs>(args)...));
-			componentPtr->SetOwner(this);
-			ComponentPtr ptr(componentPtr);
-			m_Components.emplace_back(std::move(ptr));
-
-			// Add to array using type as index
-			// Set bitfield index to true
+			ComponentPtr componentPtr(new T(std::forward<TArgs>(args)...));
+			AddComponent(componentPtr);
 		}
+		// Add existing component
 		void AddComponent(ComponentPtr);
 
+		// Gets component
 		template<typename T>
 		T& GetComponent()
 		{
-			for (auto& component : m_Components)
-			{
-				rttr::type componentType = rttr::type::get(*component);
-				if (componentType.is_derived_from<T>() || componentType == rttr::type::get<T>())
-				{
-					return *static_cast<T*>(&(*component));
-				}
-			}
-			ASSERT(false, "GetComponent Failed: component does not exist");
-			return T();
+			uint64 componentID = rttr::type::get_type<T>().get_id();
+			auto componentItr = m_ComponentMap.find(componentID);
+			ASSERT(componentItr != m_ComponentMap.end(), "GetComponent Failed: component does not exist");
+			return *static_cast<T*>(&(*(*componentItr)));
+		}
+		// Checks if has component
+		template<typename T>
+		bool HasComponent()
+		{
+			uint64 componentID = rttr::type::get_type<T>().get_id();
+			auto componentItr = m_ComponentMap.find(componentID);
+			ASSERT(componentItr != m_ComponentMap.end(), "GetComponent Failed: component does not exist");
+			return *static_cast<T*>(&(*(*componentItr)));
 		}
 
 		void SetName(const std::string& name) { m_Name = name; }
@@ -75,6 +76,7 @@ namespace Skel
 	private:
 		static int GetNextID();
 		std::vector<ComponentPtr> m_Components;
+		std::map<uint64, ComponentPtr> m_ComponentMap; // Using type id as key
 		int m_ID;
 		std::string m_Name;
 	};

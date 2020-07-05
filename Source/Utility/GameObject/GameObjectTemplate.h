@@ -1,20 +1,22 @@
 #pragma once
 #include <Components/ComponentTemplate.h>
+#include <json.h>
 
 namespace Skel
 {
 	// Data only for a game object
-
 	class GameObjectTemplate
 	{
 	public:
 		GameObjectTemplate();
+		GameObjectTemplate(const std::string& path); // Prefab file
 
 		std::string Name;
 		Vector3 Position;
 		Vector3 Rotation;
 		Vector3 Scale;
 
+		void LoadFromJson(nlohmann::json& obj);
 		ComponentTemplatePtr AddComponentTemplate(const std::string& component);
 		class GameObject* Instantiate();
 

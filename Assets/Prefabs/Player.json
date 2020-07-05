@@ -1,0 +1,13 @@
+{
+    "Name" : "Player",
+    "Components" :
+    {
+        "ModelRenderer" : 
+        {
+            "Model" : "Soldier",
+            "Shader" : "SkinnedModel"
+        },
+        "ModelAnimation" : {},
+        "Player" : {}
+    }
+}

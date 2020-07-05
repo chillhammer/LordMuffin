@@ -24,6 +24,7 @@ namespace Skel::Net {
 			if (handler.IsActive(i)) {
 				++clientNum;
 
+				// TODO: get rid of handler player objects
 				const PlayerObject* obj = handler.GetPlayerObject(i);
 				ASSERT(obj != nullptr, "Only enter objects that are active");
 
