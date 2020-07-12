@@ -138,7 +138,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="PCH\SkelPCH.h" />
-    <ClInclude Include="SkelGame\Objects\Player\PlayerComponent.h" />
     <ClInclude Include="SkelGame\Client\ClientManager.h" />
     <ClInclude Include="SkelGame\Client\ClientSynchronizer.h" />
     <ClInclude Include="SkelGame\Client\SnapshotReceiver.h" />
@@ -149,6 +148,7 @@
     <ClInclude Include="SkelGame\Objects\Box\WoodenBox.h" />
     <ClInclude Include="SkelGame\Objects\Box\WoodenBoxModel.h" />
     <ClInclude Include="SkelGame\Objects\Network\NetworkComponent.h" />
+    <ClInclude Include="SkelGame\Objects\Player\PlayerComponent.h" />
     <ClInclude Include="SkelGame\Objects\Player\PlayerInputState.h" />
     <ClInclude Include="SkelGame\Objects\Player\PlayerObject.h" />
     <ClInclude Include="SkelGame\Objects\Player\PlayerPredictionStateHistory.h" />
@@ -182,6 +182,7 @@
     <ClInclude Include="Utility\Game\States\GameStates.h" />
     <ClInclude Include="Utility\GameObject\BoundingBox.h" />
     <ClInclude Include="Utility\GameObject\GameObject.h" />
+    <ClInclude Include="Utility\GameObject\GameObjectHelpers.h" />
     <ClInclude Include="Utility\GameObject\GameObjectTemplate.h" />
     <ClInclude Include="Utility\Graphics\Model\ImportedMesh.h" />
     <ClInclude Include="Utility\Graphics\Model\ImportedModel.h" />
@@ -230,14 +231,15 @@
     <ClCompile Include="PCH\SkelPCH.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="SkelGame\Objects\Player\PlayerComponent.cpp" />
     <ClCompile Include="SkelGame\Client\ClientManager.cpp" />
     <ClCompile Include="SkelGame\Client\ClientSynchronizer.cpp" />
+    <ClCompile Include="SkelGame\Client\HandleClientPackets.cpp" />
     <ClCompile Include="SkelGame\Client\SnapshotReceiver.cpp" />
     <ClCompile Include="SkelGame\Main.cpp" />
     <ClCompile Include="SkelGame\Objects\Box\BoxMesh.cpp" />
     <ClCompile Include="SkelGame\Objects\Box\WoodenBoxModel.cpp" />
     <ClCompile Include="SkelGame\Objects\Network\NetworkComponent.cpp" />
+    <ClCompile Include="SkelGame\Objects\Player\PlayerComponent.cpp" />
     <ClCompile Include="SkelGame\Objects\Player\PlayerObject.cpp" />
     <ClCompile Include="SkelGame\Objects\Player\PlayerPredictionStateHistory.cpp" />
     <ClCompile Include="SkelGame\Packets\SnapshotPacket.cpp" />

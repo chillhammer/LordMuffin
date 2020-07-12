@@ -2,6 +2,7 @@
 #include <Transform/Transform.h>
 #include <Graphics/Model/Model.h>
 #include <Components/GameObjectComponent.h>
+#include "GameObjectHelpers.h"
 #include "BoundingBox.h"
 
 
@@ -36,21 +37,33 @@ namespace Skel
 
 		// Gets component
 		template<typename T>
-		T& GetComponent()
+		T& GetComponent() const
 		{
-			uint64 componentID = rttr::type::get_type<T>().get_id();
+			uint64 componentID = rttr::type::get<T>().get_id();
 			auto componentItr = m_ComponentMap.find(componentID);
 			ASSERT(componentItr != m_ComponentMap.end(), "GetComponent Failed: component does not exist");
-			return *static_cast<T*>(&(*(*componentItr)));
+			return *static_cast<T*>(&(*componentItr->second));
+		}
+		// Gets component ptr
+		template<typename T>
+		ComponentPtr GetComponentPtr() const
+		{
+			uint64 componentID = rttr::type::get<T>().get_id();
+			auto componentItr = m_ComponentMap.find(componentID);
+			ASSERT(componentItr != m_ComponentMap.end(), "GetComponent Failed: component does not exist");
+			if (componentItr != m_ComponentMap.end())
+			{
+				return *componentItr;
+			}
+			return nullptr;
 		}
 		// Checks if has component
 		template<typename T>
-		bool HasComponent()
+		bool HasComponent() const
 		{
-			uint64 componentID = rttr::type::get_type<T>().get_id();
-			auto componentItr = m_ComponentMap.find(componentID);
-			ASSERT(componentItr != m_ComponentMap.end(), "GetComponent Failed: component does not exist");
-			return *static_cast<T*>(&(*(*componentItr)));
+			uint64 componentID = rttr::type::get<T>().get_id();
+			auto componentItr = m_ComponentMap.find(componentID); // REDO Component map. uint64 doesnt work
+			return componentItr != m_ComponentMap.end();
 		}
 
 		void SetName(const std::string& name) { m_Name = name; }

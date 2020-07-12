@@ -79,7 +79,7 @@ namespace Skel
 		{
 			this->Scale = obj.at("Scale").get<Vector3>();
 		}
-		LOG("Loaded Object: {0}", obj);
+		// LOG("Loaded Object: {0}", obj);
 
 		if (obj.find("Components") != obj.end())
 		{

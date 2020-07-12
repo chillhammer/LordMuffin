@@ -27,7 +27,7 @@ namespace Skel {
 		void RecordState(PlayerInputState input, PlayerSnapshotState state);
 		void RemoveOldest();
 
-		bool CorrectState(const PlayerSnapshotState& corrected, PlayerObject& obj, double time, uint64 clientTick);
+		bool CorrectState(const PlayerSnapshotState& corrected, GameObject* obj, double time, uint64 clientTick);
 		std::vector<PlayerInputState> RecentInputs(uint8 num) const;
 	private:
 

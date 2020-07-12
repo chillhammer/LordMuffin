@@ -1,4 +1,7 @@
 #include <SkelPCH.h>
+#include <Camera/CameraComponent.h>
+#include <Client/ClientManager.h>
+#include "Objects/Network/NetworkComponent.h"
 #include "PlayerSnapshotState.h"
 #include "PlayerComponent.h"
 
@@ -33,5 +36,27 @@ namespace Skel
 		// TODO: pitch
 
 		//m_AnimationController.PlayAnimation(state.AnimationIndex);
+	}
+	// Only use on client. Test if this player is local client
+	bool Skel::PlayerComponent::IsLocalClient() const
+	{
+		if (m_Network->GetPlayerObject(Client.GetClientID()) == m_Owner)
+		{
+			return true;
+		}
+		return false;
+	}
+	void Skel::PlayerComponent::OnCreated()
+	{
+		ASSERT(Objects::ComponentExists<NetworkComponent>(), "Player component cannot exist without network");
+		m_Network = &Objects::FindFirstComponent<NetworkComponent>();
+	}
+	void Skel::PlayerComponent::Draw()
+	{
+		if (IsLocalClient())
+		{
+			CameraComponent& camera = Objects::FindFirstComponent<CameraComponent>();
+			camera.SetPivotPosition(m_Owner->ObjectTransform.Position);
+		}
 	}
 }

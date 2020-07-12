@@ -147,6 +147,8 @@
     <ClInclude Include="SkelGame\Objects\Box\BoxMesh.h" />
     <ClInclude Include="SkelGame\Objects\Box\WoodenBox.h" />
     <ClInclude Include="SkelGame\Objects\Box\WoodenBoxModel.h" />
+    <ClInclude Include="SkelGame\Objects\Network\NetworkComponent.h" />
+    <ClInclude Include="SkelGame\Objects\Player\PlayerComponent.h" />
     <ClInclude Include="SkelGame\Objects\Player\PlayerInputState.h" />
     <ClInclude Include="SkelGame\Objects\Player\PlayerObject.h" />
     <ClInclude Include="SkelGame\Objects\Player\PlayerPredictionStateHistory.h" />
@@ -161,6 +163,7 @@
     <ClInclude Include="SkelGame\Server\ServerManager.h" />
     <ClInclude Include="Utility\Audio\AudioEngine.h" />
     <ClInclude Include="Utility\Camera\Camera.h" />
+    <ClInclude Include="Utility\Camera\CameraComponent.h" />
     <ClInclude Include="Utility\Components\ComponentManager.h" />
     <ClInclude Include="Utility\Components\ComponentTemplate.h" />
     <ClInclude Include="Utility\Components\GameObjectComponent.h" />
@@ -179,6 +182,7 @@
     <ClInclude Include="Utility\Game\States\GameStates.h" />
     <ClInclude Include="Utility\GameObject\BoundingBox.h" />
     <ClInclude Include="Utility\GameObject\GameObject.h" />
+    <ClInclude Include="Utility\GameObject\GameObjectHelpers.h" />
     <ClInclude Include="Utility\GameObject\GameObjectTemplate.h" />
     <ClInclude Include="Utility\Graphics\Model\ImportedMesh.h" />
     <ClInclude Include="Utility\Graphics\Model\ImportedModel.h" />
@@ -186,6 +190,7 @@
     <ClInclude Include="Utility\Graphics\Model\ImportedSkinnedModel.h" />
     <ClInclude Include="Utility\Graphics\Model\Mesh.h" />
     <ClInclude Include="Utility\Graphics\Model\Model.h" />
+    <ClInclude Include="Utility\Graphics\Model\ModelAnimationComponent.h" />
     <ClInclude Include="Utility\Graphics\Model\ModelAnimationController.h" />
     <ClInclude Include="Utility\Graphics\Model\ModelRendererComponent.h" />
     <ClInclude Include="Utility\Graphics\Model\SingleMeshModel.h" />
@@ -228,20 +233,27 @@
     </ClCompile>
     <ClCompile Include="SkelGame\Client\ClientManager.cpp" />
     <ClCompile Include="SkelGame\Client\ClientSynchronizer.cpp" />
+    <ClCompile Include="SkelGame\Client\HandleClientPackets.cpp" />
     <ClCompile Include="SkelGame\Client\SnapshotReceiver.cpp" />
     <ClCompile Include="SkelGame\Main.cpp" />
     <ClCompile Include="SkelGame\Objects\Box\BoxMesh.cpp" />
     <ClCompile Include="SkelGame\Objects\Box\WoodenBoxModel.cpp" />
+    <ClCompile Include="SkelGame\Objects\Network\NetworkComponent.cpp" />
+    <ClCompile Include="SkelGame\Objects\Player\PlayerComponent.cpp" />
     <ClCompile Include="SkelGame\Objects\Player\PlayerObject.cpp" />
     <ClCompile Include="SkelGame\Objects\Player\PlayerPredictionStateHistory.cpp" />
     <ClCompile Include="SkelGame\Packets\SnapshotPacket.cpp" />
     <ClCompile Include="SkelGame\Server\ClientHandler.cpp" />
+    <ClCompile Include="SkelGame\Server\HandleServerPackets.cpp" />
     <ClCompile Include="SkelGame\Server\ServerManager.cpp" />
     <ClCompile Include="Utility\Audio\AudioEngine.cpp" />
     <ClCompile Include="Utility\Camera\Camera.cpp" />
+    <ClCompile Include="Utility\Camera\CameraComponent.cpp" />
     <ClCompile Include="Utility\Components\ComponentManager.cpp" />
+    <ClCompile Include="Utility\Components\ComponentTemplate.cpp" />
     <ClCompile Include="Utility\EventSystem\Subject.cpp" />
     <ClCompile Include="Utility\Game\GameManager.cpp" />
+    <ClCompile Include="Utility\Game\Scene\Scene.cpp" />
     <ClCompile Include="Utility\Game\Screens\PauseScreen.cpp" />
     <ClCompile Include="Utility\Game\States\MainMenu.cpp" />
     <ClCompile Include="Utility\Game\States\TestEntity.cpp" />
@@ -254,6 +266,7 @@
     <ClCompile Include="Utility\Graphics\Model\ImportedSkinnedMesh.cpp" />
     <ClCompile Include="Utility\Graphics\Model\ImportedSkinnedModel.cpp" />
     <ClCompile Include="Utility\Graphics\Model\Mesh.cpp" />
+    <ClCompile Include="Utility\Graphics\Model\ModelAnimationComponent.cpp" />
     <ClCompile Include="Utility\Graphics\Model\ModelRendererComponent.cpp" />
     <ClCompile Include="Utility\Graphics\Model\Skybox.cpp" />
     <ClCompile Include="Utility\Graphics\OpenGL\Cubemap.cpp" />

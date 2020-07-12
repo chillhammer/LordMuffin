@@ -29,7 +29,7 @@ namespace Skel::Net
 		void RemovePlayer(uint16 clientIndex);
 		void SetPlayerObjectArray(class PlayerObject* arr) { m_PlayerObjectArray = arr; }
 		bool IsActive(uint16 clientID) const;
-		const class PlayerObject* GetPlayerObject(uint16 clientID) const;
+		const class GameObject* GetPlayerObject(uint16 clientID) const;
 		const std::vector<ClientSlot>& GetClientSlots() const;
 
 

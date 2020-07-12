@@ -20,7 +20,7 @@ namespace Skel
 
 
 		void SetOwner(class GameObject* obj) { m_Owner = obj; }
-		class GameObject* GetOwner() { return m_Owner; }
+		class GameObject* GetOwner() const { return m_Owner; }
 
 		virtual ~GameObjectComponent() {};
 

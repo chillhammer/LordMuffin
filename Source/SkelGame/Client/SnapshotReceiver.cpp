@@ -2,6 +2,9 @@
 #include "SnapshotReceiver.h"
 #include <Client/ClientManager.h>
 #include <Game/GameManager.h>
+#include <Resources/ResourceManager.h>
+#include <GameObject/GameObjectTemplate.h>
+#include <Objects/Network/NetworkComponent.h>
 #include <Objects/Player/PlayerPredictionStateHistory.h>
 namespace Skel::Net {
 
@@ -18,13 +21,17 @@ namespace Skel::Net {
 
 			const auto& entries = packet.GetSnapshotEntries();
 
+
 			// Validate Client-Side Prediction
 			auto& playerEntry = std::find_if(entries.begin(), entries.end(), [](const SnapshotEntry& s) { return s.ClientID == Client.GetClientID(); });
 
 			// Check against predicted output and do corrections. Updates player object state if needed
 			double calculatedClientTime = Game.RunningTime() - (Client.GetSynchronizer().Latency() * 2 + Net::SNAPSHOT_INTER_BUFFER);
 			// Calculated time is off... I think i should send prediction ID instead
-			Client.GetPredictionHistory().CorrectState(playerEntry->State, m_PlayerObjectArray[playerEntry->ClientID], calculatedClientTime, m_LastReceivedClientTick);
+			if (m_Network)
+			{
+				Client.GetPredictionHistory().CorrectState(playerEntry->State, m_Network->GetPlayerObject(playerEntry->ClientID), calculatedClientTime, m_LastReceivedClientTick);
+			}
 
 			// Add to queue to update the world state in Update()
 			m_ReceivedStates.emplace(entries, snapshotTime);
@@ -35,6 +42,11 @@ namespace Skel::Net {
 	// Note an optimization would be to not have SnapshotRecords be copy initialized
 	void SnapshotReceiver::Update()
 	{
+		if (!m_Network)
+		{
+			LOG_WARN("Trying to update SnapshotReceiver w/o Network Component");
+			return;
+		}
 
 		// First Snapshot, No Interpolation
 		if (!m_ReceivedFirst && !m_ReceivedStates.empty()) {
@@ -94,23 +106,32 @@ namespace Skel::Net {
 	}
 
 	// Applies snapshot to object directly. No interpolation
-	void SnapshotReceiver::ApplySnapshotState(const PlayerSnapshotState& state, PlayerObject& player)
+	void SnapshotReceiver::ApplySnapshotState(const PlayerSnapshotState& state, GameObject* player)
 	{
-		player.ApplySnapshotState(state);
+		ASSERT(player, "Player must be non-null ptr");
+		ASSERT(player->HasComponent<PlayerComponent>(), "Must be a player");
+		PlayerComponent& playerComp = player->GetComponent<PlayerComponent>();
+		playerComp.ApplySnapshotState(state);
 	}
 
 	// Apply list of snapshot entries. Runs once a tick
 	// Will handle Player edge-case for client-side prediction validation
 	void SnapshotReceiver::ApplySnapshotEntries(const std::vector<SnapshotEntry>& entries)
 	{
+		ASSERT(m_Network, "Must have Network Component");
 		m_ActiveClients.clear();
 
 		for (const SnapshotEntry& entry : entries) {
 			m_ActiveClients.push_back(entry.ClientID);
-			PlayerObject& playerObj = m_PlayerObjectArray[entry.ClientID];
+			GameObject* playerObj = m_Network->GetPlayerObject(entry.ClientID);
+			// Creates player object if non existing
+			if (playerObj == nullptr)
+			{
+				
+				// TODO: delete player objects that are stale
+			}
 
 			if (entry.ClientID == Client.GetClientID()) {
-				
 
 				continue;
 			}

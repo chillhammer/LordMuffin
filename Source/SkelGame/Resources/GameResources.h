@@ -5,19 +5,24 @@
 #include <Graphics/Model/ImportedSkinnedModel.h>
 #include <Graphics/OpenGL/Texture.h>
 #include <Graphics/Text/Font.h>
+#include <GameObject/GameObjectTemplate.h>
+#include <fstream>
 
 namespace Skel
 {
 	static void LoadTexture(std::unordered_map<std::string, TexturePtr>& textures, std::string name, std::string file);
 	static void LoadCubemap(std::unordered_map<std::string, TexturePtr>& textures, std::string name, std::string file);
+	static void LoadPrefab(std::unordered_map<std::string, GameObjectTemplatePtr>& prefabs, std::string name, std::string file);
 
 	// Seperates game-specific loading behavior from ResourceManager
 	// Loads in order of Textures, Meshes, Models, Shaders, Fonts
 	void LoadResources(
 		std::unordered_map<std::string, TexturePtr>& textures,	std::unordered_map<std::string, MeshPtr>&   meshes,
 		std::unordered_map<std::string, ModelPtr>&	 models,	std::unordered_map<std::string, ShaderPtr>& shaders, 
-		std::unordered_map<std::string, FontPtr>&	 fonts,		std::unordered_map<std::string, ScenePtr>&	scenes)
+		std::unordered_map<std::string, FontPtr>&	 fonts,		std::unordered_map<std::string, ScenePtr>&	scenes,
+		std::unordered_map<std::string, GameObjectTemplatePtr>& prefabs)
 	{
+#ifndef SERVER
 		// Textures
 		LoadTexture(textures, "Wood",			"../Assets/Textures/wood.png");
 		//LoadCubemap(textures, "Sky",			"../Assets/Textures/Skybox/Skybox");
@@ -55,9 +60,13 @@ namespace Skel
 		// Fonts
 		fonts.emplace("Arial",	new Font("../Assets/Fonts/arial.ttf"));
 		fonts.emplace("InGame", new Font("../Assets/Fonts/BunnyFunny.ttf"));
+#endif
 
 		// Scenes
 		scenes.emplace("TestLevel", new Scene("../Assets/Scenes/TestLevel.json"));
+
+		// Prefabs
+		LoadPrefab(prefabs, "Player", "../Assets/Prefabs/Player.json");
 	}
 
 	// Specialized loading function for textures due to loading sepearte from contructor
@@ -73,5 +82,14 @@ namespace Skel
 		TexturePtr texture(new Cubemap(file));
 		texture->LoadTexture();
 		textures.emplace(name, texture);
+	}
+	void LoadPrefab(std::unordered_map<std::string, GameObjectTemplatePtr>& prefabs, std::string name, std::string file)
+	{
+		GameObjectTemplatePtr object(new GameObjectTemplate());
+		nlohmann::json jsonObj;
+		std::ifstream i(file);
+		i >> jsonObj;
+		object->LoadFromJson(jsonObj);
+		prefabs.emplace(name, object);
 	}
 }

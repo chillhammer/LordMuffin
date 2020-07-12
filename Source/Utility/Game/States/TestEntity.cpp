@@ -9,6 +9,8 @@
 #include <Net/Net.h>
 #include <imgui.h>
 #include <Graphics/Model/ImportedSkinnedModel.h>
+#include <GameObject/GameObjectHelpers.h>
+#include <Camera/CameraComponent.h>
 #include "GameStates.h"
 /**
 	Each state runs code that determines the course of the game.
@@ -33,10 +35,27 @@ namespace Skel::GameStates
 	}
 	void TestEntity::Execute(GameManager* owner)
 	{
+		// ImGui Connection Window
+		ImGui::Begin("Network Connection Window");
+		if (!Client.Connected()) {
+			if (ImGui::Button("Connect!") || Input.IsKeyPressed(KEY_E)) {
+				Net::Buffer buffer;
+				Net::JoinRequestPacket packet;
+				packet.WriteToBuffer(buffer);
+				Client.SendBuffer(buffer);
+			}
+			ImGui::SliderFloat("Fake Lag (s)", &Net::FAKE_LAG_S, 0.0f, 1.0f, "ratio = %.3f");
+			ImGui::SliderFloat("Fake Jitter (s)", &Net::FAKE_JITTER_S, 0.0f, 0.5f, "ratio = %.3f");
+			ImGui::SliderFloat("Fake Packet Loss (%)", &Net::FAKE_PACKET_LOSS, 0.0f, 1.0f, "ratio = %.3f");
+		}
+		else {
+			ImGui::Text("Connected");
+			ImGui::Text("Fake Lag (%f), Jitter(%f), Packet Loss(%f)", Net::FAKE_LAG_S, Net::FAKE_JITTER_S, Net::FAKE_PACKET_LOSS);
+		}
+		ImGui::End();
 
-		///////////////////////////
-		// Update Camera
-		// m_Camera.SetPivotPosition(m_PlayerObjectArray[Client.GetClientID()].ObjectTransform.Position);
+		bool hasCamera = Objects::FindFirstComponent<CameraComponent>().GetOwner()->HasComponent<CameraComponent>();
+		int a = 1;
 	}
 	void TestEntity::Exit(GameManager* owner)
 	{

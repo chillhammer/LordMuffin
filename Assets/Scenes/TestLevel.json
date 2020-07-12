@@ -34,6 +34,12 @@
                     "Shaders" : ["Model", "Debug", "SkinnedModel"]
                 }
             }
+        },
+        {
+            "Components" :
+            {
+                "Network" : {}
+            }
         }
     ]
 }

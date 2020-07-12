@@ -1,5 +1,7 @@
 #include "SkelPCH.h"
 #include <Objects/Player/PlayerObject.h>
+#include <GameObject/GameObjectHelpers.h>
+#include <Objects/Network/NetworkComponent.h>
 #include "ClientHandler.h"
 
 namespace Skel::Net {
@@ -83,11 +85,16 @@ namespace Skel::Net {
 	{
 		return !m_SlotAvailability[clientID];
 	}
-	const PlayerObject* ClientHandler::GetPlayerObject(uint16 clientID) const
+	const GameObject* ClientHandler::GetPlayerObject(uint16 clientID) const
 	{
 		if (!IsActive(clientID))
 			return nullptr;
-		return &m_PlayerObjectArray[clientID];
+		if (!Objects::ComponentExists<NetworkComponent>())
+		{
+			LOG_ERROR("Needs NetworkComponent to find PlayerObject");
+		}
+		NetworkComponent& network = Objects::FindFirstComponent<NetworkComponent>();
+		return network.GetPlayerObject(clientID);
 	}
 	// Used to get addresses of players
 	const std::vector<ClientSlot>& ClientHandler::GetClientSlots() const

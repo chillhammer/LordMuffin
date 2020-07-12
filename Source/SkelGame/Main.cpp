@@ -32,16 +32,19 @@ int main()
 {
 	Log::Init();
 	Net::Init();
+
+#ifndef SERVER
+	// Setting Up Client Dependencies
+	Input.Init();
+	Game.Init();
+#endif
+
+	// Loads All Resources
+	Resources.Init();
 #ifdef SERVER
 	Server.ServerMain();
 	return 0;
 #endif
-
-	// Setting Up Dependencies
-	Input.Init();
-	Game.Init();
-	// Loads All Resources
-	Resources.Init();
 
 	Renderer renderer;
 	Game.Start();

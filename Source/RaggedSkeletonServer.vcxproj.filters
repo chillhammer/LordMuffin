@@ -22,6 +22,9 @@
     <Filter Include="SkelGame\Objects\Box">
       <UniqueIdentifier>{1FB1836D-0B40-0D37-B45E-2132A0CC1DDD}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SkelGame\Objects\Network">
+      <UniqueIdentifier>{C0318780-AC56-D600-D5A1-BB90C125D51E}</UniqueIdentifier>
+    </Filter>
     <Filter Include="SkelGame\Objects\Player">
       <UniqueIdentifier>{83732AA4-EFAA-723B-F8B4-D65E646B9934}</UniqueIdentifier>
     </Filter>
@@ -156,6 +159,12 @@
     <ClInclude Include="SkelGame\Objects\Box\WoodenBoxModel.h">
       <Filter>SkelGame\Objects\Box</Filter>
     </ClInclude>
+    <ClInclude Include="SkelGame\Objects\Network\NetworkComponent.h">
+      <Filter>SkelGame\Objects\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="SkelGame\Objects\Player\PlayerComponent.h">
+      <Filter>SkelGame\Objects\Player</Filter>
+    </ClInclude>
     <ClInclude Include="SkelGame\Objects\Player\PlayerInputState.h">
       <Filter>SkelGame\Objects\Player</Filter>
     </ClInclude>
@@ -196,6 +205,9 @@
       <Filter>Utility\Audio</Filter>
     </ClInclude>
     <ClInclude Include="Utility\Camera\Camera.h">
+      <Filter>Utility\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Camera\CameraComponent.h">
       <Filter>Utility\Camera</Filter>
     </ClInclude>
     <ClInclude Include="Utility\Components\ComponentManager.h">
@@ -252,6 +264,9 @@
     <ClInclude Include="Utility\GameObject\GameObject.h">
       <Filter>Utility\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="Utility\GameObject\GameObjectHelpers.h">
+      <Filter>Utility\GameObject</Filter>
+    </ClInclude>
     <ClInclude Include="Utility\GameObject\GameObjectTemplate.h">
       <Filter>Utility\GameObject</Filter>
     </ClInclude>
@@ -271,6 +286,9 @@
       <Filter>Utility\Graphics\Model</Filter>
     </ClInclude>
     <ClInclude Include="Utility\Graphics\Model\Model.h">
+      <Filter>Utility\Graphics\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Graphics\Model\ModelAnimationComponent.h">
       <Filter>Utility\Graphics\Model</Filter>
     </ClInclude>
     <ClInclude Include="Utility\Graphics\Model\ModelAnimationController.h">
@@ -389,6 +407,9 @@
     <ClCompile Include="SkelGame\Client\ClientSynchronizer.cpp">
       <Filter>SkelGame\Client</Filter>
     </ClCompile>
+    <ClCompile Include="SkelGame\Client\HandleClientPackets.cpp">
+      <Filter>SkelGame\Client</Filter>
+    </ClCompile>
     <ClCompile Include="SkelGame\Client\SnapshotReceiver.cpp">
       <Filter>SkelGame\Client</Filter>
     </ClCompile>
@@ -400,6 +421,12 @@
     </ClCompile>
     <ClCompile Include="SkelGame\Objects\Box\WoodenBoxModel.cpp">
       <Filter>SkelGame\Objects\Box</Filter>
+    </ClCompile>
+    <ClCompile Include="SkelGame\Objects\Network\NetworkComponent.cpp">
+      <Filter>SkelGame\Objects\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="SkelGame\Objects\Player\PlayerComponent.cpp">
+      <Filter>SkelGame\Objects\Player</Filter>
     </ClCompile>
     <ClCompile Include="SkelGame\Objects\Player\PlayerObject.cpp">
       <Filter>SkelGame\Objects\Player</Filter>
@@ -413,6 +440,9 @@
     <ClCompile Include="SkelGame\Server\ClientHandler.cpp">
       <Filter>SkelGame\Server</Filter>
     </ClCompile>
+    <ClCompile Include="SkelGame\Server\HandleServerPackets.cpp">
+      <Filter>SkelGame\Server</Filter>
+    </ClCompile>
     <ClCompile Include="SkelGame\Server\ServerManager.cpp">
       <Filter>SkelGame\Server</Filter>
     </ClCompile>
@@ -422,7 +452,13 @@
     <ClCompile Include="Utility\Camera\Camera.cpp">
       <Filter>Utility\Camera</Filter>
     </ClCompile>
+    <ClCompile Include="Utility\Camera\CameraComponent.cpp">
+      <Filter>Utility\Camera</Filter>
+    </ClCompile>
     <ClCompile Include="Utility\Components\ComponentManager.cpp">
+      <Filter>Utility\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\Components\ComponentTemplate.cpp">
       <Filter>Utility\Components</Filter>
     </ClCompile>
     <ClCompile Include="Utility\EventSystem\Subject.cpp">
@@ -430,6 +466,9 @@
     </ClCompile>
     <ClCompile Include="Utility\Game\GameManager.cpp">
       <Filter>Utility\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\Game\Scene\Scene.cpp">
+      <Filter>Utility\Game\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Utility\Game\Screens\PauseScreen.cpp">
       <Filter>Utility\Game\Screens</Filter>
@@ -465,6 +504,9 @@
       <Filter>Utility\Graphics\Model</Filter>
     </ClCompile>
     <ClCompile Include="Utility\Graphics\Model\Mesh.cpp">
+      <Filter>Utility\Graphics\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\Graphics\Model\ModelAnimationComponent.cpp">
       <Filter>Utility\Graphics\Model</Filter>
     </ClCompile>
     <ClCompile Include="Utility\Graphics\Model\ModelRendererComponent.cpp">

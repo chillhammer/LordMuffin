@@ -212,6 +212,13 @@ namespace Skel
 		return m_Paused;
 	}
 
+	GameObject* GameManager::InstantiateObject(GameObjectTemplatePtr obj)
+	{
+		GameObject* objInst = obj->Instantiate();
+		m_GameObjects.emplace_back(objInst);
+		return objInst;
+	}
+
 	const Window& GameManager::GetWindow() const
 	{
 		return m_Window;

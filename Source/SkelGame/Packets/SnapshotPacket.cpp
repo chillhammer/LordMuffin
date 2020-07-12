@@ -25,7 +25,7 @@ namespace Skel::Net {
 				++clientNum;
 
 				// TODO: get rid of handler player objects
-				const PlayerObject* obj = handler.GetPlayerObject(i);
+				const PlayerComponent* obj = &((handler.GetPlayerObject(i))->GetComponent<PlayerComponent>());
 				ASSERT(obj != nullptr, "Only enter objects that are active");
 
 				PlayerSnapshotState state(*obj);

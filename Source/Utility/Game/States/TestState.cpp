@@ -43,7 +43,6 @@ namespace Skel::GameStates
 			obj.ObjectTransform.Position.y = 1;
 		}
 
-		Client.GetSnapshotReceiver().SetPlayerObjectArray(m_PlayerObjectArray);
 	}
 	void Test::Execute(GameManager* owner)
 	{

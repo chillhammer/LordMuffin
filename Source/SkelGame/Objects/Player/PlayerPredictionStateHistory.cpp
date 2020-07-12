@@ -33,8 +33,12 @@ namespace Skel {
 	}
 	// Will see if it needs to correct state, then returns new state with input applied
 	// Time parameter is time to look for
-	bool PlayerPredictionStateHistory::CorrectState(const PlayerSnapshotState& corrected, PlayerObject& player, double time, uint64 clientTick)
+	bool PlayerPredictionStateHistory::CorrectState(const PlayerSnapshotState& corrected, GameObject* player, double time, uint64 clientTick)
 	{
+		ASSERT(player, "Player must not be null");
+		ASSERT(player->HasComponent<PlayerComponent>(), "Must contain player component");
+		PlayerComponent playerComp = player->GetComponent<PlayerComponent>();
+
 		uint64 ticksBehind = Game.GetTick() - clientTick;
 
 		m_LastValidatedTime = time; // debug purposes
@@ -45,7 +49,7 @@ namespace Skel {
 		// If nothing to compare to, snap to 'corrected' state 
 		if (m_Count == 0 || (ticksBehind > m_Count) ) {
 			LOG_WARN("Correcting client state. Cannot find appropriate record");
-			player.ApplySnapshotState(corrected);
+			playerComp.ApplySnapshotState(corrected);
 			
 			return true;
 		}
@@ -58,7 +62,7 @@ namespace Skel {
 			// If emptied history, corrected state is in the future. Should just snap to it.
 			// This may happen if your client is on pause/breakpoint
 			if (m_Count == 0) {
-				player.ApplySnapshotState(corrected);
+				playerComp.ApplySnapshotState(corrected);
 				LOG_WARN("Predicted move time is ahead of corrected state time. Delta: {0}", time - m_PredictedMoveResults[(m_Start - 1) % Net::PREDICTED_STATES].Time);
 				return true;
 			}
@@ -78,14 +82,14 @@ namespace Skel {
 				time, sqrPosDelta, time - relevant.Time);
 
 			// Update player to corrected state. [buffer + latency] ms in the past
-			player.ApplySnapshotState(corrected);
+			playerComp.ApplySnapshotState(corrected);
 
 			// Update all states after with the correction
 			for (int i = 0; i < m_Count; ++i) {
 				int index = (m_Start + i) % Net::PREDICTED_STATES;
 				PredictedMove& move = m_PredictedMoves[index];
-				player.ProcessInput(move.InputState, move.DeltaTime);
-				m_PredictedMoveResults[index].State = PlayerSnapshotState(player);
+				playerComp.ProcessInput(move.InputState, move.DeltaTime);
+				m_PredictedMoveResults[index].State = PlayerSnapshotState(playerComp);
 			}
 			ASSERT((m_Start + m_Count) % Net::PREDICTED_STATES == m_End, "Count does not end on m_End");
 			return true;

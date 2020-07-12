@@ -6,6 +6,8 @@
 #include <Game/GameManager.h>
 #include <FakeLag/FakeLagPacketHolderManager.h>
 #include <Objects/Network/NetworkComponent.h>
+#include <GameObject/GameObjectTemplate.h>
+#include <Resources/ResourceManager.h>
 namespace Skel
 {
 	using namespace Net;
@@ -40,6 +42,10 @@ namespace Skel
 				if (m_ClientHandler.RemainingSlots() > 0)
 				{
 					auto clientID = m_ClientHandler.AddPlayer(fromAddress);
+					// Spawn player on join
+					GameObject* playerObj = Game.InstantiateObject(Resources.GetPrefab("Player"));
+					m_PlayerObjects[clientID] = playerObj;
+
 					WRITE_PACKET(JoinAcceptPacket, (clientID), buffer);
 					m_Server.SendBuffer(buffer, fromAddress);
 				}
@@ -75,17 +81,17 @@ namespace Skel
 				READ_PACKET(PlayerInputPacket, buffer);
 				if (m_ClientHandler.IsActive(packet.ClientID)) {
 					PlayerInputState input = packet.InputState;
-					PlayerObject& obj = playerObjs[packet.ClientID];
+					PlayerComponent* obj = GetPlayerComponent(packet.ClientID);
 
 					// Update latest client tick, will also ack and process input
 					if (packet.ClientTick > m_ClientHandler.GetClientTick(packet.ClientID)) {
 						m_ClientHandler.UpdateClientTick(packet.ClientID, packet.ClientTick);
-						obj.ProcessInput(input, packet.DeltaTime);
-						obj.ProcessAnimation(input);
+						obj->ProcessInput(input, packet.DeltaTime);
+						//obj->ProcessAnimation(input);
 					}
 					// Process Old Input (stale tick)
 					else if (m_ClientHandler.TryInputAck(packet.ClientID, packet.ClientTick)) {
-						obj.ProcessInput(input, packet.DeltaTime);
+						obj->ProcessInput(input, packet.DeltaTime);
 						//if (packet.InputState.Jump) LOG("Jumping from Stale Tick Input");
 					}
 
@@ -95,9 +101,7 @@ namespace Skel
 						if (m_ClientHandler.TryInputAck(packet.ClientID, oldTick)) {
 							// Processing Old Inputs using new input delta time
 							// This is bad, but I think it's better than having to do N delta times (8 bytes each)
-							obj.ProcessInput(packet.RecentInputs[i], packet.DeltaTime);
-							//if (packet.RecentInputs[i].Jump) 
-								//LOG("Jumping from Input Ack");
+							obj->ProcessInput(packet.RecentInputs[i], packet.DeltaTime);
 						}
 					}
 				}
@@ -115,7 +119,7 @@ namespace Skel
 		}
 		//LOG("Packets Received: {0}", packetsReceived);
 
-		m_TimeSinceSnapshotSent += GetFixedFrameDeltaTime();
+		m_TimeSinceSnapshotSent += Server.GetFixedFrameDeltaTime();
 
 		if (m_TimeSinceSnapshotSent >= SNAPSHOT_RATE)
 		{

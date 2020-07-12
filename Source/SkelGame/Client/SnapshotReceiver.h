@@ -1,6 +1,5 @@
 #pragma once
 #include <Objects/Player/PlayerSnapshotState.h>
-#include <Objects/Player/PlayerSnapshotState.h>
 #include <Packets/SnapshotPacket.h>
 #include <queue>
 
@@ -22,9 +21,8 @@ namespace Skel::Net
 		SnapshotReceiver() = default;
 		void ReceiveSnapshotPacket(const PlayerSnapshotPacket& packet);
 		void Update();
-		void ApplySnapshotState(const PlayerSnapshotState& state, PlayerObject& player);
+		void ApplySnapshotState(const PlayerSnapshotState& state, GameObject* player);
 		void ApplySnapshotEntries(const std::vector<SnapshotEntry>& entries);
-		void SetPlayerObjectArray(class PlayerObject* arr) { m_PlayerObjectArray = arr; }
 		const std::vector<uint16>& GetActiveClients() const { return m_ActiveClients; }
 	private:
 		std::vector<SnapshotEntry> InterpolateRecords(const SnapshotRecord& a, const SnapshotRecord& b);
@@ -32,8 +30,8 @@ namespace Skel::Net
 		PlayerSnapshotState m_LastReceivedState;
 		uint64 m_LastReceivedServerTick = 0;
 		uint64 m_LastReceivedClientTick = 0;
-		class PlayerObject* m_PlayerObjectArray; // Active/Non-active player objects
 		std::vector<uint16> m_ActiveClients;
+		class NetworkComponent* m_Network;
 		bool m_ReceivedFirst = false;
 		bool m_Interpolating = false;
 		SnapshotRecord m_BaseSnapshot;

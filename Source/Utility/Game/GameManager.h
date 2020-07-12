@@ -1,6 +1,7 @@
 #pragma once
 #include <StateMachine/StateMachine.h>
 #include <Camera/Camera.h>
+#include <GameObject/GameObjectTemplate.h>
 #include <Window/Window.h>
 
 #define Game GameManager::Instance()
@@ -34,6 +35,7 @@ namespace Skel
 		void Sleep(double time) const;
 		void SetPause(bool pause);
 		bool IsPaused() const;
+		GameObject* InstantiateObject(GameObjectTemplatePtr);
 
 		const class Window& GetWindow() const;
 		Subject& GetWindowResizedSubject();
