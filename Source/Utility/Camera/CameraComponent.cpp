@@ -62,7 +62,7 @@ namespace Skel
 		// Invisible Cursor
 		Game.GetWindow().SetCursorEnabled(false);
 	}
-	void Skel::CameraComponent::Update()
+	void Skel::CameraComponent::PostUpdate()
 	{
 		// First Person Movement
 		if (Mode == CameraMode::NoClip)

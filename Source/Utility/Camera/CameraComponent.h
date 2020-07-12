@@ -18,7 +18,7 @@ namespace Skel
 		void LookInDirection(Vector3 direction);
 
 		virtual void OnCreated() override;
-		virtual void Update() override;
+		virtual void PostUpdate() override;
 		virtual void Draw() override;
 
 		void OnEvent(const Subject* subject, Event& e);

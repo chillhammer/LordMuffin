@@ -14,11 +14,10 @@ namespace Skel
 {
 	using namespace Net;
 
-	void NetworkComponent::HandleClientPackets()
+	void NetworkComponent::Client_HandlePackets()
 	{
 		Buffer buffer;
 		Address fromAddress;
-		CameraComponent& camera = Objects::FindFirstComponent<CameraComponent>();
 
 		// Connecting to Server!
 		if (!Client.Connected()) 
@@ -39,6 +38,7 @@ namespace Skel
 					Client.SetClientID(packet.ClientID);
 					Client.SetConnected(true);
 					Client.GetSynchronizer().StartSynchronizing();
+					SetPlayerObject(packet.ClientID, m_LocalPlayer);
 					break;
 				}
 				case Net::PACKET_JOIN_DECLINED:
@@ -54,29 +54,43 @@ namespace Skel
 				}
 				}
 			}
+			
+
 		}
 		///////////////////////////
+
+		// Move local player
+		PlayerInputState input;
+		CameraComponent& camera = Objects::FindFirstComponent<CameraComponent>();
+		if (m_LocalPlayer)
+		{
+			PlayerComponent playerComp = m_LocalPlayer->GetComponent<PlayerComponent>();
+			// Rotate player to align with camera
+			m_LocalPlayer->ObjectTransform.SetYaw(camera.GetOwner()->ObjectTransform.GetYaw());
+			// Create input
+			input = { Input.IsKeyDown(KEY_W), Input.IsKeyDown(KEY_S), Input.IsKeyDown(KEY_D),
+						Input.IsKeyDown(KEY_A), Input.IsKeyPressed(KEY_SPACE), m_LocalPlayer->ObjectTransform.GetYaw() };
+
+			// Client-side predict
+			playerComp.ProcessInput(input, Game.DeltaTimeUnscaled());
+
+		}
 
 
 		if (Client.Connected())
 		{
 			// Client Send Inputs
 			if (!Client.IsSynchronizing())
-			{
-				Net::Buffer buffer;
-
-				PlayerComponent* playerComp = GetPlayerComponent(Client.GetClientID());
-
-				// Send Input If Player Object exists
-				if (playerComp)
+			{	
+				// Send Input
+				if (m_LocalPlayer)
 				{
-					playerComp->GetOwner()->ObjectTransform.SetYaw(camera.GetOwner()->ObjectTransform.GetYaw());
+					PlayerComponent& playerComp = m_LocalPlayer->GetComponent<PlayerComponent>();
 
-					PlayerInputState input = { Input.IsKeyDown(KEY_W), Input.IsKeyDown(KEY_S), Input.IsKeyDown(KEY_D),
-						Input.IsKeyDown(KEY_A), Input.IsKeyPressed(KEY_SPACE), playerComp->GetOwner()->ObjectTransform.GetYaw() };
+					// Don't move in NoClip
 					if (camera.Mode == CameraMode::NoClip) {
 						input = PlayerInputState();
-						input.Yaw = playerComp->GetOwner()->ObjectTransform.GetYaw();
+						input.Yaw = m_LocalPlayer->ObjectTransform.GetYaw();
 					}
 
 					Net::PlayerInputPacket packet(input, Client.GetClientID(), Game.GetTick(), Game.DeltaTimeUnscaled());
@@ -87,12 +101,8 @@ namespace Skel
 					// Pull from lag simulator
 					FakeLagPackets.PopAndSendToServer<Net::PlayerInputPacket>(buffer);
 
-					// Client-predict for player
-					playerComp->ProcessInput(input, Game.DeltaTimeUnscaled());
-					//playerObj->ProcessAnimation(input);
-
 					// Record personal input & state so that we can rollback
-					Client.GetPredictionHistory().RecordState(input, PlayerSnapshotState(*playerComp));
+					Client.GetPredictionHistory().RecordState(input, PlayerSnapshotState(playerComp));
 				}
 			}
 			else
@@ -127,8 +137,10 @@ namespace Skel
 				}
 
 			}
-			Client.GetSnapshotReceiver().Update(this);
+			Client.GetSnapshotReceiver().Update();
 
+			// Assertions
+			ASSERT(m_LocalPlayer == m_PlayerObjects[Client.GetClientID()], "Local player object must be the same in array");
 		}
 	}
 }

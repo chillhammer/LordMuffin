@@ -24,6 +24,7 @@
   library.cpp
   method.cpp
   parameter_info.cpp
+  policy.cpp
   property.cpp
   registration.cpp
   type.cpp

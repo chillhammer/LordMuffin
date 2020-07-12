@@ -14,8 +14,11 @@ namespace Skel
 
 		// Call when all components are created for object
 		virtual void OnCreated() {};
+		// Call when created from Load Scene and all objects are loaded in
+		virtual void OnSceneCreated() {};
 
 		virtual void Update() {};
+		virtual void PostUpdate() {};
 		virtual void Draw() {};
 
 

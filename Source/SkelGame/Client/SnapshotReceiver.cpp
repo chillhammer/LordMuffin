@@ -44,8 +44,7 @@ namespace Skel::Net {
 	{
 		if (!m_Network)
 		{
-			LOG_WARN("Trying to update SnapshotReceiver w/o Network Component");
-			return;
+			m_Network = &Objects::FindFirstComponent<NetworkComponent>();
 		}
 
 		// First Snapshot, No Interpolation
@@ -127,7 +126,8 @@ namespace Skel::Net {
 			// Creates player object if non existing
 			if (playerObj == nullptr)
 			{
-				
+
+				playerObj = m_Network->CreatePlayerObject(entry.ClientID);
 				// TODO: delete player objects that are stale
 			}
 

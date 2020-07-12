@@ -15,7 +15,7 @@ namespace Skel
 		bool IsLocalClient() const;
 
 		virtual void OnCreated() override;
-		//virtual void Update() override;
+		virtual void Update() override;
 		virtual void Draw() override;
 
 		RTTR_ENABLE(GameObjectComponent)

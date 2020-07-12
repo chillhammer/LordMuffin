@@ -407,7 +407,7 @@
     <ClCompile Include="SkelGame\Client\ClientSynchronizer.cpp">
       <Filter>SkelGame\Client</Filter>
     </ClCompile>
-    <ClCompile Include="SkelGame\Client\HandleClientPackets.cpp">
+    <ClCompile Include="SkelGame\Client\Client_HandlePackets.cpp">
       <Filter>SkelGame\Client</Filter>
     </ClCompile>
     <ClCompile Include="SkelGame\Client\SnapshotReceiver.cpp">
@@ -440,10 +440,10 @@
     <ClCompile Include="SkelGame\Server\ClientHandler.cpp">
       <Filter>SkelGame\Server</Filter>
     </ClCompile>
-    <ClCompile Include="SkelGame\Server\HandleServerPackets.cpp">
+    <ClCompile Include="SkelGame\Server\ServerManager.cpp">
       <Filter>SkelGame\Server</Filter>
     </ClCompile>
-    <ClCompile Include="SkelGame\Server\ServerManager.cpp">
+    <ClCompile Include="SkelGame\Server\Server_HandlePackets.cpp">
       <Filter>SkelGame\Server</Filter>
     </ClCompile>
     <ClCompile Include="Utility\Audio\AudioEngine.cpp">

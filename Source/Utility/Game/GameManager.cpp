@@ -71,6 +71,10 @@ namespace Skel
 			o->UpdateComponents();
 		}
 		m_StateMachine.Update();
+		for (GameObject* o : m_GameObjects)
+		{
+			o->PostUpdateComponents();
+		}
 
 		for (GameObject* o : m_GameObjects)
 		{
@@ -142,6 +146,10 @@ namespace Skel
 		for (auto objTemplPtr : objTempls)
 		{
 			m_GameObjects.emplace_back(objTemplPtr->Instantiate());
+		}
+		for (auto obj : m_GameObjects)
+		{
+			obj->OnSceneCreatedComponents();
 		}
 	}
 

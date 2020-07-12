@@ -57,6 +57,10 @@ namespace Skel::Net {
 			{
 				o->UpdateComponents();
 			}
+			for (GameObject* o : Game.Objects())
+			{
+				o->PostUpdateComponents();
+			}
 			
 
 #pragma region Fixed Framerate Loop

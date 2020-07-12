@@ -233,7 +233,7 @@
     </ClCompile>
     <ClCompile Include="SkelGame\Client\ClientManager.cpp" />
     <ClCompile Include="SkelGame\Client\ClientSynchronizer.cpp" />
-    <ClCompile Include="SkelGame\Client\HandleClientPackets.cpp" />
+    <ClCompile Include="SkelGame\Client\Client_HandlePackets.cpp" />
     <ClCompile Include="SkelGame\Client\SnapshotReceiver.cpp" />
     <ClCompile Include="SkelGame\Main.cpp" />
     <ClCompile Include="SkelGame\Objects\Box\BoxMesh.cpp" />
@@ -244,8 +244,8 @@
     <ClCompile Include="SkelGame\Objects\Player\PlayerPredictionStateHistory.cpp" />
     <ClCompile Include="SkelGame\Packets\SnapshotPacket.cpp" />
     <ClCompile Include="SkelGame\Server\ClientHandler.cpp" />
-    <ClCompile Include="SkelGame\Server\HandleServerPackets.cpp" />
     <ClCompile Include="SkelGame\Server\ServerManager.cpp" />
+    <ClCompile Include="SkelGame\Server\Server_HandlePackets.cpp" />
     <ClCompile Include="Utility\Audio\AudioEngine.cpp" />
     <ClCompile Include="Utility\Camera\Camera.cpp" />
     <ClCompile Include="Utility\Camera\CameraComponent.cpp" />

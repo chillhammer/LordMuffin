@@ -23,6 +23,7 @@ namespace Skel::Net
 		void Update();
 		void ApplySnapshotState(const PlayerSnapshotState& state, GameObject* player);
 		void ApplySnapshotEntries(const std::vector<SnapshotEntry>& entries);
+
 		const std::vector<uint16>& GetActiveClients() const { return m_ActiveClients; }
 	private:
 		std::vector<SnapshotEntry> InterpolateRecords(const SnapshotRecord& a, const SnapshotRecord& b);

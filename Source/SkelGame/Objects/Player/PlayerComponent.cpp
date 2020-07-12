@@ -40,7 +40,7 @@ namespace Skel
 	// Only use on client. Test if this player is local client
 	bool Skel::PlayerComponent::IsLocalClient() const
 	{
-		if (m_Network->GetPlayerObject(Client.GetClientID()) == m_Owner)
+		if (m_Network->GetLocalPlayerObject() == m_Owner)
 		{
 			return true;
 		}
@@ -51,12 +51,19 @@ namespace Skel
 		ASSERT(Objects::ComponentExists<NetworkComponent>(), "Player component cannot exist without network");
 		m_Network = &Objects::FindFirstComponent<NetworkComponent>();
 	}
-	void Skel::PlayerComponent::Draw()
+	void Skel::PlayerComponent::Update()
 	{
+#ifndef SERVER
 		if (IsLocalClient())
 		{
 			CameraComponent& camera = Objects::FindFirstComponent<CameraComponent>();
 			camera.SetPivotPosition(m_Owner->ObjectTransform.Position);
 		}
+#endif
+
+	}
+	void Skel::PlayerComponent::Draw()
+	{
+		
 	}
 }

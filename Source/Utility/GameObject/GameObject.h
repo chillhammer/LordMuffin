@@ -71,7 +71,9 @@ namespace Skel
 
 		bool IsColliding(const GameObject& other) const;
 		bool IsCollidingAtPosition(const GameObject& other, Vector3 newPos) const;
+		void OnSceneCreatedComponents();
 		void UpdateComponents();
+		void PostUpdateComponents();
 		void DrawComponents();
 
 		void Draw();

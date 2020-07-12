@@ -72,11 +72,25 @@ namespace Skel
 		temp.Position = newPos;
 		return m_BoundingBox.IsIntersecting(temp, other.ObjectTransform, other.m_BoundingBox);
 	}
+	void GameObject::OnSceneCreatedComponents()
+	{
+		for (auto& component : m_Components)
+		{
+			component->OnSceneCreated();
+		}
+	}
 	void GameObject::UpdateComponents()
 	{
 		for (auto& component : m_Components)
 		{
 			component->Update();
+		}
+	}
+	void GameObject::PostUpdateComponents()
+	{
+		for (auto& component : m_Components)
+		{
+			component->PostUpdate();
 		}
 	}
 	void GameObject::DrawComponents()

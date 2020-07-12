@@ -12,7 +12,7 @@ namespace Skel
 			.constructor<>(registration::public_access);
 	}
 
-	NetworkComponent::NetworkComponent()
+	NetworkComponent::NetworkComponent() : m_LocalPlayer(nullptr)
 	{
 		for (int i = 0; i < Net::MAX_PLAYERS; ++i)
 		{
@@ -20,18 +20,35 @@ namespace Skel
 		}
 	}
 
+	void Skel::NetworkComponent::OnSceneCreated()
+	{
+#ifndef SERVER
+		// Create local player even if not connected to server
+		GameObject* localPlayer = Game.InstantiateObject(Resources.GetPrefab("Player"));
+		SetLocalPlayerObject(localPlayer);
+#endif
+	}
+
 	void NetworkComponent::Update()
 	{
 		// Handle the appropriate packett. Their implementations are in another file
 #ifdef SERVER
-		HandleServerPackets();
+		Server_HandlePackets();
 #else
-		HandleClientPackets();
+		Client_HandlePackets();
 #endif
 	}
 	GameObject* Skel::NetworkComponent::GetPlayerObject(uint16 clientID) const
 	{
 		return m_PlayerObjects[clientID];
+	}
+	GameObject* Skel::NetworkComponent::GetLocalPlayerObject() const
+	{
+		if (Client.Connected())
+		{
+			ASSERT(m_PlayerObjects[Client.GetClientID()] == m_LocalPlayer, "Must be the same object");
+		}
+		return m_LocalPlayer;
 	}
 	// Creates player object with certain clientID
 	GameObject* Skel::NetworkComponent::CreatePlayerObject(uint16 clientID)
@@ -39,10 +56,7 @@ namespace Skel
 		ASSERT(m_PlayerObjects[clientID] == nullptr, "Cannot overwrite player object");
 		GameObject* playerObj = Game.InstantiateObject(Resources.GetPrefab("Player"));
 		SetPlayerObject(clientID, playerObj);
-		m_PlayerObjectArray[entry.ClientID] = playerObj;											// TODO: put m_PlayerObjectArray only in Network component. Spawn from there
-		Objects::FindFirstComponent<NetworkComponent>().SetPlayerObject(entry.ClientID, playerObj); // TODO: replace with spawn event
-
-		return nullptr;
+		return playerObj;
 	}
 	PlayerComponent* Skel::NetworkComponent::GetPlayerComponent(uint16 clientID) const
 	{
@@ -57,15 +71,16 @@ namespace Skel
 	{
 		ASSERT((obj && m_PlayerObjects[clientID] == nullptr) || ((obj == nullptr && m_PlayerObjects[clientID])), "Cannot overwrite player");
 		m_PlayerObjects[clientID] = obj;
+
+#ifndef SERVER
 		if (Client.Connected() && clientID == Client.GetClientID())
 		{
-			ASSERT(m_LocalPlayer == nullptr || obj == nullptr, "Cannot overwrite local player");
 			m_LocalPlayer = obj;
 		}
+#endif
 	}
 	void Skel::NetworkComponent::SetLocalPlayerObject(GameObject* obj)
 	{
-		ASSERT(m_LocalPlayer == nullptr || obj == nullptr, "Cannot overwrite local player");
 		m_LocalPlayer = obj;
 		if (Client.Connected())
 		{

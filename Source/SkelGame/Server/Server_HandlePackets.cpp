@@ -12,7 +12,7 @@ namespace Skel
 {
 	using namespace Net;
 
-	void NetworkComponent::HandleServerPackets()
+	void NetworkComponent::Server_HandlePackets()
 	{
 		Buffer buffer;
 		Address fromAddress;
@@ -43,8 +43,8 @@ namespace Skel
 				{
 					auto clientID = m_ClientHandler.AddPlayer(fromAddress);
 					// Spawn player on join
-					GameObject* playerObj = Game.InstantiateObject(Resources.GetPrefab("Player"));
-					m_PlayerObjects[clientID] = playerObj;
+
+					GameObject* playerObj = CreatePlayerObject(clientID);
 
 					WRITE_PACKET(JoinAcceptPacket, (clientID), buffer);
 					m_Server.SendBuffer(buffer, fromAddress);
