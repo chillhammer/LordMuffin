@@ -182,12 +182,12 @@ namespace Skel
 		return m_DeltaTime;
 	}
 
-	float GameManager::TimeScale() const
+	double GameManager::TimeScale() const
 	{
 		return m_TimeScale;
 	}
 
-	void GameManager::SetTimeScale(float timeScale)
+	void GameManager::SetTimeScale(double timeScale)
 	{
 		m_UnpausedTimeScale = timeScale;
 		m_TimeScale = timeScale;

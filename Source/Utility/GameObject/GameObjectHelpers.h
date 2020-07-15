@@ -15,7 +15,7 @@ namespace Skel::Objects
 			}
 		}
 		ASSERT(false, "Cannot find component. Does not exist");
-		return T();
+		return std::move(T());
 	}
 
 	template<typename T>

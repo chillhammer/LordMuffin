@@ -32,9 +32,6 @@ namespace Skel::Net {
 
 		m_Server.Bind(Net::GetServerAddress().GetPort());
 
-		Skel::PlayerObject playerObjs[MAX_PLAYERS];
-		m_ClientHandler.SetPlayerObjectArray(&(*playerObjs));
-
 		const double startTime = Server.RunningTime();
 
 		double secondMarker = startTime;
@@ -44,9 +41,6 @@ namespace Skel::Net {
 		int noSleepTicks = 0;
 
 		Game.LoadScene("TestLevel");
-
-		Net::Buffer buffer;
-		Net::Address fromAddress;
 
 		while (Server.IsRunning())
 		{

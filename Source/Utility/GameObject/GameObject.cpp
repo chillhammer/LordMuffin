@@ -1,5 +1,5 @@
 #include <skelpch.h>
-#include <Resources/ResourceManager.h>s
+#include <Resources/ResourceManager.h>
 #include "GameObject.h"
 
 namespace Skel

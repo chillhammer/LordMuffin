@@ -17,17 +17,25 @@ namespace Skel
 	PlayerComponent::PlayerComponent()
 	{
 	}
-	void PlayerComponent::ProcessInput(const PlayerInputState& input, float dt)
+	void PlayerComponent::ProcessInput(const PlayerInputState& input, double dt)
 	{
-		float forward = (input.Forward ? 1 : 0) - (input.Back ? 1 : 0);
-		float side = (input.Right ? 1 : 0) - (input.Left ? 1 : 0);
+		float forward = static_cast<float>((input.Forward ? 1 : 0) - (input.Back ? 1 : 0));
+		float side = static_cast<float>((input.Right ? 1 : 0) - (input.Left ? 1 : 0));
 		float moveMult = 3.0f;
+		float fdt = static_cast<float>(dt);
 
 		m_Owner->ObjectTransform.SetYaw(input.Yaw);
-		m_Owner->ObjectTransform.Position += m_Owner->ObjectTransform.GetHeading() * forward * dt * moveMult;
-		m_Owner->ObjectTransform.Position += m_Owner->ObjectTransform.GetSide() * side * dt * moveMult;
+		m_Owner->ObjectTransform.Position += m_Owner->ObjectTransform.GetHeading() * forward * fdt * moveMult;
+		m_Owner->ObjectTransform.Position += m_Owner->ObjectTransform.GetSide() * side * fdt * moveMult;
 		m_Owner->ObjectTransform.Position += m_Owner->ObjectTransform.GetSide() * (input.Jump ? 1.f : 0.f);
 
+#ifndef SERVER
+		if (IsLocalClient())
+		{
+			CameraComponent& camera = Objects::FindFirstComponent<CameraComponent>();
+			camera.SetPivotPosition(m_Owner->ObjectTransform.Position);
+		}
+#endif
 	}
 	void PlayerComponent::ApplySnapshotState(const PlayerSnapshotState& state)
 	{

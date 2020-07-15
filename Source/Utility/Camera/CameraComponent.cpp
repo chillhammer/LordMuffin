@@ -98,8 +98,8 @@ namespace Skel
 			}
 
 			// Look Around
-			m_Pitch -= double(m_DeltaMousePosition.y) * m_Sensitivity * Game.DeltaTimeUnscaled();
-			m_Yaw += double(m_DeltaMousePosition.x) * m_Sensitivity * Game.DeltaTimeUnscaled();
+			m_Pitch -= m_DeltaMousePosition.y * m_Sensitivity * static_cast<float>(Game.DeltaTimeUnscaled());
+			m_Yaw += m_DeltaMousePosition.x * m_Sensitivity * static_cast<float>(Game.DeltaTimeUnscaled());
 			
 			m_Pitch = glm::clamp<float>(m_Pitch, -89, 89);
 
@@ -119,8 +119,8 @@ namespace Skel
 		if (Mode == CameraMode::Pivot || Mode == CameraMode::FirstPerson)
 		{
 			// Look Around
-			m_Pitch -= double(m_DeltaMousePosition.y) * m_Sensitivity * Game.DeltaTimeUnscaled();
-			m_Yaw += double(m_DeltaMousePosition.x) * m_Sensitivity * Game.DeltaTimeUnscaled();
+			m_Pitch -= m_DeltaMousePosition.y * m_Sensitivity * static_cast<float>(Game.DeltaTimeUnscaled());
+			m_Yaw += m_DeltaMousePosition.x * m_Sensitivity * static_cast<float>(Game.DeltaTimeUnscaled());
 			m_Pitch = glm::clamp<float>(m_Pitch, -10, -10);
 
 			m_Owner->ObjectTransform.SetPitch(m_Pitch);
@@ -200,5 +200,22 @@ namespace Skel
 		Matrix4x4 rotMat = glm::eulerAngleXYZ(0.f, glm::radians(-m_Owner->ObjectTransform.GetYaw()), 0.f);
 		Vector3 rotatedPivotOffset = rotMat * Vector4(m_PivotOffset, 1);
 		m_Owner->ObjectTransform.Position = m_PivotPosition + rotatedPivotOffset + pivotStick;
+	}
+
+	namespace Camera
+	{
+		Matrix4x4 GetProjectionMatrix()
+		{
+			float fov = 45;
+			float aspect = 0.1f;
+			if (Game.GetWindow().GetHeight() != 0 && Game.GetWindow().GetHeight() != 0)
+				aspect = (float)Game.GetWindow().GetWidth() / (float)Game.GetWindow().GetHeight();
+
+			return glm::perspective(glm::radians(fov), aspect, 0.1f, 100.f);
+		}
+		Matrix4x4 GetOrthographicMatrix()
+		{
+			return glm::ortho(0.0f, (float)Game.GetWindow().GetWidth(), (float)Game.GetWindow().GetHeight(), 0.0f);
+		}
 	}
 }

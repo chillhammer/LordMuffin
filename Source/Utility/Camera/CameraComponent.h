@@ -4,6 +4,8 @@
 
 namespace Skel
 {
+	enum CameraMode { NoClip, Pivot, FirstPerson, Frozen };
+
 	class CameraComponent : public GameObjectComponent, IObserver
 	{
 	public:
@@ -49,4 +51,9 @@ namespace Skel
 		std::vector<ShaderPtr> m_Shaders;
 		std::vector<std::string> m_ShaderNames;
 	};
+	namespace Camera
+	{
+		Matrix4x4 GetProjectionMatrix();
+		Matrix4x4 GetOrthographicMatrix();
+	}
 }

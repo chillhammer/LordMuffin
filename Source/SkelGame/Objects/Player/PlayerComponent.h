@@ -10,8 +10,8 @@ namespace Skel
 	{
 	public:
 		PlayerComponent();
-		void ProcessInput(const PlayerInputState& input, float dt);
-		void ApplySnapshotState(const class PlayerSnapshotState& state);
+		void ProcessInput(const PlayerInputState& input, double dt);
+		void ApplySnapshotState(const struct PlayerSnapshotState& state);
 		bool IsLocalClient() const;
 
 		virtual void OnCreated() override;

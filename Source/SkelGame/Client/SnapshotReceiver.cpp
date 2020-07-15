@@ -147,11 +147,11 @@ namespace Skel::Net {
 		uint16 aIndex = 0;
 		uint16 bIndex = 0;
 		double gameTime = Game.RunningTime();
-		float t = (gameTime - a.Time) / (b.Time - a.Time);
+		float t = static_cast<float>((gameTime - a.Time) / (b.Time - a.Time)); // casting down for lerping functions
 		//ASSERT(t <= 1, "t must be below 1");
 		//ASSERT(t >= 0, "t must be above 0");
-		uint16 aEntities = a.Entries.size();
-		uint16 bEntities = b.Entries.size();
+		uint16 aEntities = static_cast<uint16>(a.Entries.size());
+		uint16 bEntities = static_cast<uint16>(b.Entries.size());
 		while (aIndex < aEntities && bIndex < bEntities)
 		{
 			uint16 aID = a.Entries[aIndex].ClientID;

@@ -9,8 +9,8 @@ namespace Skel {
 
 	void PlayerObject::ProcessInput(const PlayerInputState& input, float dt)
 	{
-		float forward = (input.Forward ? 1 : 0) - (input.Back ? 1 : 0);
-		float side = (input.Right ? 1 : 0) - (input.Left ? 1 : 0);
+		float forward = static_cast<float>((input.Forward ? 1 : 0) - (input.Back ? 1 : 0));
+		float side = static_cast<float>((input.Right ? 1 : 0) - (input.Left ? 1 : 0));
 		float moveMult = 3.0f;
 
 		ObjectTransform.SetYaw(input.Yaw);
@@ -23,7 +23,7 @@ namespace Skel {
 	// Process animation via latest input.
 	void PlayerObject::ProcessAnimation(const PlayerInputState& input)
 	{
-		float forward = (input.Forward ? 1 : 0) - (input.Back ? 1 : 0);
+		float forward = static_cast<float>((input.Forward ? 1 : 0) - (input.Back ? 1 : 0));
 		if (forward != 0) {
 			m_AnimationController.PlayAnimation(PlayerAnimation::TPose);
 		}

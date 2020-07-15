@@ -72,7 +72,7 @@ namespace Skel
 						Input.IsKeyDown(KEY_A), Input.IsKeyPressed(KEY_SPACE), m_LocalPlayer->ObjectTransform.GetYaw() };
 
 			// Client-side predict
-			playerComp.ProcessInput(input, Game.DeltaTimeUnscaled());
+			playerComp.ProcessInput(input, static_cast<float>(Game.DeltaTimeUnscaled()));
 
 		}
 
@@ -93,7 +93,7 @@ namespace Skel
 						input.Yaw = m_LocalPlayer->ObjectTransform.GetYaw();
 					}
 
-					Net::PlayerInputPacket packet(input, Client.GetClientID(), Game.GetTick(), Game.DeltaTimeUnscaled());
+					Net::PlayerInputPacket packet(input, Client.GetClientID(), Game.GetTick(), static_cast<float>(Game.DeltaTimeUnscaled()));
 
 					// Add to lag simulator
 					FakeLagPackets.AddPacket<Net::PlayerInputPacket>(packet);

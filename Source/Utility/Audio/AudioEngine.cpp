@@ -30,9 +30,9 @@ namespace Skel {
 	void AudioEngine::PlaySound3D(std::string file, Vector3 position)
 	{
 		if (!m_Enabled) return;
-		ASSERT(m_Camera, "Must have camera to play 3D sound");
+		//ASSERT(m_Camera, "Must have camera to play 3D sound");
 		Vector4 pos = Vector4(position, 1.0f);
-		Vector3 localPos = glm::inverse(m_Camera->ObjectTransform.GetMatrix())* pos;
+		Vector3 localPos = Vector3(0.0, 0.0, 0.0);//glm::inverse(m_Camera->ObjectTransform.GetMatrix())* pos;
 		irrklang::vec3df soundPos(localPos.x, localPos.y, localPos.z);
 
 		std::string filePath = (m_Directory + file);

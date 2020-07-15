@@ -10,7 +10,7 @@ namespace Skel
 		Mesh()
 	{
 		SetBufferLayout(GetBufferLayout());
-		SetData(&m_Vertices[0], m_Vertices.size() * sizeof(SkinnedVertex), &m_Indicies[0], m_Indicies.size(), texture, m_Color);
+		SetData(&m_Vertices[0], m_Vertices.size() * sizeof(SkinnedVertex), &m_Indicies[0], static_cast<unsigned int>(m_Indicies.size()), texture, m_Color);
 	}
 
 	// Constructor with custom color
@@ -20,7 +20,7 @@ namespace Skel
 		Mesh()
 	{
 		SetBufferLayout(GetBufferLayout());
-		SetData(&m_Vertices[0], m_Vertices.size() * sizeof(SkinnedVertex), &m_Indicies[0], m_Indicies.size(), m_Texture, color);
+		SetData(&m_Vertices[0], m_Vertices.size() * sizeof(SkinnedVertex), &m_Indicies[0], static_cast<unsigned int>(m_Indicies.size()), m_Texture, color);
 	}
 
 	// Copy constructor
@@ -30,7 +30,7 @@ namespace Skel
 		Mesh()
 	{
 		SetBufferLayout(GetBufferLayout());
-		SetData((void*)& m_Vertices[0], m_Vertices.size() * sizeof(SkinnedVertex), &m_Indicies[0], m_Indicies.size(), other.m_Texture, other.m_Color);
+		SetData((void*)& m_Vertices[0], m_Vertices.size() * sizeof(SkinnedVertex), &m_Indicies[0], static_cast<unsigned int>(m_Indicies.size()), other.m_Texture, other.m_Color);
 	}
 	ImportedSkinnedMesh::~ImportedSkinnedMesh()
 	{

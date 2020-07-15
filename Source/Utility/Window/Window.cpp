@@ -23,6 +23,11 @@ Skel::Window::Window(const WindowProps & props)
 	m_Data.Width = props.Width;
 	m_Data.Height = props.Height;
 
+#ifdef SERVER
+	// Ignore window
+	return;
+#endif
+
 	LOG("Creating window {0} ({1}, {2})", props.Title, props.Width, props.Height);
 
 	// Removing Console

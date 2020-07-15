@@ -52,13 +52,15 @@ namespace Skel::Net {
 		ASSERT(latest != tick, "Should not Ack current tick");
 		// Shifts to make space and then acks
 		if (tick > latest) {
-			uint16 offset = tick - latest;
+			ASSERT(tick - latest < static_cast<uint16>(-1), "Tick - latest must be within gap");
+			uint16 offset = static_cast<uint16>(tick - latest);
 			ack <<= offset;
 			ack |= 1;
 		}
 		// Finds and acks appropriate bit
 		else {
-			uint16 offset = latest - tick;
+			ASSERT(tick - latest < static_cast<uint16>(-1), "latest - Tick must be within gap");
+			uint16 offset = static_cast<uint16>(latest - tick);
 			// Return false if already acked
 			uint64 bitState = m_InputAcks[clientIndex] & (uint64(1) << offset);
 			if (bitState > 0) return false;

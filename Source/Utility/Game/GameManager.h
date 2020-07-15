@@ -1,6 +1,5 @@
 #pragma once
 #include <StateMachine/StateMachine.h>
-#include <Camera/Camera.h>
 #include <GameObject/GameObjectTemplate.h>
 #include <Window/Window.h>
 
@@ -29,8 +28,8 @@ namespace Skel
 		uint64 GetTick() const;
 		double DeltaTime() const;
 		double DeltaTimeUnscaled() const;
-		float TimeScale() const;
-		void SetTimeScale(float timeScale);
+		double TimeScale() const;
+		void SetTimeScale(double timeScale);
 		void SetTimeScaleFreeze(bool freeze);
 		void Sleep(double time) const;
 		void SetPause(bool pause);

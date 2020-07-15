@@ -27,7 +27,6 @@ namespace Skel::Net
 		void   UpdateClientTick(uint16 clientIndex, uint64 tick);
 		bool   TryInputAck(uint16 clientIndex, uint64 tick);
 		void RemovePlayer(uint16 clientIndex);
-		void SetPlayerObjectArray(class PlayerObject* arr) { m_PlayerObjectArray = arr; }
 		bool IsActive(uint16 clientID) const;
 		const class GameObject* GetPlayerObject(uint16 clientID) const;
 		const std::vector<ClientSlot>& GetClientSlots() const;
@@ -44,7 +43,6 @@ namespace Skel::Net
 
 
 		std::vector<ClientSlot> m_ClientSlots; // List of active player addresses
-		class PlayerObject* m_PlayerObjectArray; // Active/Non-active player objects
 		uint16 m_ActivePlayers = 0;
 	};
 }

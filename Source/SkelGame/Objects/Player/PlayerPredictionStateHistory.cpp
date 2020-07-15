@@ -85,7 +85,7 @@ namespace Skel {
 			playerComp.ApplySnapshotState(corrected);
 
 			// Update all states after with the correction
-			for (int i = 0; i < m_Count; ++i) {
+			for (uint32 i = 0; i < m_Count; ++i) {
 				int index = (m_Start + i) % Net::PREDICTED_STATES;
 				PredictedMove& move = m_PredictedMoves[index];
 				playerComp.ProcessInput(move.InputState, move.DeltaTime);

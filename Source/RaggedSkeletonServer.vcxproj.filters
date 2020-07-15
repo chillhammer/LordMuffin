@@ -204,9 +204,6 @@
     <ClInclude Include="Utility\Audio\AudioEngine.h">
       <Filter>Utility\Audio</Filter>
     </ClInclude>
-    <ClInclude Include="Utility\Camera\Camera.h">
-      <Filter>Utility\Camera</Filter>
-    </ClInclude>
     <ClInclude Include="Utility\Camera\CameraComponent.h">
       <Filter>Utility\Camera</Filter>
     </ClInclude>
@@ -449,9 +446,6 @@
     <ClCompile Include="Utility\Audio\AudioEngine.cpp">
       <Filter>Utility\Audio</Filter>
     </ClCompile>
-    <ClCompile Include="Utility\Camera\Camera.cpp">
-      <Filter>Utility\Camera</Filter>
-    </ClCompile>
     <ClCompile Include="Utility\Camera\CameraComponent.cpp">
       <Filter>Utility\Camera</Filter>
     </ClCompile>
@@ -477,9 +471,6 @@
       <Filter>Utility\Game\States</Filter>
     </ClCompile>
     <ClCompile Include="Utility\Game\States\TestEntity.cpp">
-      <Filter>Utility\Game\States</Filter>
-    </ClCompile>
-    <ClCompile Include="Utility\Game\States\TestState.cpp">
       <Filter>Utility\Game\States</Filter>
     </ClCompile>
     <ClCompile Include="Utility\GameObject\BoundingBox.cpp">

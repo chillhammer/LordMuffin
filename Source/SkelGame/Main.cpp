@@ -1,3 +1,4 @@
+#pragma warning (disable : 4267)
 #include <skelpch.h>
 #include <Window/Window.h>
 #include <Input/InputManager.h>
@@ -46,9 +47,9 @@ int main()
 	return 0;
 #endif
 
-	Renderer renderer;
 	Game.Start();
 	Game.ChangeState(Skel::GameStates::TestEntity::Instance());
+	Renderer renderer;
 
 	while (Game.IsRunning())
 	{

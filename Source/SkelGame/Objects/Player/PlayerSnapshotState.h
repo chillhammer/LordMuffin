@@ -7,7 +7,7 @@ namespace Skel
 {
 	struct PlayerSnapshotState
 	{
-		PlayerSnapshotState() {};
+		PlayerSnapshotState() : Position(0.0f) {};
 		PlayerSnapshotState(const PlayerObject& obj) : Position(obj.ObjectTransform.Position), 
 			Yaw(obj.ObjectTransform.GetYaw()), Pitch(obj.ObjectTransform.GetPitch()),
 			AnimationIndex(obj.GetAnimation()) {};

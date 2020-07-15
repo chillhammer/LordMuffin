@@ -30,7 +30,7 @@ namespace Skel
 
 		float RecordTime() {
 			End();
-			return (m_EndTime - m_StartTime).count();
+			return static_cast<float>((m_EndTime - m_StartTime).count());
 		}
 
 		void SetActive(bool active) { m_Active = active; }
