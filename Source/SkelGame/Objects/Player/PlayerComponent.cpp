@@ -1,6 +1,7 @@
 #include <SkelPCH.h>
 #include <Camera/CameraComponent.h>
 #include <Client/ClientManager.h>
+#include <GameObject/GameObjectManager.h>
 #include "Objects/Network/NetworkComponent.h"
 #include "PlayerSnapshotState.h"
 #include "PlayerComponent.h"
@@ -32,7 +33,7 @@ namespace Skel
 #ifndef SERVER
 		if (IsLocalClient())
 		{
-			CameraComponent& camera = Objects::FindFirstComponent<CameraComponent>();
+			CameraComponent& camera = Objects.FindFirstComponent<CameraComponent>();
 			camera.SetPivotPosition(m_Owner->ObjectTransform.Position);
 		}
 #endif
@@ -56,15 +57,15 @@ namespace Skel
 	}
 	void Skel::PlayerComponent::OnCreated()
 	{
-		ASSERT(Objects::ComponentExists<NetworkComponent>(), "Player component cannot exist without network");
-		m_Network = &Objects::FindFirstComponent<NetworkComponent>();
+		ASSERT(Objects.ComponentExists<NetworkComponent>(), "Player component cannot exist without network");
+		m_Network = &Objects.FindFirstComponent<NetworkComponent>();
 	}
 	void Skel::PlayerComponent::Update()
 	{
 #ifndef SERVER
 		if (IsLocalClient())
 		{
-			CameraComponent& camera = Objects::FindFirstComponent<CameraComponent>();
+			CameraComponent& camera = Objects.FindFirstComponent<CameraComponent>();
 			camera.SetPivotPosition(m_Owner->ObjectTransform.Position);
 		}
 #endif

@@ -1,5 +1,6 @@
 #include <skelpch.h>
 #include <Resources/ResourceManager.h>
+#include <GameObject/GameObjectManager.h>
 #include "GameObject.h"
 
 namespace Skel
@@ -81,7 +82,8 @@ namespace Skel
 	// Sets to destroy this object at end of frame
 	void GameObject::Destroy()
 	{
-		Game.DestroyObject(this);
+		LOG("Destroying Object. ID: {0}", GetID());
+		Objects.DestroyObject(this);
 	}
 	// Delete all components on destruction
 	GameObject::~GameObject()

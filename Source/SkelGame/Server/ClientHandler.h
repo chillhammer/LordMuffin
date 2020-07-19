@@ -1,6 +1,7 @@
 #pragma once
 #include <Net/Net.h>
 #include <Net/Address.h>
+#include <EventSystem/Subject.h>
 
 namespace Skel::Net
 {
@@ -22,6 +23,7 @@ namespace Skel::Net
 		uint16 RemainingSlots() const { return MAX_PLAYERS - m_ActivePlayers; }
 		uint16 AddPlayer(Address address);
 		uint16 GetClientIndex(const Address& address) const;
+		bool ClientExists(const Address& address) const;
 		uint64 GetClientTick(uint16 clientIndex) const;
 		void   UpdateClientTick(uint16 clientIndex, uint64 tick);
 		bool   TryInputAck(uint16 clientIndex, uint64 tick);
@@ -30,6 +32,7 @@ namespace Skel::Net
 		const class GameObject* GetPlayerObject(uint16 clientID) const;
 		const std::vector<ClientSlot>& GetClientSlots() const;
 
+		Subject ClientSubject;
 
 	private:
 		// Helper Functions

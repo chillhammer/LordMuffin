@@ -10,6 +10,7 @@
 #include <Random/Random.h>
 #include <Client/ClientManager.h>
 #include <Resources/ResourceManager.h>
+#include <GameObject/GameObjectManager.h>
 #include <chrono>
 #include "GameManager.h"
 
@@ -40,6 +41,7 @@ namespace Skel
 		ImGui_ImplOpenGL3_Init("#version 410");
 
 		Random::Seed();
+
 	}
 	// Called to enter first state
 	void GameManager::Start()
@@ -66,28 +68,8 @@ namespace Skel
 		ImGui::NewFrame();
 		#pragma endregion
 
-		for (GameObject* o : m_GameObjects)
-		{
-			o->UpdateComponents();
-		}
 		m_StateMachine.Update();
-		for (GameObject* o : m_GameObjects)
-		{
-			o->PostUpdateComponents();
-		}
-
-		for (GameObject* o : m_GameObjects)
-		{
-			o->DrawComponents();
-		}
-
-		while (m_GameObjectsDestroyQueue.size() > 0)
-		{
-			GameObject* objToDestroy = m_GameObjectsDestroyQueue.front();
-			m_GameObjectsDestroyQueue.pop();
-			m_GameObjects.erase(std::remove(m_GameObjects.begin(), m_GameObjects.end(), objToDestroy), m_GameObjects.end());
-			delete objToDestroy;
-		}
+		Objects.Run();
 
 		#pragma region ImGui End
 		ImGuiIO& io = ImGui::GetIO();
@@ -141,24 +123,6 @@ namespace Skel
 	void GameManager::OnEvent(const Subject * subject, Event & event)
 	{
 		Evnt::Dispatch<KeyPressedEvent>(event, EVENT_BIND_FN(GameManager, OnKeyPressed));
-	}
-
-	void GameManager::LoadScene(const std::string& scene)
-	{
-		for (GameObject* obj : m_GameObjects)
-		{
-			delete obj;
-		}
-		m_GameObjects.clear();
-		auto& objTempls = Resources.GetScene(scene)->GetObjectTemplates();
-		for (auto objTemplPtr : objTempls)
-		{
-			m_GameObjects.emplace_back(objTemplPtr->Instantiate());
-		}
-		for (auto obj : m_GameObjects)
-		{
-			obj->OnSceneCreatedComponents();
-		}
 	}
 
 	// Returns time in seconds
@@ -228,18 +192,6 @@ namespace Skel
 		return m_Paused;
 	}
 
-	GameObject* GameManager::InstantiateObject(GameObjectTemplatePtr obj)
-	{
-		GameObject* objInst = obj->Instantiate();
-		m_GameObjects.emplace_back(objInst);
-		return objInst;
-	}
-
-	void GameManager::DestroyObject(GameObject* obj)
-	{
-		m_GameObjectsDestroyQueue.emplace(std::move(obj));
-	}
-
 	const Window& GameManager::GetWindow() const
 	{
 		return m_Window;
@@ -248,11 +200,6 @@ namespace Skel
 	Subject& GameManager::GetWindowResizedSubject()
 	{
 		return m_Window.WindowResized;
-	}
-
-	const std::vector<GameObject*>& GameManager::Objects() const
-	{
-		return m_GameObjects;
 	}
 
 	// Delta time allows objects to move despite rendering lag

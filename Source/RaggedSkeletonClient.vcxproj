@@ -167,11 +167,11 @@
     <ClInclude Include="Utility\Containers\BitArray.h" />
     <ClInclude Include="Utility\Containers\PackedIDMap.h" />
     <ClInclude Include="Utility\EventSystem\Event.h" />
-    <ClInclude Include="Utility\EventSystem\Events\NetEvent.h" />
     <ClInclude Include="Utility\EventSystem\EventType.h" />
     <ClInclude Include="Utility\EventSystem\Events\ApplicationEvent.h" />
     <ClInclude Include="Utility\EventSystem\Events\KeyEvent.h" />
     <ClInclude Include="Utility\EventSystem\Events\MouseEvent.h" />
+    <ClInclude Include="Utility\EventSystem\Events\NetEvent.h" />
     <ClInclude Include="Utility\EventSystem\IObserver.h" />
     <ClInclude Include="Utility\EventSystem\Subject.h" />
     <ClInclude Include="Utility\Game\GameManager.h" />
@@ -180,7 +180,7 @@
     <ClInclude Include="Utility\Game\States\GameStates.h" />
     <ClInclude Include="Utility\GameObject\BoundingBox.h" />
     <ClInclude Include="Utility\GameObject\GameObject.h" />
-    <ClInclude Include="Utility\GameObject\GameObjectHelpers.h" />
+    <ClInclude Include="Utility\GameObject\GameObjectManager.h" />
     <ClInclude Include="Utility\GameObject\GameObjectTemplate.h" />
     <ClInclude Include="Utility\Graphics\Model\ImportedMesh.h" />
     <ClInclude Include="Utility\Graphics\Model\ImportedModel.h" />
@@ -248,7 +248,6 @@
     <ClCompile Include="Utility\Components\ComponentManager.cpp" />
     <ClCompile Include="Utility\Components\ComponentTemplate.cpp" />
     <ClCompile Include="Utility\EventSystem\Subject.cpp" />
-    <ClCompile Include="Utility\GameObject\GameObjectHelpers.cpp" />
     <ClCompile Include="Utility\Game\GameManager.cpp" />
     <ClCompile Include="Utility\Game\Scene\Scene.cpp" />
     <ClCompile Include="Utility\Game\Screens\PauseScreen.cpp" />
@@ -256,6 +255,7 @@
     <ClCompile Include="Utility\Game\States\TestEntity.cpp" />
     <ClCompile Include="Utility\GameObject\BoundingBox.cpp" />
     <ClCompile Include="Utility\GameObject\GameObject.cpp" />
+    <ClCompile Include="Utility\GameObject\GameObjectManager.cpp" />
     <ClCompile Include="Utility\GameObject\GameObjectTemplate.cpp" />
     <ClCompile Include="Utility\Graphics\Model\ImportedMesh.cpp" />
     <ClCompile Include="Utility\Graphics\Model\ImportedModel.cpp" />

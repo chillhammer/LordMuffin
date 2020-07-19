@@ -1,6 +1,7 @@
 #include "SkelPCH.h"
-#include <GameObject/GameObjectHelpers.h>
+#include <GameObject/GameObjectManager.h>
 #include <Objects/Network/NetworkComponent.h>
+#include <EventSystem/Events/NetEvent.h>
 #include "ClientHandler.h"
 
 namespace Skel::Net {
@@ -25,6 +26,9 @@ namespace Skel::Net {
 
 		m_ActivePlayers++;
 
+		ClientConnectEvent e(playerIndex);
+		ClientSubject.Notify(e);
+
 		return playerIndex;
 	}
 	uint16 ClientHandler::GetClientIndex(const Address& address) const
@@ -32,6 +36,12 @@ namespace Skel::Net {
 		auto slot = std::find_if(m_ClientSlots.begin(), m_ClientSlots.end(),
 			[&addr = address](const ClientSlot& s) -> bool { return addr == s.ClientAddress; });
 		return slot->ID;
+	}
+	bool ClientHandler::ClientExists(const Address& address) const
+	{
+		auto slot = std::find_if(m_ClientSlots.begin(), m_ClientSlots.end(),
+			[&addr = address](const ClientSlot& s) -> bool { return addr == s.ClientAddress; });
+		return slot != m_ClientSlots.end();
 	}
 	uint64 ClientHandler::GetClientTick(uint16 clientIndex) const
 	{
@@ -87,6 +97,9 @@ namespace Skel::Net {
 		
 		m_ClientSlots.erase(toBeRemoved);
 
+		ClientDisconnectEvent e(clientIndex);
+		ClientSubject.Notify(e);
+
 		m_ActivePlayers--;
 	}
 	bool ClientHandler::IsActive(uint16 clientID) const
@@ -97,11 +110,11 @@ namespace Skel::Net {
 	{
 		if (!IsActive(clientID))
 			return nullptr;
-		if (!Objects::ComponentExists<NetworkComponent>())
+		if (!Objects.ComponentExists<NetworkComponent>())
 		{
 			LOG_ERROR("Needs NetworkComponent to find PlayerObject");
 		}
-		NetworkComponent& network = Objects::FindFirstComponent<NetworkComponent>();
+		NetworkComponent& network = Objects.FindFirstComponent<NetworkComponent>();
 		return network.GetPlayerObject(clientID);
 	}
 	// Used to get addresses of players

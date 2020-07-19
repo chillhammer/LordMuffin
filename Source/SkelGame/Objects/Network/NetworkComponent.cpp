@@ -1,5 +1,7 @@
 #include "SkelPCH.h"
 #include <Client/ClientManager.h>
+#include <Server/ServerManager.h>
+#include <GameObject/GameObjectManager.h>
 #include <Resources/ResourceManager.h>
 #include "NetworkComponent.h"
 
@@ -24,11 +26,11 @@ namespace Skel
 	{
 #ifndef SERVER
 		// Create local player even if not connected to server
-		GameObject* localPlayer = Game.InstantiateObject(Resources.GetPrefab("Player"));
+		GameObject* localPlayer = Objects.InstantiateObject(Resources.GetPrefab("Player"));
 		SetLocalPlayerObject(localPlayer);
 		Client.ClientSubject.AddObserver(this);
 #else
-		//Server.ServerSubject.AddObserver(this);
+		Server.GetClientHandler().ClientSubject.AddObserver(this);
 #endif
 
 	}
@@ -58,7 +60,7 @@ namespace Skel
 	GameObject* Skel::NetworkComponent::CreatePlayerObject(uint16 clientID)
 	{
 		ASSERT(m_PlayerObjects[clientID] == nullptr, "Cannot overwrite player object");
-		GameObject* playerObj = Game.InstantiateObject(Resources.GetPrefab("Player"));
+		GameObject* playerObj = Objects.InstantiateObject(Resources.GetPrefab("Player"));
 		SetPlayerObject(clientID, playerObj);
 		return playerObj;
 	}
@@ -96,21 +98,54 @@ namespace Skel
 	void Skel::NetworkComponent::OnEvent(const Subject* subject, Event& event)
 	{
 		Evnt::Dispatch<ClientConnectEvent>(event, EVENT_BIND_FN(NetworkComponent, OnClientConnect));
-		Evnt::Dispatch<ClientConnectEvent>(event, EVENT_BIND_FN(NetworkComponent, OnClientConnect));
+		Evnt::Dispatch<ClientDisconnectEvent>(event, EVENT_BIND_FN(NetworkComponent, OnClientDisconnect));
 	}
 	bool NetworkComponent::OnClientConnect(ClientConnectEvent e)
 	{
+		// Set from local
+#ifndef SERVER
+		if (e.ClientID == Client.GetClientID() && m_LocalPlayer)
+		{
+			SetPlayerObject(Client.GetClientID(), m_LocalPlayer);
+			return false;
+		}
+#endif
+
+		GameObject* playerObj = GetPlayerObject(e.ClientID);
+		// Spawn player
+		if (playerObj != nullptr)
+		{
+			playerObj->Destroy();
+			SetPlayerObject(e.ClientID, nullptr);
+		}
+		CreatePlayerObject(e.ClientID);
+
 		return false;
 	}
 	bool NetworkComponent::OnClientDisconnect(ClientDisconnectEvent e)
 	{
-		if (m_LocalPlayer == GetPlayerObject(e.ClientID))
+		GameObject* clientObj = GetPlayerObject(e.ClientID);
+		if (m_LocalPlayer == clientObj)
 		{
 			// Clear all players
+			for (int i = 0; i < Net::MAX_PLAYERS; i++)
+			{
+				GameObject* obj = m_PlayerObjects[i];
+				if (obj && obj != m_LocalPlayer)
+				{
+					obj->Destroy();
+				}
+				m_PlayerObjects[i] = nullptr;
+			}
 		}
 		else
 		{
 			// Clear specific player
+			if (clientObj)
+			{
+				clientObj->Destroy();
+				m_PlayerObjects[e.ClientID] = nullptr;
+			}
 		}
 		return false;
 	}

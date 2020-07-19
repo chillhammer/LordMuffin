@@ -2,7 +2,6 @@
 #include <Transform/Transform.h>
 #include <Graphics/Model/Model.h>
 #include <Components/GameObjectComponent.h>
-#include "GameObjectHelpers.h"
 #include "BoundingBox.h"
 
 

@@ -10,6 +10,7 @@ namespace Skel
 	/**
 		Manager singleton object handling the game logic.
 		Mostly dealing with in-game logic.
+
 	**/
 	class GameManager : IObserver
 	{
@@ -23,7 +24,6 @@ namespace Skel
 		void ChangeState(State<GameManager>* state);
 		State<GameManager>* GetState() const;
 		void OnEvent(const Subject* subject, Event& event);
-		void LoadScene(const std::string& scene);
 
 		double RunningTime() const;
 		uint64 GetTick() const;
@@ -35,12 +35,9 @@ namespace Skel
 		void Sleep(double time) const;
 		void SetPause(bool pause);
 		bool IsPaused() const;
-		GameObject* InstantiateObject(GameObjectTemplatePtr);
-		void DestroyObject(class GameObject* obj);
 
 		const class Window& GetWindow() const;
 		Subject& GetWindowResizedSubject();
-		const std::vector<class GameObject*>& Objects() const;
 		~GameManager();
 	private:
 		GameManager();
@@ -60,8 +57,6 @@ namespace Skel
 		Window m_Window;
 	private:
 		StateMachine<GameManager> m_StateMachine;
-		std::vector<GameObject*> m_GameObjects;
-		std::queue<GameObject*> m_GameObjectsDestroyQueue;
 	};
 
 	extern WindowProps g_WindowProperties;

@@ -4,10 +4,10 @@
 #include <Packets/JoinPackets.h>
 #include <Server/ServerManager.h>
 #include <Game/GameManager.h>
+#include <GameObject/GameObjectManager.h>
 #include <FakeLag/FakeLagPacketHolderManager.h>
 #include <Objects/Network/NetworkComponent.h>
 #include <Camera/CameraComponent.h>
-#include <GameObject/GameObjectHelpers.h>
 #include <Resources/ResourceManager.h>
 #include <Input/InputManager.h>
 namespace Skel
@@ -29,6 +29,7 @@ namespace Skel
 				Net::PacketType type;
 				receiveBuffer.ResetReadPosition();
 				receiveBuffer.Read(&type, 1);
+				Client.SetLastReceivedTime(RUNNING_TIME);
 
 				switch (type) {
 				case Net::PACKET_JOIN_ACCEPT:
@@ -38,7 +39,6 @@ namespace Skel
 					Client.SetClientID(packet.ClientID);
 					Client.SetConnected(true);
 					Client.GetSynchronizer().StartSynchronizing();
-					SetPlayerObject(packet.ClientID, m_LocalPlayer);
 					break;
 				}
 				case Net::PACKET_JOIN_DECLINED:
@@ -61,7 +61,7 @@ namespace Skel
 
 		// Move local player
 		PlayerInputState input;
-		CameraComponent& camera = Objects::FindFirstComponent<CameraComponent>();
+		CameraComponent& camera = Objects.FindFirstComponent<CameraComponent>();
 		if (m_LocalPlayer)
 		{
 			PlayerComponent playerComp = m_LocalPlayer->GetComponent<PlayerComponent>();
@@ -144,6 +144,7 @@ namespace Skel
 			if (RUNNING_TIME - Client.GetLastReceivedTime() > Net::CLIENT_TIMEOUT_TIME)
 			{
 				Client.SetConnected(false);
+				LOG("Timeout. Disconnect from server");
 			}
 
 			// Assertions

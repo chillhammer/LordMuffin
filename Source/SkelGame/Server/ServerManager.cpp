@@ -5,6 +5,7 @@
 #include <thread>
 #include <Resources/ResourceManager.h>
 #include <FakeLag/FakeLagPacketHolderManager.h>
+#include <GameObject/GameObjectManager.h>
 
 #include <Packets/PlayerInputPacket.h>
 #include <Packets/JoinPackets.h>
@@ -39,23 +40,13 @@ namespace Skel::Net {
 		double targetFrameTime = startTime + Server.GetFixedFrameDeltaTime();
 		int noSleepTicks = 0;
 
-		Game.LoadScene("TestLevel");
+		Objects.LoadScene("TestLevel");
 
 		while (Server.IsRunning())
 		{
 			const double startFrameTime = Server.RunningTime();
-
-			// Run all objects in the scene
-			for (GameObject* o : Game.Objects())
-			{
-				o->UpdateComponents();
-			}
-			for (GameObject* o : Game.Objects())
-			{
-				o->PostUpdateComponents();
-			}
-			// TODO: move this to just a function in Game
 			
+			Objects.Run();
 
 #pragma region Fixed Framerate Loop
 			double endFrameTime = Server.RunningTime();

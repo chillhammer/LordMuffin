@@ -41,10 +41,15 @@ namespace Skel
 
 				if (m_ClientHandler.RemainingSlots() > 0)
 				{
-					auto clientID = m_ClientHandler.AddPlayer(fromAddress);
-					// Spawn player on join
-
-					GameObject* playerObj = CreatePlayerObject(clientID);
+					uint16 clientID = 0;
+					if (m_ClientHandler.ClientExists(fromAddress))
+					{
+						clientID = m_ClientHandler.GetClientIndex(fromAddress);
+					}
+					else
+					{
+						clientID = m_ClientHandler.AddPlayer(fromAddress);
+					}
 
 					WRITE_PACKET(JoinAcceptPacket, (clientID), buffer);
 					m_Server.SendBuffer(buffer, fromAddress);

@@ -231,6 +231,9 @@
     <ClInclude Include="Utility\EventSystem\Events\MouseEvent.h">
       <Filter>Utility\EventSystem\Events</Filter>
     </ClInclude>
+    <ClInclude Include="Utility\EventSystem\Events\NetEvent.h">
+      <Filter>Utility\EventSystem\Events</Filter>
+    </ClInclude>
     <ClInclude Include="Utility\EventSystem\IObserver.h">
       <Filter>Utility\EventSystem</Filter>
     </ClInclude>
@@ -255,7 +258,7 @@
     <ClInclude Include="Utility\GameObject\GameObject.h">
       <Filter>Utility\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="Utility\GameObject\GameObjectHelpers.h">
+    <ClInclude Include="Utility\GameObject\GameObjectManager.h">
       <Filter>Utility\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="Utility\GameObject\GameObjectTemplate.h">
@@ -387,7 +390,6 @@
     <ClInclude Include="Vendor\stb_image\stb_image.h">
       <Filter>Vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="Utility\EventSystem\Events\NetEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PCH\SkelPCH.cpp">
@@ -469,6 +471,9 @@
       <Filter>Utility\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Utility\GameObject\GameObject.cpp">
+      <Filter>Utility\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\GameObject\GameObjectManager.cpp">
       <Filter>Utility\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="Utility\GameObject\GameObjectTemplate.cpp">
@@ -564,6 +569,5 @@
     <ClCompile Include="Vendor\stb_image\stb_image.cpp">
       <Filter>Vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="Utility\GameObject\GameObjectHelpers.cpp" />
   </ItemGroup>
 </Project>

@@ -2,6 +2,7 @@
 #include "SnapshotReceiver.h"
 #include <Client/ClientManager.h>
 #include <Game/GameManager.h>
+#include <GameObject/GameObjectManager.h>
 #include <Resources/ResourceManager.h>
 #include <GameObject/GameObjectTemplate.h>
 #include <Objects/Network/NetworkComponent.h>
@@ -28,6 +29,8 @@ namespace Skel::Net {
 			// Check against predicted output and do corrections. Updates player object state if needed
 			double calculatedClientTime = Game.RunningTime() - (Client.GetSynchronizer().Latency() * 2 + Net::SNAPSHOT_INTER_BUFFER);
 			// Calculated time is off... I think i should send prediction ID instead
+
+			// Correct player if its prediction is off
 			if (m_Network)
 			{
 				Client.GetPredictionHistory().CorrectState(playerEntry->State, m_Network->GetPlayerObject(playerEntry->ClientID), calculatedClientTime, m_LastReceivedClientTick);
@@ -44,7 +47,7 @@ namespace Skel::Net {
 	{
 		if (!m_Network)
 		{
-			m_Network = &Objects::FindFirstComponent<NetworkComponent>();
+			m_Network = &Objects.FindFirstComponent<NetworkComponent>();
 		}
 
 		// First Snapshot, No Interpolation
@@ -128,6 +131,7 @@ namespace Skel::Net {
 			{
 
 				playerObj = m_Network->CreatePlayerObject(entry.ClientID);
+				// TODO: use event system?
 				// TODO: delete player objects that are stale
 			}
 

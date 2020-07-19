@@ -9,8 +9,8 @@
 #include <Net/Net.h>
 #include <imgui.h>
 #include <Graphics/Model/ImportedSkinnedModel.h>
-#include <GameObject/GameObjectHelpers.h>
 #include <Camera/CameraComponent.h>
+#include <GameObject/GameObjectManager.h>
 #include "GameStates.h"
 /**
 	Each state runs code that determines the course of the game.
@@ -31,7 +31,7 @@ namespace Skel::GameStates
 		m_SkinnedShader->Bind();
 		m_SkinnedShader->SetUniform3f("u_LightPosition", m_Light.x, m_Light.y, m_Light.z);
 		
-		Game.LoadScene("TestLevel");
+		Objects.LoadScene("TestLevel");
 	}
 	void TestEntity::Execute(GameManager* owner)
 	{
@@ -60,7 +60,7 @@ namespace Skel::GameStates
 
 		if (Input.IsKeyPressed(KEY_T))
 		{
-			GameObject* bendy = Objects::FindObjectByName("Bendy");
+			GameObject* bendy = Objects.FindObjectByName("Bendy");
 			if (bendy)
 			{
 				bendy->Destroy();
