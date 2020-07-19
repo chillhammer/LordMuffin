@@ -51,11 +51,21 @@ namespace Skel::GameStates
 		else {
 			ImGui::Text("Connected");
 			ImGui::Text("Fake Lag (%f), Jitter(%f), Packet Loss(%f)", Net::FAKE_LAG_S, Net::FAKE_JITTER_S, Net::FAKE_PACKET_LOSS);
+			if (Input.IsKeyPressed(KEY_R))
+			{
+				Client.SetConnected(false);
+			}
 		}
 		ImGui::End();
 
-		bool hasCamera = Objects::FindFirstComponent<CameraComponent>().GetOwner()->HasComponent<CameraComponent>();
-		int a = 1;
+		if (Input.IsKeyPressed(KEY_T))
+		{
+			GameObject* bendy = Objects::FindObjectByName("Bendy");
+			if (bendy)
+			{
+				bendy->Destroy();
+			}
+		}
 	}
 	void TestEntity::Exit(GameManager* owner)
 	{

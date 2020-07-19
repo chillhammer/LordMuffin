@@ -26,7 +26,11 @@ namespace Skel
 		// Create local player even if not connected to server
 		GameObject* localPlayer = Game.InstantiateObject(Resources.GetPrefab("Player"));
 		SetLocalPlayerObject(localPlayer);
+		Client.ClientSubject.AddObserver(this);
+#else
+		//Server.ServerSubject.AddObserver(this);
 #endif
+
 	}
 
 	void NetworkComponent::Update()
@@ -86,5 +90,28 @@ namespace Skel
 		{
 			m_PlayerObjects[Client.GetClientID()] = obj;
 		}
+	}
+
+	// Events
+	void Skel::NetworkComponent::OnEvent(const Subject* subject, Event& event)
+	{
+		Evnt::Dispatch<ClientConnectEvent>(event, EVENT_BIND_FN(NetworkComponent, OnClientConnect));
+		Evnt::Dispatch<ClientConnectEvent>(event, EVENT_BIND_FN(NetworkComponent, OnClientConnect));
+	}
+	bool NetworkComponent::OnClientConnect(ClientConnectEvent e)
+	{
+		return false;
+	}
+	bool NetworkComponent::OnClientDisconnect(ClientDisconnectEvent e)
+	{
+		if (m_LocalPlayer == GetPlayerObject(e.ClientID))
+		{
+			// Clear all players
+		}
+		else
+		{
+			// Clear specific player
+		}
+		return false;
 	}
 }

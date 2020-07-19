@@ -1,5 +1,4 @@
 #pragma once
-#include <Objects/Player/PlayerObject.h>
 #include <Net/Net.h>
 #include <Net/Address.h>
 

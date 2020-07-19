@@ -1,5 +1,4 @@
 #include "SkelPCH.h"
-#include <Objects/Player/PlayerObject.h>
 #include <GameObject/GameObjectHelpers.h>
 #include <Objects/Network/NetworkComponent.h>
 #include "ClientHandler.h"
@@ -45,21 +44,28 @@ namespace Skel::Net {
 		m_LatestTick[clientIndex] = tick;
 	}
 	// Input acks. Will shift if needed. Returns true if not input acked, and thus successfully acks
+	// When receiving an old input, returns true if not yet processed
 	bool ClientHandler::TryInputAck(uint16 clientIndex, uint64 tick)
 	{
 		uint64 latest = GetClientTick(clientIndex);
 		uint64& ack = m_InputAcks[clientIndex];
 		ASSERT(latest != tick, "Should not Ack current tick");
-		// Shifts to make space and then acks
+		// Shifts to make space and then acks. This input is new
 		if (tick > latest) {
-			ASSERT(tick - latest < static_cast<uint16>(-1), "Tick - latest must be within gap");
-			uint16 offset = static_cast<uint16>(tick - latest);
-			ack <<= offset;
+			if (tick - latest >= static_cast<uint8>(-1))
+			{
+				ack = 0;
+			}
+			else
+			{
+				uint8 offset = static_cast<uint8>(tick - latest);
+				ack <<= offset;
+			}
 			ack |= 1;
 		}
-		// Finds and acks appropriate bit
+		// Finds and acks appropriate bit. This input was skipped over
 		else {
-			ASSERT(tick - latest < static_cast<uint16>(-1), "latest - Tick must be within gap");
+			ASSERT(latest - tick < static_cast<uint16>(-1), "latest - Tick must be within gap");
 			uint16 offset = static_cast<uint16>(latest - tick);
 			// Return false if already acked
 			uint64 bitState = m_InputAcks[clientIndex] & (uint64(1) << offset);

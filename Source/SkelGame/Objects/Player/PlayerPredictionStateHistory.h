@@ -1,5 +1,4 @@
 #pragma once
-#include "PlayerObject.h"
 #include "PlayerSnapshotState.h"
 #include "Net/Net.h"
 

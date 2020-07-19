@@ -14,5 +14,7 @@ enum class EventType
 	KeyPressed, KeyReleased, KeyTyped,
 	MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled,
 
+	ClientDisconnect,ClientConnect,
+
 	CUSTOM_EVENTS
 };

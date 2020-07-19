@@ -4,7 +4,6 @@
 #include <Net/Buffer.h>
 #include <thread>
 #include <Resources/ResourceManager.h>
-#include <Objects/Player/PlayerObject.h>
 #include <FakeLag/FakeLagPacketHolderManager.h>
 
 #include <Packets/PlayerInputPacket.h>
@@ -55,6 +54,7 @@ namespace Skel::Net {
 			{
 				o->PostUpdateComponents();
 			}
+			// TODO: move this to just a function in Game
 			
 
 #pragma region Fixed Framerate Loop

@@ -6,18 +6,6 @@ namespace Skel
 {
 	GameObject::GameObject()
 	{
-		//ASSERT(false, "GameObject must have model");
-		m_ID = GetNextID();
-	}
-	GameObject::GameObject(std::string modelName) 
-		: m_Model(Resources.GetModel(modelName))
-	{
-		m_ID = GetNextID();
-	}
-	GameObject::GameObject(std::string modelName, Vector3 position)
-		: m_Model(Resources.GetModel(modelName))
-	{
-		ObjectTransform.Position = position;
 		m_ID = GetNextID();
 	}
 	GameObject::GameObject(const GameObject & other)
@@ -61,17 +49,7 @@ namespace Skel
 		ASSERT(m_ComponentMap.find(componentID) == m_ComponentMap.end(), "Trying to add component that exists");
 		m_ComponentMap[componentID] = std::move(ptr);
 	}
-	// Returns whether two bounding boxes intersect
-	bool GameObject::IsColliding(const GameObject & other) const
-	{
-		return m_BoundingBox.IsIntersecting(ObjectTransform, other.ObjectTransform, other.m_BoundingBox);
-	}
-	bool GameObject::IsCollidingAtPosition(const GameObject& other, Vector3 newPos) const
-	{
-		Transform temp(ObjectTransform);
-		temp.Position = newPos;
-		return m_BoundingBox.IsIntersecting(temp, other.ObjectTransform, other.m_BoundingBox);
-	}
+
 	void GameObject::OnSceneCreatedComponents()
 	{
 		for (auto& component : m_Components)
@@ -100,42 +78,19 @@ namespace Skel
 			component->Draw();
 		}
 	}
-	void GameObject::Draw()
+	// Sets to destroy this object at end of frame
+	void GameObject::Destroy()
 	{
-		if (m_Model == nullptr)
-			return;
-		ShaderPtr shader = Resources.GetShader("Model");
-		Draw(shader);
-	}
-	void GameObject::Draw(const ShaderPtr & shader)
-	{
-		PreDraw();
-		if (m_Model == nullptr)
-			return;
-		m_Model->Draw(shader, ObjectTransform.GetMatrix());
-	}
-	// Debug method to draw bounding box
-	void GameObject::DrawBoundingBox() const
-	{
-		if (!m_BoundingBox.IsEmpty())
-			m_BoundingBox.DebugDraw(ObjectTransform);
+		Game.DestroyObject(this);
 	}
 	// Delete all components on destruction
 	GameObject::~GameObject()
 	{
 		for (ComponentPtr comp : m_Components)
 		{
-			// TODO: Destroy components. Maybe send event in case other components hold them still
+			comp->SetAlive(false);
+			comp->SetOwner(nullptr);
 		}
-	}
-	// Allows children to customize shape of bounding box
-	void GameObject::SetBoundingBox(Vector3 center, Vector3 halfExtents)
-	{
-		m_BoundingBox.SetParameters(center, halfExtents);
-	}
-	BoundingBox GameObject::GetBoundingBox() const
-	{
-		return m_BoundingBox;
 	}
 	// Each object will have a unique identifier based on this static function
 	int GameObject::GetNextID()

@@ -30,6 +30,8 @@ namespace Skel::Net
 
 	inline constexpr double	 SNAPSHOT_INTER_BUFFER = 0.01; // seconds to delay snapshots for interpolation
 
+	inline constexpr double	 CLIENT_TIMEOUT_TIME = 5.0; // seconds before giving up on server
+
 
 	inline constexpr int	 PREDICTED_STATES = 512; // ticks to keep in memory
 	inline constexpr int	 INPUTS_PACKED = 16;		 // amount of previous inputs to send

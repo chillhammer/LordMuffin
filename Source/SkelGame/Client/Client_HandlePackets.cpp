@@ -118,6 +118,7 @@ namespace Skel
 				Net::PacketType type;
 				receiveBuffer.ResetReadPosition();
 				receiveBuffer.Read(&type, 1);
+				Client.SetLastReceivedTime(RUNNING_TIME);
 
 				switch (type)
 				{
@@ -138,6 +139,12 @@ namespace Skel
 
 			}
 			Client.GetSnapshotReceiver().Update();
+
+			// Timeout
+			if (RUNNING_TIME - Client.GetLastReceivedTime() > Net::CLIENT_TIMEOUT_TIME)
+			{
+				Client.SetConnected(false);
+			}
 
 			// Assertions
 			ASSERT(m_LocalPlayer == m_PlayerObjects[Client.GetClientID()], "Local player object must be the same in array");

@@ -17,8 +17,6 @@ namespace Skel
 		friend class GameObjectTemplate;
 	public:
 		GameObject();
-		GameObject(std::string modelName);
-		GameObject(std::string modelName, Vector3 position);
 		GameObject(const GameObject& other);
 		int GetID() const;
 		void AttachToParent(const GameObject* parent);
@@ -69,25 +67,15 @@ namespace Skel
 		void SetName(const std::string& name) { m_Name = name; }
 		const std::string& GetName() { return m_Name; }
 
-		bool IsColliding(const GameObject& other) const;
-		bool IsCollidingAtPosition(const GameObject& other, Vector3 newPos) const;
 		void OnSceneCreatedComponents();
 		void UpdateComponents();
 		void PostUpdateComponents();
 		void DrawComponents();
 
-		void Draw();
-		void Draw(const ShaderPtr& shader);
-		void DrawBoundingBox() const;
-		virtual void PreDraw() {}
+		void Destroy();
 		virtual ~GameObject();
 	public:
 		Transform ObjectTransform;
-		void SetBoundingBox(Vector3 center, Vector3 halfExtents);
-		BoundingBox GetBoundingBox() const;
-	protected:
-		ModelPtr m_Model;
-		BoundingBox m_BoundingBox;
 	private:
 		static int GetNextID();
 		std::vector<ComponentPtr> m_Components;

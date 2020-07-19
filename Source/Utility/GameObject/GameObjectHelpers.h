@@ -1,4 +1,5 @@
 #pragma once
+#include <GameObject/GameObject.h>
 #include <Game/GameManager.h>
 
 namespace Skel::Objects
@@ -45,4 +46,6 @@ namespace Skel::Objects
 		}
 		return false;
 	}
+
+	GameObject* FindObjectByName(const std::string& name);
 }

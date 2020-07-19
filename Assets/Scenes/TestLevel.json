@@ -27,6 +27,7 @@
             }
         },
         {
+            "ExistsOn" : "Client",
             "Components" :
             {
                 "Camera" :

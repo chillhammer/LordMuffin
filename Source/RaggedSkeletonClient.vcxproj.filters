@@ -153,9 +153,6 @@
     <ClInclude Include="SkelGame\Objects\Box\BoxMesh.h">
       <Filter>SkelGame\Objects\Box</Filter>
     </ClInclude>
-    <ClInclude Include="SkelGame\Objects\Box\WoodenBox.h">
-      <Filter>SkelGame\Objects\Box</Filter>
-    </ClInclude>
     <ClInclude Include="SkelGame\Objects\Box\WoodenBoxModel.h">
       <Filter>SkelGame\Objects\Box</Filter>
     </ClInclude>
@@ -166,9 +163,6 @@
       <Filter>SkelGame\Objects\Player</Filter>
     </ClInclude>
     <ClInclude Include="SkelGame\Objects\Player\PlayerInputState.h">
-      <Filter>SkelGame\Objects\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="SkelGame\Objects\Player\PlayerObject.h">
       <Filter>SkelGame\Objects\Player</Filter>
     </ClInclude>
     <ClInclude Include="SkelGame\Objects\Player\PlayerPredictionStateHistory.h">
@@ -393,6 +387,7 @@
     <ClInclude Include="Vendor\stb_image\stb_image.h">
       <Filter>Vendor\stb_image</Filter>
     </ClInclude>
+    <ClInclude Include="Utility\EventSystem\Events\NetEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PCH\SkelPCH.cpp">
@@ -423,9 +418,6 @@
       <Filter>SkelGame\Objects\Network</Filter>
     </ClCompile>
     <ClCompile Include="SkelGame\Objects\Player\PlayerComponent.cpp">
-      <Filter>SkelGame\Objects\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="SkelGame\Objects\Player\PlayerObject.cpp">
       <Filter>SkelGame\Objects\Player</Filter>
     </ClCompile>
     <ClCompile Include="SkelGame\Objects\Player\PlayerPredictionStateHistory.cpp">
@@ -572,5 +564,6 @@
     <ClCompile Include="Vendor\stb_image\stb_image.cpp">
       <Filter>Vendor\stb_image</Filter>
     </ClCompile>
+    <ClCompile Include="Utility\GameObject\GameObjectHelpers.cpp" />
   </ItemGroup>
 </Project>

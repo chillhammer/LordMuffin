@@ -145,12 +145,10 @@
     <ClInclude Include="SkelGame\Events\GameEvents.h" />
     <ClInclude Include="SkelGame\FakeLag\FakeLagPacketHolderManager.h" />
     <ClInclude Include="SkelGame\Objects\Box\BoxMesh.h" />
-    <ClInclude Include="SkelGame\Objects\Box\WoodenBox.h" />
     <ClInclude Include="SkelGame\Objects\Box\WoodenBoxModel.h" />
     <ClInclude Include="SkelGame\Objects\Network\NetworkComponent.h" />
     <ClInclude Include="SkelGame\Objects\Player\PlayerComponent.h" />
     <ClInclude Include="SkelGame\Objects\Player\PlayerInputState.h" />
-    <ClInclude Include="SkelGame\Objects\Player\PlayerObject.h" />
     <ClInclude Include="SkelGame\Objects\Player\PlayerPredictionStateHistory.h" />
     <ClInclude Include="SkelGame\Objects\Player\PlayerSnapshotState.h" />
     <ClInclude Include="SkelGame\Packets\JoinPackets.h" />
@@ -169,6 +167,7 @@
     <ClInclude Include="Utility\Containers\BitArray.h" />
     <ClInclude Include="Utility\Containers\PackedIDMap.h" />
     <ClInclude Include="Utility\EventSystem\Event.h" />
+    <ClInclude Include="Utility\EventSystem\Events\NetEvent.h" />
     <ClInclude Include="Utility\EventSystem\EventType.h" />
     <ClInclude Include="Utility\EventSystem\Events\ApplicationEvent.h" />
     <ClInclude Include="Utility\EventSystem\Events\KeyEvent.h" />
@@ -239,7 +238,6 @@
     <ClCompile Include="SkelGame\Objects\Box\WoodenBoxModel.cpp" />
     <ClCompile Include="SkelGame\Objects\Network\NetworkComponent.cpp" />
     <ClCompile Include="SkelGame\Objects\Player\PlayerComponent.cpp" />
-    <ClCompile Include="SkelGame\Objects\Player\PlayerObject.cpp" />
     <ClCompile Include="SkelGame\Objects\Player\PlayerPredictionStateHistory.cpp" />
     <ClCompile Include="SkelGame\Packets\SnapshotPacket.cpp" />
     <ClCompile Include="SkelGame\Server\ClientHandler.cpp" />
@@ -250,6 +248,7 @@
     <ClCompile Include="Utility\Components\ComponentManager.cpp" />
     <ClCompile Include="Utility\Components\ComponentTemplate.cpp" />
     <ClCompile Include="Utility\EventSystem\Subject.cpp" />
+    <ClCompile Include="Utility\GameObject\GameObjectHelpers.cpp" />
     <ClCompile Include="Utility\Game\GameManager.cpp" />
     <ClCompile Include="Utility\Game\Scene\Scene.cpp" />
     <ClCompile Include="Utility\Game\Screens\PauseScreen.cpp" />

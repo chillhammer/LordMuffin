@@ -119,6 +119,7 @@ namespace Skel
 	GameObject* GameObjectTemplate::Instantiate()
 	{
 		GameObject* obj = new GameObject();
+		obj->SetName(Name);
 		obj->ObjectTransform.Position = Position;
 		obj->ObjectTransform.Rotation = Rotation;
 		obj->ObjectTransform.Scale = Scale;

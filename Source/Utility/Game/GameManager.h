@@ -1,4 +1,5 @@
 #pragma once
+#include <queue>
 #include <StateMachine/StateMachine.h>
 #include <GameObject/GameObjectTemplate.h>
 #include <Window/Window.h>
@@ -35,6 +36,7 @@ namespace Skel
 		void SetPause(bool pause);
 		bool IsPaused() const;
 		GameObject* InstantiateObject(GameObjectTemplatePtr);
+		void DestroyObject(class GameObject* obj);
 
 		const class Window& GetWindow() const;
 		Subject& GetWindowResizedSubject();
@@ -59,6 +61,7 @@ namespace Skel
 	private:
 		StateMachine<GameManager> m_StateMachine;
 		std::vector<GameObject*> m_GameObjects;
+		std::queue<GameObject*> m_GameObjectsDestroyQueue;
 	};
 
 	extern WindowProps g_WindowProperties;

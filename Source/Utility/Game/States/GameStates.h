@@ -1,6 +1,5 @@
 #pragma once
 #include "../GameManager.h"
-#include <Objects/Box/WoodenBox.h>
 #include <Graphics/Model/Skybox.h>
 #include <UI/Button.h>
 #include <Game/Screens/PauseScreen.h>
@@ -9,7 +8,6 @@
 #include <Packets/PlayerInputPacket.h>
 #include <GameObject/GameObjectTemplate.h>
 
-#include <Objects/Player/PlayerObject.h>
 #include <Net/Socket.h>
 namespace Skel::GameStates
 {

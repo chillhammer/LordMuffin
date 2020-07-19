@@ -81,6 +81,14 @@ namespace Skel
 			o->DrawComponents();
 		}
 
+		while (m_GameObjectsDestroyQueue.size() > 0)
+		{
+			GameObject* objToDestroy = m_GameObjectsDestroyQueue.front();
+			m_GameObjectsDestroyQueue.pop();
+			m_GameObjects.erase(std::remove(m_GameObjects.begin(), m_GameObjects.end(), objToDestroy), m_GameObjects.end());
+			delete objToDestroy;
+		}
+
 		#pragma region ImGui End
 		ImGuiIO& io = ImGui::GetIO();
 		io.DisplaySize = ImVec2((float)m_Window.GetWidth(), (float)m_Window.GetHeight());
@@ -225,6 +233,11 @@ namespace Skel
 		GameObject* objInst = obj->Instantiate();
 		m_GameObjects.emplace_back(objInst);
 		return objInst;
+	}
+
+	void GameManager::DestroyObject(GameObject* obj)
+	{
+		m_GameObjectsDestroyQueue.emplace(std::move(obj));
 	}
 
 	const Window& GameManager::GetWindow() const

@@ -17,7 +17,6 @@
 #include <Graphics/Model/ImportedModel.h>
 #include <Graphics/Model/SingleMeshModel.h>
 #include <Resources/ResourceManager.h>
-#include <Objects/Box/WoodenBox.h>
 #include <Game/States/GameStates.h>
 #include <Net/Net.h>
 #include <Net/Socket.h>

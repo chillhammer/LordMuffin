@@ -30,9 +30,19 @@ namespace Skel
 
 		for (auto& entry : objects)
 		{
+			auto obj = entry.value();
+			if (obj.find("ExistsOn") != obj.end())
+			{
+#ifdef SERVER
+				if (obj["ExistsOn"] != "Server")
+#else
+				if (obj["ExistsOn"] != "Client")
+#endif
+					continue;
+			}
 			GameObjectTemplatePtr objectTempl(AddObjectTemplate());
 
-			auto obj = entry.value();
+			
 			objectTempl->LoadFromJson(obj);
 		}
 
