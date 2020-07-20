@@ -25,6 +25,7 @@ namespace Skel::Net
 		uint16 GetClientIndex(const Address& address) const;
 		bool ClientExists(const Address& address) const;
 		uint64 GetClientTick(uint16 clientIndex) const;
+		uint64 GetClientLastReceivedTick(uint16 clientIndex) const;
 		void   UpdateClientTick(uint16 clientIndex, uint64 tick);
 		bool   TryInputAck(uint16 clientIndex, uint64 tick);
 		void RemovePlayer(uint16 clientIndex);
@@ -41,6 +42,7 @@ namespace Skel::Net
 	private:
 		bool m_SlotAvailability[MAX_PLAYERS];
 		uint64 m_LatestTick[MAX_PLAYERS];
+		uint64 m_LastReceivedOnServerTick[MAX_PLAYERS];
 		uint64 m_InputAcks[MAX_PLAYERS];
 
 

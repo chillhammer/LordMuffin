@@ -140,15 +140,15 @@ namespace Skel
 			}
 			Client.GetSnapshotReceiver().Update();
 
+			// Assertions
+			ASSERT(m_LocalPlayer == m_PlayerObjects[Client.GetClientID()], "Local player object must be the same in array");
+
 			// Timeout
-			if (RUNNING_TIME - Client.GetLastReceivedTime() > Net::CLIENT_TIMEOUT_TIME)
+			if (ENABLE_CLIENT_TIMEOUT && RUNNING_TIME - Client.GetLastReceivedTime() > Net::CLIENT_TIMEOUT_TIME)
 			{
 				Client.SetConnected(false);
 				LOG("Timeout. Disconnect from server");
 			}
-
-			// Assertions
-			ASSERT(m_LocalPlayer == m_PlayerObjects[Client.GetClientID()], "Local player object must be the same in array");
 		}
 	}
 }

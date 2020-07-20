@@ -17,7 +17,7 @@ namespace Skel
 		Buffer buffer;
 		Address fromAddress;
 		Socket& m_Server = Server.GetSocket();
-		ClientHandler& m_ClientHandler = Server.GetClientHandler();
+		ClientHandler& clientHandler = Server.GetClientHandler();
 
 		// Receive Packets
 		int packetsReceived = 0;
@@ -39,16 +39,16 @@ namespace Skel
 				JoinRequestPacket packet;
 				packet.ReadFromBuffer(buffer);
 
-				if (m_ClientHandler.RemainingSlots() > 0)
+				if (clientHandler.RemainingSlots() > 0)
 				{
 					uint16 clientID = 0;
-					if (m_ClientHandler.ClientExists(fromAddress))
+					if (clientHandler.ClientExists(fromAddress))
 					{
-						clientID = m_ClientHandler.GetClientIndex(fromAddress);
+						clientID = clientHandler.GetClientIndex(fromAddress);
 					}
 					else
 					{
-						clientID = m_ClientHandler.AddPlayer(fromAddress);
+						clientID = clientHandler.AddPlayer(fromAddress);
 					}
 
 					WRITE_PACKET(JoinAcceptPacket, (clientID), buffer);
@@ -84,18 +84,18 @@ namespace Skel
 			case PACKET_INPUT:
 			{
 				READ_PACKET(PlayerInputPacket, buffer);
-				if (m_ClientHandler.IsActive(packet.ClientID)) {
+				if (clientHandler.IsActive(packet.ClientID)) {
 					PlayerInputState input = packet.InputState;
 					PlayerComponent* obj = GetPlayerComponent(packet.ClientID);
 
 					// Update latest client tick, will also ack and process input
-					if (packet.ClientTick > m_ClientHandler.GetClientTick(packet.ClientID)) {
-						m_ClientHandler.UpdateClientTick(packet.ClientID, packet.ClientTick);
+					if (packet.ClientTick > clientHandler.GetClientTick(packet.ClientID)) {
+						clientHandler.UpdateClientTick(packet.ClientID, packet.ClientTick);
 						obj->ProcessInput(input, packet.DeltaTime);
 						//obj->ProcessAnimation(input);
 					}
 					// Process Old Input (stale tick)
-					else if (m_ClientHandler.TryInputAck(packet.ClientID, packet.ClientTick)) {
+					else if (clientHandler.TryInputAck(packet.ClientID, packet.ClientTick)) {
 						obj->ProcessInput(input, packet.DeltaTime);
 						//if (packet.InputState.Jump) LOG("Jumping from Stale Tick Input");
 					}
@@ -103,7 +103,7 @@ namespace Skel
 					// Check Recent Previous Inputs for un-acked states
 					for (int i = 0; i < Net::INPUTS_PACKED; ++i) {
 						uint64 oldTick = packet.ClientTick - 1 - i;
-						if (m_ClientHandler.TryInputAck(packet.ClientID, oldTick)) {
+						if (clientHandler.TryInputAck(packet.ClientID, oldTick)) {
 							// Processing Old Inputs using new input delta time
 							// This is bad, but I think it's better than having to do N delta times (8 bytes each)
 							obj->ProcessInput(packet.RecentInputs[i], packet.DeltaTime);
@@ -118,7 +118,7 @@ namespace Skel
 			}
 			// Remove player if they leave
 			case PACKET_QUIT:
-				m_ClientHandler.RemovePlayer(m_ClientHandler.GetClientIndex(fromAddress));
+				clientHandler.RemovePlayer(clientHandler.GetClientIndex(fromAddress));
 				break;
 			}
 		}
@@ -132,10 +132,10 @@ namespace Skel
 
 
 			// Broadcast to Active Clients
-			const std::vector<ClientSlot>& clientSlots = m_ClientHandler.GetClientSlots();
+			const std::vector<ClientSlot>& clientSlots = clientHandler.GetClientSlots();
 			for (const ClientSlot& slot : clientSlots) {
 				// Creates Snapshot
-				WRITE_PACKET(PlayerSnapshotPacket, (m_ClientHandler, slot.ID), buffer); // Takes snapshot of all player objects
+				WRITE_PACKET(PlayerSnapshotPacket, (clientHandler, slot.ID), buffer); // Takes snapshot of all player objects
 
 
 				FakeLagPackets.AddPacket(packet, slot.ClientAddress);
@@ -146,5 +146,21 @@ namespace Skel
 
 		FakeLagPackets.PopAndSendToRecipient<PlayerSnapshotPacket>(buffer);
 		FakeLagPackets.PopAndSendToRecipient<SyncServerTimePacket>(buffer);
+
+		// Timeout per server
+		auto& clients = clientHandler.GetClientSlots();
+		if (ENABLE_SERVER_TIMEOUT_PER_CLIENT) 
+		{
+			for (auto& client : clients)
+			{
+				uint64 tickTimeout = Net::SERVER_TIMEOUT_TIME_PER_CLIENT * Net::SERVER_TICK_PER_SEC;
+				uint64 lastReceived = clientHandler.GetClientLastReceivedTick(client.ID);
+				if (Server.GetTick() - lastReceived > tickTimeout && lastReceived > 0)
+				{
+					clientHandler.RemovePlayer(client.ID);
+					LOG("Timeout. Disconnecting client: {0}", client.ID);
+				}
+			}
+		}
 	}
 }

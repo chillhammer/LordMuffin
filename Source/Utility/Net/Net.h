@@ -26,11 +26,17 @@ namespace Skel::Net
 	inline constexpr uint16	 SYNC_SAMPLES = 30; // how many sync packets are sent out
 	inline constexpr uint8	 SNAPSHOT_PER_SEC = 20; // how many snapshot packets are sent out
 
+	inline constexpr uint64	 SERVER_TICK_PER_SEC = 60;
+
 	inline constexpr double	 SNAPSHOT_RATE = 1.0 / double(SNAPSHOT_PER_SEC);
 
 	inline constexpr double	 SNAPSHOT_INTER_BUFFER = 0.01; // seconds to delay snapshots for interpolation
 
 	inline constexpr double	 CLIENT_TIMEOUT_TIME = 5.0; // seconds before giving up on server
+	inline constexpr double	 SERVER_TIMEOUT_TIME_PER_CLIENT = 5.0; // seconds before server gives up on client
+
+	inline constexpr bool	 ENABLE_CLIENT_TIMEOUT = true;
+	inline constexpr bool	 ENABLE_SERVER_TIMEOUT_PER_CLIENT = true;
 
 
 	inline constexpr int	 PREDICTED_STATES = 512; // ticks to keep in memory

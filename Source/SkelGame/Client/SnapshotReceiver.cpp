@@ -132,7 +132,6 @@ namespace Skel::Net {
 
 				playerObj = m_Network->CreatePlayerObject(entry.ClientID);
 				// TODO: use event system?
-				// TODO: delete player objects that are stale
 			}
 
 			if (entry.ClientID == Client.GetClientID()) {
@@ -140,6 +139,36 @@ namespace Skel::Net {
 				continue;
 			}
 			ApplySnapshotState(entry.State, playerObj);
+		}
+
+		// Remove stale players
+		// Clean out the first part
+		uint16 playerIndex = 0;
+		for (uint8 i = 0; i < m_ActiveClients.size(); ++i)
+		{
+			uint16 activeClientID = m_ActiveClients.at(i);
+			while (playerIndex < activeClientID)
+			{
+				GameObject* obj = m_Network->GetPlayerObject(playerIndex);
+				if (obj != nullptr)
+				{
+					obj->Destroy();
+					m_Network->SetPlayerObject(playerIndex, nullptr);
+				}
+				playerIndex++;
+			}
+			playerIndex++;
+		}
+		// Clear out the latter part
+		while (playerIndex < Net::MAX_PLAYERS)
+		{
+			GameObject* obj = m_Network->GetPlayerObject(playerIndex);
+			if (obj != nullptr)
+			{
+				obj->Destroy();
+				m_Network->SetPlayerObject(playerIndex, nullptr);
+			}
+			playerIndex++;
 		}
 	}
 

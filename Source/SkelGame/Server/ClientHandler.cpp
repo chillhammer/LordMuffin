@@ -47,11 +47,17 @@ namespace Skel::Net {
 	{
 		return m_LatestTick[clientIndex];
 	}
+	uint64 ClientHandler::GetClientLastReceivedTick(uint16 clientIndex) const
+	{
+		return m_LastReceivedOnServerTick[clientIndex];
+	}
 	void ClientHandler::UpdateClientTick(uint16 clientIndex, uint64 tick)
 	{
 		TryInputAck(clientIndex, tick);
 
 		m_LatestTick[clientIndex] = tick;
+		m_LastReceivedOnServerTick[clientIndex] = Server.GetTick();
+
 	}
 	// Input acks. Will shift if needed. Returns true if not input acked, and thus successfully acks
 	// When receiving an old input, returns true if not yet processed
@@ -91,6 +97,7 @@ namespace Skel::Net {
 
 		m_SlotAvailability[clientIndex] = true;
 		m_LatestTick[clientIndex] = 0;
+		m_LastReceivedOnServerTick[clientIndex] = 0;
 
 		auto toBeRemoved = std::find_if(m_ClientSlots.begin(), m_ClientSlots.end(),
 			[&index = clientIndex] (const ClientSlot& s) -> bool { return index == s.ID; });
