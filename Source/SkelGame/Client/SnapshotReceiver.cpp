@@ -142,7 +142,7 @@ namespace Skel::Net {
 		}
 
 		// Remove stale players
-		// Clean out the first part
+		// Clean out the first part. Deletes any player "shells" in the pockets between active clients
 		uint16 playerIndex = 0;
 		for (uint8 i = 0; i < m_ActiveClients.size(); ++i)
 		{
@@ -159,7 +159,7 @@ namespace Skel::Net {
 			}
 			playerIndex++;
 		}
-		// Clear out the latter part
+		// Clear out the latter part. Delete the rest of the player shells from the last active player to the upper limit
 		while (playerIndex < Net::MAX_PLAYERS)
 		{
 			GameObject* obj = m_Network->GetPlayerObject(playerIndex);

@@ -105,11 +105,15 @@ namespace Skel
 
 			if (m_DeltaMousePosition.x > 1.0f || m_DeltaMousePosition.x < -1.0f)
 			{
-				LOG("Delta.X: {0}", m_DeltaMousePosition.x);
+				//LOG("Delta.X: {0}", m_DeltaMousePosition.x * m_Sensitivity * static_cast<float>(Game.DeltaTimeUnscaled()));
+				if (m_DeltaMousePosition.x * m_Sensitivity * static_cast<float>(Game.DeltaTimeUnscaled()) > 10.0f)
+				{
+					int a = 1;
+				}
 			}
 			else
 			{
-				LOG("Delta.X: {0}", m_DeltaMousePosition.x);
+				// LOG("Delta.X: {0}", m_DeltaMousePosition.x);
 			}
 
 			m_Owner->ObjectTransform.SetPitch(m_Pitch);
@@ -158,6 +162,14 @@ namespace Skel
 			m_DeltaMousePosition = Vector2(e.MouseX - midWindowX, e.MouseY - midWindowY);
 			if (glm::length2(m_DeltaMousePosition) > DELTA_CAP * DELTA_CAP || Game.TimeScale() == 0.0f)
 				m_DeltaMousePosition = Vector2(0.0f, 0.0f);
+		}
+		if (m_DeltaMousePosition.x > 1.0f || m_DeltaMousePosition.x < -1.0f)
+		{
+			//LOG("Delta.X: {0}", m_DeltaMousePosition.x);
+			if (m_DeltaMousePosition.x > 30.0f || m_DeltaMousePosition.x < -30.0f)
+			{
+			//	int a = 1;
+			}
 		}
 		if (!Game.IsPaused() && Game.TimeScale() != 0.0f)
 			Game.GetWindow().SetCursorPosition(midWindowX, midWindowY);

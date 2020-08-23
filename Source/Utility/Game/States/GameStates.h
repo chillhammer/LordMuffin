@@ -16,6 +16,7 @@ namespace Skel::GameStates
 		Vector3 m_Light;
 		ShaderPtr m_Shader;
 		ShaderPtr m_SkinnedShader;
+		float m_FPS;
 	);
 
 	STATE_CLASS_SINGLETON(GameManager, MainMenu,

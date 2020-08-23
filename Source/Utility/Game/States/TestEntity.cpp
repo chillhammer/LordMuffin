@@ -58,6 +58,15 @@ namespace Skel::GameStates
 		}
 		ImGui::End();
 
+		ImGui::Begin("FPS Window");
+		ImGui::Text("FPS: %f", 1.0f / Game.DeltaTimeUnscaled() );
+		ImGui::End();
+
+		if (1.0f / Game.DeltaTimeUnscaled() < 20.0f)
+		{
+			int a = 1;
+		}
+
 		if (Input.IsKeyPressed(KEY_T))
 		{
 			GameObject* bendy = Objects.FindObjectByName("Bendy");
