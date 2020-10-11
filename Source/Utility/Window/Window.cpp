@@ -162,7 +162,7 @@ Skel::Window::Window(const WindowProps & props)
 	glfwSetCursorPosCallback(m_Window, [](GLFWwindow* window, double xPos, double yPos) {
 		WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
-		MouseMovedEvent event((float)xPos, (float)yPos);
+		MouseMovedEvent event((double)xPos, (double)yPos);
 		data.EventCallback(event);
 	});
 	#pragma endregion

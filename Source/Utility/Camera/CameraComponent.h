@@ -28,12 +28,16 @@ namespace Skel
 		CameraMode Mode;
 	private:
 		float m_Speed;
-		float m_Sensitivity;
+		double m_Sensitivity;
 		Vector2 m_PrevMousePosition;
 		Vector2 m_DeltaMousePosition;
-		float m_Pitch;
-		float m_Yaw;
-		float m_TargetYaw;
+		double m_PrevMouseX;
+		double m_PrevMouseY;
+		double m_DeltaMouseX;
+		double m_DeltaMouseY;
+		double m_Pitch;
+		double m_Yaw;
+		double m_TargetYaw;
 		Vector3 m_PivotPosition;
 		Vector3 m_PivotOffset;
 		float m_PivotLength;

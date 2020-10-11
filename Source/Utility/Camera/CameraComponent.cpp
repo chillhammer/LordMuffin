@@ -15,7 +15,7 @@ namespace Skel
 					 .property("Shaders", &CameraComponent::GetShaderList, &CameraComponent::SetShaderList);
 	}
 	CameraComponent::CameraComponent()
-			:	m_Speed(7.8f), m_Sensitivity(12.f), m_Yaw(180.0f), m_TargetYaw(180),
+			:	m_Speed(7.8f), m_Sensitivity(12.0), m_Yaw(180.0f), m_TargetYaw(180),
 				Mode(CameraMode::FirstPerson), m_PivotLength(4.9f), m_PivotOffset(0, 2.8f, 0.4f),
 				m_PivotPosition(0, 0, 0), m_DeltaMousePosition(0.0f, 0.0f), m_Pitch(0.0f), m_PrevMousePosition(0.0f, 0.0f),
 				m_TargetLocation(0.0f, 0.0f, 0.0f)
@@ -60,7 +60,7 @@ namespace Skel
 		m_PrevMousePosition = Input.GetMousePosition();
 
 		// Invisible Cursor
-		Game.GetWindow().SetCursorEnabled(false);
+		Game.GetWindow().SetCursorEnabled(true);
 	}
 	void Skel::CameraComponent::PostUpdate()
 	{
@@ -92,29 +92,29 @@ namespace Skel
 				m_Owner->ObjectTransform.Position += Vector3(0.f, 2.f, 0.f) * m_Speed * float(Game.DeltaTimeUnscaled());
 			}
 
-			if (m_DeltaMousePosition.x > 1.0f || m_DeltaMousePosition.x < -1.0f)
+			/*if (m_DeltaMousePosition.x > 1.0f || m_DeltaMousePosition.x < -1.0f)
 			{
 				int a = 1;
-			}
+			}*/
 
 			// Look Around
-			m_Pitch -= m_DeltaMousePosition.y * m_Sensitivity * static_cast<float>(Game.DeltaTimeUnscaled());
-			m_Yaw += m_DeltaMousePosition.x * m_Sensitivity * static_cast<float>(Game.DeltaTimeUnscaled());
+			m_Pitch -= m_DeltaMouseY * m_Sensitivity * Game.DeltaTimeUnscaled();
+			m_Yaw += m_DeltaMouseX * m_Sensitivity * Game.DeltaTimeUnscaled();
 			
-			m_Pitch = glm::clamp<float>(m_Pitch, -89, 89);
+			m_Pitch = glm::clamp<double>(m_Pitch, -89, 89);
 
-			if (m_DeltaMousePosition.x > 1.0f || m_DeltaMousePosition.x < -1.0f)
-			{
-				//LOG("Delta.X: {0}", m_DeltaMousePosition.x * m_Sensitivity * static_cast<float>(Game.DeltaTimeUnscaled()));
-				if (m_DeltaMousePosition.x * m_Sensitivity * static_cast<float>(Game.DeltaTimeUnscaled()) > 10.0f)
-				{
-					int a = 1;
-				}
-			}
-			else
-			{
-				// LOG("Delta.X: {0}", m_DeltaMousePosition.x);
-			}
+			//if (m_DeltaMousePosition.x > 1.0f || m_DeltaMousePosition.x < -1.0f)
+			//{
+			//	//LOG("Delta.X: {0}", m_DeltaMousePosition.x * m_Sensitivity * static_cast<float>(Game.DeltaTimeUnscaled()));
+			//	if (m_DeltaMousePosition.x * m_Sensitivity * static_cast<float>(Game.DeltaTimeUnscaled()) > 10.0f)
+			//	{
+			//		int a = 1;
+			//	}
+			//}
+			//else
+			//{
+			//	// LOG("Delta.X: {0}", m_DeltaMousePosition.x);
+			//}
 
 			m_Owner->ObjectTransform.SetPitch(m_Pitch);
 			m_Owner->ObjectTransform.SetYaw(m_Yaw);
@@ -123,9 +123,9 @@ namespace Skel
 		if (Mode == CameraMode::Pivot || Mode == CameraMode::FirstPerson)
 		{
 			// Look Around
-			m_Pitch -= m_DeltaMousePosition.y * m_Sensitivity * static_cast<float>(Game.DeltaTimeUnscaled());
-			m_Yaw += m_DeltaMousePosition.x * m_Sensitivity * static_cast<float>(Game.DeltaTimeUnscaled());
-			m_Pitch = glm::clamp<float>(m_Pitch, -10, -10);
+			m_Pitch -= m_DeltaMouseY * m_Sensitivity * Game.DeltaTimeUnscaled();
+			m_Yaw += m_DeltaMouseX * m_Sensitivity * Game.DeltaTimeUnscaled();
+			m_Pitch = glm::clamp<double>(m_Pitch, -10, -10);
 
 			m_Owner->ObjectTransform.SetPitch(m_Pitch);
 			m_Owner->ObjectTransform.SetYaw(m_Yaw);
@@ -133,7 +133,9 @@ namespace Skel
 			UpdatePivotPosition();
 		}
 		// Reset Delta Movement
-		m_DeltaMousePosition = Vector2(0, 0);
+		//m_DeltaMousePosition = Vector2(0, 0);
+		m_DeltaMouseX = 0.0;
+		m_DeltaMouseY = 0.0;
 	}
 	// Updating shaders with camera information
 	void Skel::CameraComponent::Draw()
@@ -153,26 +155,32 @@ namespace Skel
 	static int DELTA_CAP = 300;
 	bool Skel::CameraComponent::OnMouseMoved(MouseMovedEvent& e)
 	{
-		if (Game.GetState() == GameStates::MainMenu::Instance()) return false;
+		// TODO: Re-implement disabling in main menu
+		//if (Game.GetState() == GameStates::MainMenu::Instance()) return false;
+
 		//LOG("Camera: Mouse Moved: {0}, {1}", e.MouseX, e.MouseY);
-		float midWindowX = Game.GetWindow().GetWidth() * 0.5f;
-		float midWindowY = Game.GetWindow().GetHeight() * 0.5f;
-		if (Input.GetMousePosition() != Vector2(0, 0) && !Game.IsPaused()) // Initial Mouse Delta Jump Ignored
+		//float midWindowX = Game.GetWindow().GetWidth() * 0.5f;
+		//float midWindowY = Game.GetWindow().GetHeight() * 0.5f;
+		if (/*Input.GetMousePosition() != Vector2(0, 0) && */!Game.IsPaused()) // Initial Mouse Delta Jump Ignored
 		{
-			m_DeltaMousePosition = Vector2(e.MouseX - midWindowX, e.MouseY - midWindowY);
-			if (glm::length2(m_DeltaMousePosition) > DELTA_CAP * DELTA_CAP || Game.TimeScale() == 0.0f)
-				m_DeltaMousePosition = Vector2(0.0f, 0.0f);
+			//m_DeltaMousePosition = Vector2(e.MouseX - midWindowX, e.MouseY - midWindowY);
+			m_DeltaMouseX = e.MouseX - m_PrevMouseX;
+			m_DeltaMouseY = e.MouseY - m_PrevMouseY;
+			//if (glm::length2(m_DeltaMousePosition) > DELTA_CAP * DELTA_CAP || Game.TimeScale() == 0.0f)
+			//	m_DeltaMousePosition = Vector2(0.0f, 0.0f);
 		}
-		if (m_DeltaMousePosition.x > 1.0f || m_DeltaMousePosition.x < -1.0f)
-		{
-			//LOG("Delta.X: {0}", m_DeltaMousePosition.x);
-			if (m_DeltaMousePosition.x > 30.0f || m_DeltaMousePosition.x < -30.0f)
-			{
-			//	int a = 1;
-			}
-		}
-		if (!Game.IsPaused() && Game.TimeScale() != 0.0f)
-			Game.GetWindow().SetCursorPosition(midWindowX, midWindowY);
+		//if (m_DeltaMousePosition.x > 1.0f || m_DeltaMousePosition.x < -1.0f)
+		//{
+		//	//LOG("Delta.X: {0}", m_DeltaMousePosition.x);
+		//	if (m_DeltaMousePosition.x > 30.0f || m_DeltaMousePosition.x < -30.0f)
+		//	{
+		//	//	int a = 1;
+		//	}
+		//}
+		//if (!Game.IsPaused() && Game.TimeScale() != 0.0f)
+		//	Game.GetWindow().SetCursorPosition(midWindowX, midWindowY);
+		m_PrevMouseX = e.MouseX;
+		m_PrevMouseY = e.MouseY;
 		return false;
 	}
 	// Camera mode switching

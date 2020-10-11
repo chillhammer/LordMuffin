@@ -45,10 +45,14 @@ typedef double float64;
 #endif
 
 #pragma region Debug OpenGl Call
+#ifdef SKEL_DEBUG
 #define GLCall(x)	\
 	GLClearError();	\
 	x;				\
 	ASSERT(GLLogCall(#x, __FILE__, __LINE__), "OpenGL Error!")
+#else
+#define GLCall(x) x;
+#endif
 
 static void GLClearError()
 {

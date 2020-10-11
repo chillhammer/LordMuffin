@@ -58,8 +58,12 @@ namespace Skel::GameStates
 		}
 		ImGui::End();
 
+		ImGui::Begin("Mouse Window");
+		ImGui::Text("Mouse Loc: ( %f, %f)", Input.GetMousePosition().x, Input.GetMousePosition().y);
+		ImGui::End();
+
 		ImGui::Begin("FPS Window");
-		ImGui::Text("FPS: %f", 1.0f / Game.DeltaTimeUnscaled() );
+		ImGui::Text("FPS: %f\nTime: %f", 1.0f / Game.DeltaTimeUnscaled(), Game.DeltaTimeUnscaled());
 		ImGui::End();
 
 		if (1.0f / Game.DeltaTimeUnscaled() < 20.0f)

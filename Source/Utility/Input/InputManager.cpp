@@ -64,7 +64,7 @@ namespace Skel
 	bool InputManager::OnMouseMoved(MouseMovedEvent e)
 	{
 		Vector2 newMousePos(e.MouseX, e.MouseY);
-		m_MousePosition = newMousePos;
+		m_MousePosition = std::move(newMousePos);
 		return false;
 	}
 

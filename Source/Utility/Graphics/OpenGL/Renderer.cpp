@@ -22,7 +22,7 @@ namespace Skel
 	{
 		shader->Bind();
 		va.Bind();
-		ib.Bind();
+		//ib.Bind();
 		
 		GLCall(glDrawElements(GL_TRIANGLES, ib.GetCount(), GL_UNSIGNED_INT, nullptr));
 	}

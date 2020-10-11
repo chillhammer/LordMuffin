@@ -1,0 +1,35 @@
+﻿  constructor.cpp
+  destructor.cpp
+  compare_equal.cpp
+  compare_less.cpp
+  constructor_wrapper_base.cpp
+  std_conversion_functions.cpp
+  destructor_wrapper_base.cpp
+  enumeration_helper.cpp
+  enumeration_wrapper_base.cpp
+  library_unix.cpp
+  library_win.cpp
+  method_wrapper_base.cpp
+  standard_types.cpp
+  parameter_info_wrapper_base.cpp
+  property_wrapper_base.cpp
+  registration_executer.cpp
+  registration_state_saver.cpp
+  type_data.cpp
+  type_register.cpp
+  variant_compare.cpp
+  Generating Code...
+  Compiling...
+  enumeration.cpp
+  library.cpp
+  method.cpp
+  parameter_info.cpp
+  policy.cpp
+  property.cpp
+  registration.cpp
+  type.cpp
+  variant.cpp
+  variant_associative_view.cpp
+  variant_sequential_view.cpp
+  Generating Code...
+  rttr.vcxproj -> C:\Users\Hermos\Documents\RaggedSkeleton-Project\RaggedSkeleton\Vendor\Lib\rttr\bin\Release-windows-x86_64\rttr\rttr.lib
