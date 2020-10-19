@@ -31,10 +31,6 @@ namespace Skel
 		double m_Sensitivity;
 		Vector2 m_PrevMousePosition;
 		Vector2 m_DeltaMousePosition;
-		double m_PrevMouseX;
-		double m_PrevMouseY;
-		double m_DeltaMouseX;
-		double m_DeltaMouseY;
 		double m_Pitch;
 		double m_Yaw;
 		double m_TargetYaw;

@@ -62,6 +62,7 @@ namespace Skel
 	void GameManager::Run()
 	{
 		UpdateDeltaTime();
+
 		#pragma region ImGui Start
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
@@ -70,6 +71,10 @@ namespace Skel
 
 		m_StateMachine.Update();
 		Objects.Run();
+
+		ImGui::Begin("Actual Delta Time");
+		ImGui::Text("Time to ImGui End: %f", glfwGetTime() - m_LastUpdatedTime);
+		ImGui::End();
 
 		#pragma region ImGui End
 		ImGuiIO& io = ImGui::GetIO();

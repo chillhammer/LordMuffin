@@ -4,7 +4,7 @@
 #include "VertexBuffer.h"
 #include "VertexArray.h"
 namespace Skel
-{
+{ 
 	/**
 		Combines all other OpenGL wrappers to draw onto screen.
 	**/
