@@ -63,7 +63,7 @@ namespace Skel
 		// Invisible Cursor
 		Game.GetWindow().SetCursorEnabled(true);
 	}
-	void Skel::CameraComponent::PostUpdate()
+	void Skel::CameraComponent::Update()
 	{
 		double mouseX, mouseY;
 
