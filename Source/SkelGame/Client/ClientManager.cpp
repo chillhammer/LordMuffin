@@ -1,4 +1,5 @@
 #include "SkelPCH.h"
+#include <EventSystem/Events/NetEvent.h>
 #include "ClientManager.h"
 
 namespace Skel::Net {
@@ -28,8 +29,30 @@ namespace Skel::Net {
 
 	void ClientManager::SetConnected(bool connected)
 	{
+		ASSERT(m_Connected != connected, "Cannot set connected to already connected");
+		ASSERT(m_ClientID >= 0, "Must have clientID")
 		m_Connected = connected;
 		m_Socket.SetLogErrors(connected);
+
+		if (connected)
+		{
+			ClientConnectEvent e(m_ClientID);
+			ClientSubject.Notify(e);
+		}
+		else
+		{
+			ClientDisconnectEvent e(m_ClientID);
+			ClientSubject.Notify(e);
+		}
+	}
+
+	void ClientManager::SetLastReceivedTime(double time)
+	{
+		m_LastReceivedTime = time;
+	}
+	double ClientManager::GetLastReceivedTime() const
+	{
+		return m_LastReceivedTime;
 	}
 
 }

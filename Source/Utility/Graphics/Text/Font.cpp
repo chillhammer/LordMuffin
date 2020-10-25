@@ -1,6 +1,7 @@
 #include <skelpch.h>
 #include <Resources/ResourceManager.h>
 #include <Game/GameManager.h>
+#include <Camera/CameraComponent.h>
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include "Font.h"

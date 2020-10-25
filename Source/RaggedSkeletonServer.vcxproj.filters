@@ -13,11 +13,17 @@
     <Filter Include="SkelGame\Events">
       <UniqueIdentifier>{B20B7263-1E97-DF27-27A8-621C93B23B28}</UniqueIdentifier>
     </Filter>
+    <Filter Include="SkelGame\FakeLag">
+      <UniqueIdentifier>{086118EE-F459-3740-1D8C-1CC509E4164C}</UniqueIdentifier>
+    </Filter>
     <Filter Include="SkelGame\Objects">
       <UniqueIdentifier>{47F827A5-33F1-46F7-5C23-2C7C487B2603}</UniqueIdentifier>
     </Filter>
     <Filter Include="SkelGame\Objects\Box">
       <UniqueIdentifier>{1FB1836D-0B40-0D37-B45E-2132A0CC1DDD}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="SkelGame\Objects\Network">
+      <UniqueIdentifier>{C0318780-AC56-D600-D5A1-BB90C125D51E}</UniqueIdentifier>
     </Filter>
     <Filter Include="SkelGame\Objects\Player">
       <UniqueIdentifier>{83732AA4-EFAA-723B-F8B4-D65E646B9934}</UniqueIdentifier>
@@ -40,6 +46,9 @@
     <Filter Include="Utility\Camera">
       <UniqueIdentifier>{B11CE1E7-9DEA-D4ED-867E-451472EBB052}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Utility\Components">
+      <UniqueIdentifier>{CEE1459F-BAC5-06F5-2326-01480F29F176}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Utility\Containers">
       <UniqueIdentifier>{3EBF729E-2AA3-33F4-9303-2E477F061E76}</UniqueIdentifier>
     </Filter>
@@ -51,6 +60,9 @@
     </Filter>
     <Filter Include="Utility\Game">
       <UniqueIdentifier>{A23F67BA-8EA2-F65E-3728-2F15236AC2E1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Utility\Game\Scene">
+      <UniqueIdentifier>{3F5EAD6A-2B42-6EC0-94A2-681380A55842}</UniqueIdentifier>
     </Filter>
     <Filter Include="Utility\Game\Screens">
       <UniqueIdentifier>{C44764CC-B0D6-ED95-59F5-01914563FE3B}</UniqueIdentifier>
@@ -88,6 +100,9 @@
     <Filter Include="Utility\Profiler">
       <UniqueIdentifier>{CB9B4885-B794-67D7-E0C6-4C5CCC1E47E3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Utility\Random">
+      <UniqueIdentifier>{E905DF0A-D5D3-D210-BE67-4337AAD4AE75}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Utility\Resources">
       <UniqueIdentifier>{03EFC061-6F05-BFF7-B87C-4A1924D28F7F}</UniqueIdentifier>
     </Filter>
@@ -106,6 +121,9 @@
     <Filter Include="Vendor">
       <UniqueIdentifier>{935FDCD7-7F01-07AE-68BC-1A0254FD8DFE}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Vendor\ImGui">
+      <UniqueIdentifier>{FDF620D0-E959-B074-92DF-E82A7E217CF7}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Vendor\stb_image">
       <UniqueIdentifier>{EDE315D3-D9DC-3425-020F-1AAAEE661431}</UniqueIdentifier>
     </Filter>
@@ -117,26 +135,44 @@
     <ClInclude Include="SkelGame\Client\ClientManager.h">
       <Filter>SkelGame\Client</Filter>
     </ClInclude>
+    <ClInclude Include="SkelGame\Client\ClientSynchronizer.h">
+      <Filter>SkelGame\Client</Filter>
+    </ClInclude>
+    <ClInclude Include="SkelGame\Client\SnapshotReceiver.h">
+      <Filter>SkelGame\Client</Filter>
+    </ClInclude>
     <ClInclude Include="SkelGame\Events\GameEventTypes.h">
       <Filter>SkelGame\Events</Filter>
     </ClInclude>
     <ClInclude Include="SkelGame\Events\GameEvents.h">
       <Filter>SkelGame\Events</Filter>
     </ClInclude>
-    <ClInclude Include="SkelGame\Objects\Box\BoxMesh.h">
-      <Filter>SkelGame\Objects\Box</Filter>
+    <ClInclude Include="SkelGame\FakeLag\FakeLagPacketHolderManager.h">
+      <Filter>SkelGame\FakeLag</Filter>
     </ClInclude>
-    <ClInclude Include="SkelGame\Objects\Box\WoodenBox.h">
+    <ClInclude Include="SkelGame\Objects\Box\BoxMesh.h">
       <Filter>SkelGame\Objects\Box</Filter>
     </ClInclude>
     <ClInclude Include="SkelGame\Objects\Box\WoodenBoxModel.h">
       <Filter>SkelGame\Objects\Box</Filter>
     </ClInclude>
+    <ClInclude Include="SkelGame\Objects\Network\NetworkComponent.h">
+      <Filter>SkelGame\Objects\Network</Filter>
+    </ClInclude>
+    <ClInclude Include="SkelGame\Objects\Player\PlayerComponent.h">
+      <Filter>SkelGame\Objects\Player</Filter>
+    </ClInclude>
     <ClInclude Include="SkelGame\Objects\Player\PlayerInputState.h">
       <Filter>SkelGame\Objects\Player</Filter>
     </ClInclude>
-    <ClInclude Include="SkelGame\Objects\Player\PlayerObject.h">
+    <ClInclude Include="SkelGame\Objects\Player\PlayerPredictionStateHistory.h">
       <Filter>SkelGame\Objects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="SkelGame\Objects\Player\PlayerSnapshotState.h">
+      <Filter>SkelGame\Objects\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="SkelGame\Packets\JoinPackets.h">
+      <Filter>SkelGame\Packets</Filter>
     </ClInclude>
     <ClInclude Include="SkelGame\Packets\PacketTypes.h">
       <Filter>SkelGame\Packets</Filter>
@@ -144,8 +180,17 @@
     <ClInclude Include="SkelGame\Packets\PlayerInputPacket.h">
       <Filter>SkelGame\Packets</Filter>
     </ClInclude>
+    <ClInclude Include="SkelGame\Packets\SnapshotPacket.h">
+      <Filter>SkelGame\Packets</Filter>
+    </ClInclude>
+    <ClInclude Include="SkelGame\Packets\SyncPackets.h">
+      <Filter>SkelGame\Packets</Filter>
+    </ClInclude>
     <ClInclude Include="SkelGame\Resources\GameResources.h">
       <Filter>SkelGame\Resources</Filter>
+    </ClInclude>
+    <ClInclude Include="SkelGame\Server\ClientHandler.h">
+      <Filter>SkelGame\Server</Filter>
     </ClInclude>
     <ClInclude Include="SkelGame\Server\ServerManager.h">
       <Filter>SkelGame\Server</Filter>
@@ -153,8 +198,20 @@
     <ClInclude Include="Utility\Audio\AudioEngine.h">
       <Filter>Utility\Audio</Filter>
     </ClInclude>
-    <ClInclude Include="Utility\Camera\Camera.h">
+    <ClInclude Include="Utility\Camera\CameraComponent.h">
       <Filter>Utility\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Components\ComponentManager.h">
+      <Filter>Utility\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Components\ComponentTemplate.h">
+      <Filter>Utility\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Components\GameObjectComponent.h">
+      <Filter>Utility\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Containers\BitArray.h">
+      <Filter>Utility\Containers</Filter>
     </ClInclude>
     <ClInclude Include="Utility\Containers\PackedIDMap.h">
       <Filter>Utility\Containers</Filter>
@@ -174,6 +231,9 @@
     <ClInclude Include="Utility\EventSystem\Events\MouseEvent.h">
       <Filter>Utility\EventSystem\Events</Filter>
     </ClInclude>
+    <ClInclude Include="Utility\EventSystem\Events\NetEvent.h">
+      <Filter>Utility\EventSystem\Events</Filter>
+    </ClInclude>
     <ClInclude Include="Utility\EventSystem\IObserver.h">
       <Filter>Utility\EventSystem</Filter>
     </ClInclude>
@@ -182,6 +242,9 @@
     </ClInclude>
     <ClInclude Include="Utility\Game\GameManager.h">
       <Filter>Utility\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Game\Scene\Scene.h">
+      <Filter>Utility\Game\Scene</Filter>
     </ClInclude>
     <ClInclude Include="Utility\Game\Screens\PauseScreen.h">
       <Filter>Utility\Game\Screens</Filter>
@@ -195,16 +258,37 @@
     <ClInclude Include="Utility\GameObject\GameObject.h">
       <Filter>Utility\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="Utility\GameObject\GameObjectManager.h">
+      <Filter>Utility\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\GameObject\GameObjectTemplate.h">
+      <Filter>Utility\GameObject</Filter>
+    </ClInclude>
     <ClInclude Include="Utility\Graphics\Model\ImportedMesh.h">
       <Filter>Utility\Graphics\Model</Filter>
     </ClInclude>
     <ClInclude Include="Utility\Graphics\Model\ImportedModel.h">
       <Filter>Utility\Graphics\Model</Filter>
     </ClInclude>
+    <ClInclude Include="Utility\Graphics\Model\ImportedSkinnedMesh.h">
+      <Filter>Utility\Graphics\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Graphics\Model\ImportedSkinnedModel.h">
+      <Filter>Utility\Graphics\Model</Filter>
+    </ClInclude>
     <ClInclude Include="Utility\Graphics\Model\Mesh.h">
       <Filter>Utility\Graphics\Model</Filter>
     </ClInclude>
     <ClInclude Include="Utility\Graphics\Model\Model.h">
+      <Filter>Utility\Graphics\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Graphics\Model\ModelAnimationComponent.h">
+      <Filter>Utility\Graphics\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Graphics\Model\ModelAnimationController.h">
+      <Filter>Utility\Graphics\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Graphics\Model\ModelRendererComponent.h">
       <Filter>Utility\Graphics\Model</Filter>
     </ClInclude>
     <ClInclude Include="Utility\Graphics\Model\SingleMeshModel.h">
@@ -264,6 +348,9 @@
     <ClInclude Include="Utility\Net\Buffer.h">
       <Filter>Utility\Net</Filter>
     </ClInclude>
+    <ClInclude Include="Utility\Net\FakeLagPacketHolder.h">
+      <Filter>Utility\Net</Filter>
+    </ClInclude>
     <ClInclude Include="Utility\Net\Net.h">
       <Filter>Utility\Net</Filter>
     </ClInclude>
@@ -275,6 +362,9 @@
     </ClInclude>
     <ClInclude Include="Utility\Profiler\ProfileBlock.h">
       <Filter>Utility\Profiler</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Random\Random.h">
+      <Filter>Utility\Random</Filter>
     </ClInclude>
     <ClInclude Include="Utility\Resources\ResourceManager.h">
       <Filter>Utility\Resources</Filter>
@@ -300,27 +390,21 @@
     <ClInclude Include="Vendor\stb_image\stb_image.h">
       <Filter>Vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="SkelGame\Server\ClientHandler.h" />
-    <ClInclude Include="SkelGame\Packets\JoinPackets.h" />
-    <ClInclude Include="SkelGame\Objects\Player\PlayerSnapshotState.h" />
-    <ClInclude Include="SkelGame\Packets\SnapshotPacket.h" />
-    <ClInclude Include="SkelGame\Client\SnapshotReceiver.h" />
-    <ClInclude Include="Utility\Net\FakeLagPacketHolder.h" />
-    <ClInclude Include="SkelGame\Client\ClientSynchronizer.h" />
-    <ClInclude Include="SkelGame\Packets\SyncPackets.h" />
-    <ClInclude Include="Utility\Random\Random.h" />
-    <ClInclude Include="SkelGame\FakeLag\FakeLagPacketHolderManager.h" />
-    <ClInclude Include="Utility\Containers\BitArray.h" />
-    <ClInclude Include="SkelGame\Objects\Player\PlayerPredictionStateHistory.h" />
-    <ClInclude Include="Utility\Graphics\Model\ImportedSkinnedModel.h" />
-    <ClInclude Include="Utility\Graphics\Model\ImportedSkinnedMesh.h" />
-    <ClInclude Include="Utility\Graphics\Model\ImportedSkinnedAnimation.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="PCH\SkelPCH.cpp">
       <Filter>PCH</Filter>
     </ClCompile>
     <ClCompile Include="SkelGame\Client\ClientManager.cpp">
+      <Filter>SkelGame\Client</Filter>
+    </ClCompile>
+    <ClCompile Include="SkelGame\Client\ClientSynchronizer.cpp">
+      <Filter>SkelGame\Client</Filter>
+    </ClCompile>
+    <ClCompile Include="SkelGame\Client\Client_HandlePackets.cpp">
+      <Filter>SkelGame\Client</Filter>
+    </ClCompile>
+    <ClCompile Include="SkelGame\Client\SnapshotReceiver.cpp">
       <Filter>SkelGame\Client</Filter>
     </ClCompile>
     <ClCompile Include="SkelGame\Main.cpp">
@@ -332,17 +416,38 @@
     <ClCompile Include="SkelGame\Objects\Box\WoodenBoxModel.cpp">
       <Filter>SkelGame\Objects\Box</Filter>
     </ClCompile>
-    <ClCompile Include="SkelGame\Objects\Player\PlayerObject.cpp">
+    <ClCompile Include="SkelGame\Objects\Network\NetworkComponent.cpp">
+      <Filter>SkelGame\Objects\Network</Filter>
+    </ClCompile>
+    <ClCompile Include="SkelGame\Objects\Player\PlayerComponent.cpp">
       <Filter>SkelGame\Objects\Player</Filter>
     </ClCompile>
+    <ClCompile Include="SkelGame\Objects\Player\PlayerPredictionStateHistory.cpp">
+      <Filter>SkelGame\Objects\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="SkelGame\Packets\SnapshotPacket.cpp">
+      <Filter>SkelGame\Packets</Filter>
+    </ClCompile>
+    <ClCompile Include="SkelGame\Server\ClientHandler.cpp">
+      <Filter>SkelGame\Server</Filter>
+    </ClCompile>
     <ClCompile Include="SkelGame\Server\ServerManager.cpp">
+      <Filter>SkelGame\Server</Filter>
+    </ClCompile>
+    <ClCompile Include="SkelGame\Server\Server_HandlePackets.cpp">
       <Filter>SkelGame\Server</Filter>
     </ClCompile>
     <ClCompile Include="Utility\Audio\AudioEngine.cpp">
       <Filter>Utility\Audio</Filter>
     </ClCompile>
-    <ClCompile Include="Utility\Camera\Camera.cpp">
+    <ClCompile Include="Utility\Camera\CameraComponent.cpp">
       <Filter>Utility\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\Components\ComponentManager.cpp">
+      <Filter>Utility\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\Components\ComponentTemplate.cpp">
+      <Filter>Utility\Components</Filter>
     </ClCompile>
     <ClCompile Include="Utility\EventSystem\Subject.cpp">
       <Filter>Utility\EventSystem</Filter>
@@ -350,13 +455,16 @@
     <ClCompile Include="Utility\Game\GameManager.cpp">
       <Filter>Utility\Game</Filter>
     </ClCompile>
+    <ClCompile Include="Utility\Game\Scene\Scene.cpp">
+      <Filter>Utility\Game\Scene</Filter>
+    </ClCompile>
     <ClCompile Include="Utility\Game\Screens\PauseScreen.cpp">
       <Filter>Utility\Game\Screens</Filter>
     </ClCompile>
     <ClCompile Include="Utility\Game\States\MainMenu.cpp">
       <Filter>Utility\Game\States</Filter>
     </ClCompile>
-    <ClCompile Include="Utility\Game\States\TestState.cpp">
+    <ClCompile Include="Utility\Game\States\TestEntity.cpp">
       <Filter>Utility\Game\States</Filter>
     </ClCompile>
     <ClCompile Include="Utility\GameObject\BoundingBox.cpp">
@@ -365,13 +473,31 @@
     <ClCompile Include="Utility\GameObject\GameObject.cpp">
       <Filter>Utility\GameObject</Filter>
     </ClCompile>
+    <ClCompile Include="Utility\GameObject\GameObjectManager.cpp">
+      <Filter>Utility\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\GameObject\GameObjectTemplate.cpp">
+      <Filter>Utility\GameObject</Filter>
+    </ClCompile>
     <ClCompile Include="Utility\Graphics\Model\ImportedMesh.cpp">
       <Filter>Utility\Graphics\Model</Filter>
     </ClCompile>
     <ClCompile Include="Utility\Graphics\Model\ImportedModel.cpp">
       <Filter>Utility\Graphics\Model</Filter>
     </ClCompile>
+    <ClCompile Include="Utility\Graphics\Model\ImportedSkinnedMesh.cpp">
+      <Filter>Utility\Graphics\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\Graphics\Model\ImportedSkinnedModel.cpp">
+      <Filter>Utility\Graphics\Model</Filter>
+    </ClCompile>
     <ClCompile Include="Utility\Graphics\Model\Mesh.cpp">
+      <Filter>Utility\Graphics\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\Graphics\Model\ModelAnimationComponent.cpp">
+      <Filter>Utility\Graphics\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\Graphics\Model\ModelRendererComponent.cpp">
       <Filter>Utility\Graphics\Model</Filter>
     </ClCompile>
     <ClCompile Include="Utility\Graphics\Model\Skybox.cpp">
@@ -437,16 +563,11 @@
     <ClCompile Include="Utility\Window\Window.cpp">
       <Filter>Utility\Window</Filter>
     </ClCompile>
+    <ClCompile Include="Vendor\ImGui\ImGuiBuild.cpp">
+      <Filter>Vendor\ImGui</Filter>
+    </ClCompile>
     <ClCompile Include="Vendor\stb_image\stb_image.cpp">
       <Filter>Vendor\stb_image</Filter>
     </ClCompile>
-    <ClCompile Include="Vendor\ImGui\ImGuiBuild.cpp" />
-    <ClCompile Include="SkelGame\Server\ClientHandler.cpp" />
-    <ClCompile Include="SkelGame\Packets\SnapshotPacket.cpp" />
-    <ClCompile Include="SkelGame\Client\SnapshotReceiver.cpp" />
-    <ClCompile Include="SkelGame\Client\ClientSynchronizer.cpp" />
-    <ClCompile Include="SkelGame\Objects\Player\PlayerPredictionStateHistory.cpp" />
-    <ClCompile Include="Utility\Graphics\Model\ImportedSkinnedModel.cpp" />
-    <ClCompile Include="Utility\Graphics\Model\ImportedSkinnedMesh.cpp" />
   </ItemGroup>
 </Project>

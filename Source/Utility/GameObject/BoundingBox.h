@@ -6,6 +6,7 @@ namespace Skel
 	/**
 		All GameObjects must have a bounding box and this allows for collision.
 		Children will set parameters, if not, they cannot collide.
+		TODO: Convert this to Component
 	**/
 	class BoundingBox
 	{

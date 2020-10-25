@@ -1,6 +1,7 @@
 #pragma once
+#include <queue>
 #include <StateMachine/StateMachine.h>
-#include <Camera/Camera.h>
+#include <GameObject/GameObjectTemplate.h>
 #include <Window/Window.h>
 
 #define Game GameManager::Instance()
@@ -9,6 +10,7 @@ namespace Skel
 	/**
 		Manager singleton object handling the game logic.
 		Mostly dealing with in-game logic.
+
 	**/
 	class GameManager : IObserver
 	{
@@ -27,25 +29,28 @@ namespace Skel
 		uint64 GetTick() const;
 		double DeltaTime() const;
 		double DeltaTimeUnscaled() const;
-		float TimeScale() const;
-		void SetTimeScale(float timeScale);
+		double DeltaTimeLite() const;
+		double TimeScale() const;
+		void SetTimeScale(double timeScale);
 		void SetTimeScaleFreeze(bool freeze);
 		void Sleep(double time) const;
 		void SetPause(bool pause);
 		bool IsPaused() const;
 
-		const class Window& GetWindow() const;
+		class Window& GetWindow();
 		Subject& GetWindowResizedSubject();
 		~GameManager();
 	private:
 		GameManager();
 		void UpdateDeltaTime();
+		void UpdateDeltaTimeLite();
 		bool OnKeyPressed(class KeyPressedEvent& e);
 
 		// Properties
 		uint64 m_Tick;
 		double m_LastUpdatedTime = 0;
 		double m_DeltaTime = 0;
+		double m_DeltaTimeLite = 0;
 		double m_TimeScale = 1;
 		double m_UnpausedTimeScale = 1;
 		bool m_Running = true;

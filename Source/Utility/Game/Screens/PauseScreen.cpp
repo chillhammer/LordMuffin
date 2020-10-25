@@ -14,8 +14,8 @@ namespace Skel
 		m_Backdrop(Vector4(0.0f, 0.0f, 0.0f, 0.5f)), m_Resume(), m_Takeover(), m_Exit(),
 		m_Enabled(false)
 	{
-		float ww = Game.GetWindow().GetWidth();
-		float wh = Game.GetWindow().GetHeight();
+		float ww = static_cast<float>(Game.GetWindow().GetWidth());
+		float wh = static_cast<float>(Game.GetWindow().GetHeight());
 		m_Backdrop.UITransform.Scale = Vector3(ww, wh, 0.1f);
 		m_Backdrop.UITransform.Position.z = 0.01f;
 		Game.GetWindowResizedSubject().AddObserver(this);
@@ -92,8 +92,8 @@ namespace Skel
 	// Makes the screen scale. Note: currently duplicating hard-coded spacing values
 	bool PauseScreen::OnWindowResized(WindowResizeEvent& e)
 	{
-		float ww = Game.GetWindow().GetWidth();
-		float wh = Game.GetWindow().GetHeight();
+		float ww = static_cast<float>(Game.GetWindow().GetWidth());
+		float wh = static_cast<float>(Game.GetWindow().GetHeight());
 
 		// Update Positions
 		m_Backdrop.UITransform.Scale = Vector3(ww, wh, 0.1f);

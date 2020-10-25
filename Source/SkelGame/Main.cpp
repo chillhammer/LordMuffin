@@ -1,3 +1,4 @@
+#pragma warning (disable : 4267)
 #include <skelpch.h>
 #include <Window/Window.h>
 #include <Input/InputManager.h>
@@ -16,7 +17,6 @@
 #include <Graphics/Model/ImportedModel.h>
 #include <Graphics/Model/SingleMeshModel.h>
 #include <Resources/ResourceManager.h>
-#include <Objects/Box/WoodenBox.h>
 #include <Game/States/GameStates.h>
 #include <Net/Net.h>
 #include <Net/Socket.h>
@@ -32,20 +32,23 @@ int main()
 {
 	Log::Init();
 	Net::Init();
+
+#ifndef SERVER
+	// Setting Up Client Dependencies
+	Input.Init();
+	Game.Init();
+#endif
+
+	// Loads All Resources
+	Resources.Init();
 #ifdef SERVER
 	Server.ServerMain();
 	return 0;
 #endif
 
-	// Setting Up Dependencies
-	Input.Init();
-	Game.Init();
-	// Loads All Resources
-	Resources.Init();
-
-	Renderer renderer;
 	Game.Start();
-	Game.ChangeState(Skel::GameStates::Test::Instance());
+	Game.ChangeState(Skel::GameStates::TestEntity::Instance());
+	Renderer renderer;
 
 	while (Game.IsRunning())
 	{

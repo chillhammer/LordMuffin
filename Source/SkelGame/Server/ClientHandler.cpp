@@ -1,5 +1,7 @@
 #include "SkelPCH.h"
-#include <Objects/Player/PlayerObject.h>
+#include <GameObject/GameObjectManager.h>
+#include <Objects/Network/NetworkComponent.h>
+#include <EventSystem/Events/NetEvent.h>
 #include "ClientHandler.h"
 
 namespace Skel::Net {
@@ -24,6 +26,9 @@ namespace Skel::Net {
 
 		m_ActivePlayers++;
 
+		ClientConnectEvent e(playerIndex);
+		ClientSubject.Notify(e);
+
 		return playerIndex;
 	}
 	uint16 ClientHandler::GetClientIndex(const Address& address) const
@@ -32,31 +37,52 @@ namespace Skel::Net {
 			[&addr = address](const ClientSlot& s) -> bool { return addr == s.ClientAddress; });
 		return slot->ID;
 	}
+	bool ClientHandler::ClientExists(const Address& address) const
+	{
+		auto slot = std::find_if(m_ClientSlots.begin(), m_ClientSlots.end(),
+			[&addr = address](const ClientSlot& s) -> bool { return addr == s.ClientAddress; });
+		return slot != m_ClientSlots.end();
+	}
 	uint64 ClientHandler::GetClientTick(uint16 clientIndex) const
 	{
 		return m_LatestTick[clientIndex];
+	}
+	uint64 ClientHandler::GetClientLastReceivedTick(uint16 clientIndex) const
+	{
+		return m_LastReceivedOnServerTick[clientIndex];
 	}
 	void ClientHandler::UpdateClientTick(uint16 clientIndex, uint64 tick)
 	{
 		TryInputAck(clientIndex, tick);
 
 		m_LatestTick[clientIndex] = tick;
+		m_LastReceivedOnServerTick[clientIndex] = Server.GetTick();
+
 	}
 	// Input acks. Will shift if needed. Returns true if not input acked, and thus successfully acks
+	// When receiving an old input, returns true if not yet processed
 	bool ClientHandler::TryInputAck(uint16 clientIndex, uint64 tick)
 	{
 		uint64 latest = GetClientTick(clientIndex);
 		uint64& ack = m_InputAcks[clientIndex];
 		ASSERT(latest != tick, "Should not Ack current tick");
-		// Shifts to make space and then acks
+		// Shifts to make space and then acks. This input is new
 		if (tick > latest) {
-			uint16 offset = tick - latest;
-			ack <<= offset;
+			if (tick - latest >= static_cast<uint8>(-1))
+			{
+				ack = 0;
+			}
+			else
+			{
+				uint8 offset = static_cast<uint8>(tick - latest);
+				ack <<= offset;
+			}
 			ack |= 1;
 		}
-		// Finds and acks appropriate bit
+		// Finds and acks appropriate bit. This input was skipped over
 		else {
-			uint16 offset = latest - tick;
+			ASSERT(latest - tick < static_cast<uint16>(-1), "latest - Tick must be within gap");
+			uint16 offset = static_cast<uint16>(latest - tick);
 			// Return false if already acked
 			uint64 bitState = m_InputAcks[clientIndex] & (uint64(1) << offset);
 			if (bitState > 0) return false;
@@ -71,11 +97,15 @@ namespace Skel::Net {
 
 		m_SlotAvailability[clientIndex] = true;
 		m_LatestTick[clientIndex] = 0;
+		m_LastReceivedOnServerTick[clientIndex] = 0;
 
 		auto toBeRemoved = std::find_if(m_ClientSlots.begin(), m_ClientSlots.end(),
 			[&index = clientIndex] (const ClientSlot& s) -> bool { return index == s.ID; });
 		
 		m_ClientSlots.erase(toBeRemoved);
+
+		ClientDisconnectEvent e(clientIndex);
+		ClientSubject.Notify(e);
 
 		m_ActivePlayers--;
 	}
@@ -83,11 +113,16 @@ namespace Skel::Net {
 	{
 		return !m_SlotAvailability[clientID];
 	}
-	const PlayerObject* ClientHandler::GetPlayerObject(uint16 clientID) const
+	const GameObject* ClientHandler::GetPlayerObject(uint16 clientID) const
 	{
 		if (!IsActive(clientID))
 			return nullptr;
-		return &m_PlayerObjectArray[clientID];
+		if (!Objects.ComponentExists<NetworkComponent>())
+		{
+			LOG_ERROR("Needs NetworkComponent to find PlayerObject");
+		}
+		NetworkComponent& network = Objects.FindFirstComponent<NetworkComponent>();
+		return network.GetPlayerObject(clientID);
 	}
 	// Used to get addresses of players
 	const std::vector<ClientSlot>& ClientHandler::GetClientSlots() const

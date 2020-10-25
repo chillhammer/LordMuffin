@@ -1,5 +1,4 @@
 #pragma once
-#include "PlayerObject.h"
 #include "PlayerSnapshotState.h"
 #include "Net/Net.h"
 
@@ -20,13 +19,14 @@ namespace Skel {
 	};
 
 	// Stores the input and state info of the player 
+	// This allows for client side prediction and will correct the player if needed
 	class PlayerPredictionStateHistory
 	{
 	public:
 		void RecordState(PlayerInputState input, PlayerSnapshotState state);
 		void RemoveOldest();
 
-		bool CorrectState(const PlayerSnapshotState& corrected, PlayerObject& obj, double time, uint64 clientTick);
+		bool CorrectState(const PlayerSnapshotState& corrected, GameObject* obj, double time, uint64 clientTick);
 		std::vector<PlayerInputState> RecentInputs(uint8 num) const;
 	private:
 

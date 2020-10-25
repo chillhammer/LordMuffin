@@ -1,7 +1,7 @@
 #pragma once
-#include <Objects/Player/PlayerObject.h>
 #include <Net/Net.h>
 #include <Net/Address.h>
+#include <EventSystem/Subject.h>
 
 namespace Skel::Net
 {
@@ -23,15 +23,17 @@ namespace Skel::Net
 		uint16 RemainingSlots() const { return MAX_PLAYERS - m_ActivePlayers; }
 		uint16 AddPlayer(Address address);
 		uint16 GetClientIndex(const Address& address) const;
+		bool ClientExists(const Address& address) const;
 		uint64 GetClientTick(uint16 clientIndex) const;
+		uint64 GetClientLastReceivedTick(uint16 clientIndex) const;
 		void   UpdateClientTick(uint16 clientIndex, uint64 tick);
 		bool   TryInputAck(uint16 clientIndex, uint64 tick);
 		void RemovePlayer(uint16 clientIndex);
-		void SetPlayerObjectArray(class PlayerObject* arr) { m_PlayerObjectArray = arr; }
 		bool IsActive(uint16 clientID) const;
-		const class PlayerObject* GetPlayerObject(uint16 clientID) const;
+		const class GameObject* GetPlayerObject(uint16 clientID) const;
 		const std::vector<ClientSlot>& GetClientSlots() const;
 
+		Subject ClientSubject;
 
 	private:
 		// Helper Functions
@@ -40,11 +42,11 @@ namespace Skel::Net
 	private:
 		bool m_SlotAvailability[MAX_PLAYERS];
 		uint64 m_LatestTick[MAX_PLAYERS];
+		uint64 m_LastReceivedOnServerTick[MAX_PLAYERS];
 		uint64 m_InputAcks[MAX_PLAYERS];
 
 
 		std::vector<ClientSlot> m_ClientSlots; // List of active player addresses
-		class PlayerObject* m_PlayerObjectArray; // Active/Non-active player objects
 		uint16 m_ActivePlayers = 0;
 	};
 }

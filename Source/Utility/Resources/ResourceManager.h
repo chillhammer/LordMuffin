@@ -4,6 +4,7 @@
 #include <Graphics/Model/Model.h>
 #include <Graphics/OpenGL/Texture.h>
 #include <Graphics/Text/Font.h>
+#include <Game/Scene/Scene.h>
 
 #define Resources ResourceManager::Instance()
 
@@ -18,11 +19,13 @@ namespace Skel
 	public:
 		static ResourceManager& Instance();
 		void Init();
-		TexturePtr	GetTexture(std::string name);
-		MeshPtr		GetMesh(std::string name);
-		ModelPtr	GetModel(std::string name);
-		ShaderPtr	GetShader(std::string name);
-		FontPtr		GetFont(std::string name);
+		TexturePtr					GetTexture(std::string name);
+		MeshPtr						GetMesh(std::string name);
+		ModelPtr					GetModel(std::string name);
+		ShaderPtr					GetShader(std::string name);
+		FontPtr						GetFont(std::string name);
+		GameObjectTemplatePtr		GetPrefab(std::string name);
+		ScenePtr					GetScene(std::string name);
 	private:
 		ResourceManager() {};
 
@@ -31,5 +34,7 @@ namespace Skel
 		std::unordered_map<std::string, ModelPtr> m_ModelTable;
 		std::unordered_map<std::string, ShaderPtr> m_ShaderTable;
 		std::unordered_map<std::string, FontPtr> m_FontTable;
+		std::unordered_map<std::string, GameObjectTemplatePtr> m_PrefabTable;
+		std::unordered_map<std::string, ScenePtr> m_SceneTable;
 	};
 }

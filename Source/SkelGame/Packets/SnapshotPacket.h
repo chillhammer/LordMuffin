@@ -44,7 +44,7 @@ namespace Skel::Net
 			B_WRITE(Timestamp);
 
 			// Num Players1
-			uint16 activePlayers = m_Entries.size();
+			uint16 activePlayers = static_cast<uint16>(m_Entries.size());
 			B_WRITE(activePlayers);
 
 			for (int i = 0; i < activePlayers; ++i)

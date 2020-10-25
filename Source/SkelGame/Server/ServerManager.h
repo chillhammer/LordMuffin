@@ -22,6 +22,7 @@ namespace Skel::Net
 
 		double GetFixedFrameDeltaTime() const { return 1.0 / 60.0; };
 		Socket& GetSocket() { return m_Server; }
+		ClientHandler& GetClientHandler() { return m_ClientHandler; }
 
 		~ServerManager() {};
 	private:

@@ -16,7 +16,7 @@ namespace Skel
 	void ResourceManager::Init()
 	{
 		// Loads in game-specfic resources
-		LoadResources(m_TextureTable, m_MeshTable, m_ModelTable, m_ShaderTable, m_FontTable);
+		LoadResources(m_TextureTable, m_MeshTable, m_ModelTable, m_ShaderTable, m_FontTable, m_SceneTable, m_PrefabTable);
 		LOG("Initialized Resource Manager");
 	}
 #ifndef SERVER
@@ -45,11 +45,31 @@ namespace Skel
 		ASSERT(m_FontTable[name], "Cannot load font: " + name);
 		return m_FontTable[name];
 	}
+	GameObjectTemplatePtr ResourceManager::GetPrefab(std::string name)
+	{
+		ASSERT(m_PrefabTable[name], "Cannot load scene: " + name);
+		return m_PrefabTable[name];
+	}
+	ScenePtr ResourceManager::GetScene(std::string name)
+	{
+		ASSERT(m_SceneTable[name], "Cannot load scene: " + name);
+		return m_SceneTable[name];
+	}
 #else
 	TexturePtr ResourceManager::GetTexture(std::string name) { return nullptr; }
 	MeshPtr ResourceManager::GetMesh(std::string name) { return nullptr; }
 	ModelPtr ResourceManager::GetModel(std::string name) { return nullptr; }
 	ShaderPtr ResourceManager::GetShader(std::string name) { return nullptr; }
 	FontPtr ResourceManager::GetFont(std::string name) { return nullptr; }
+	GameObjectTemplatePtr ResourceManager::GetPrefab(std::string name)
+	{
+		ASSERT(m_PrefabTable[name], "Cannot load scene: " + name);
+		return m_PrefabTable[name];
+	}
+	ScenePtr ResourceManager::GetScene(std::string name)
+	{
+		ASSERT(m_SceneTable[name], "Cannot load scene: " + name);
+		return m_SceneTable[name];
+	}
 #endif
 }

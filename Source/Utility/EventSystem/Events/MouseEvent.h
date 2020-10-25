@@ -6,9 +6,9 @@
 namespace Skel
 {
 	EVENT_CLASS_SIMPLE(MouseMoved,
-		MouseMovedEvent(ARGS(float mx, float my)) : ARGS(MouseX(mx), MouseY(my)) {};
-		float MouseX;
-		float MouseY;
+		MouseMovedEvent(ARGS(double mx, double my)) : ARGS(MouseX(mx), MouseY(my)) {};
+		double MouseX;
+		double MouseY;
 	);
 
 	EVENT_CLASS_SIMPLE(MouseScrolled,

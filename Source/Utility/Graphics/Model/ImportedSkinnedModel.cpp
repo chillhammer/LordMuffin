@@ -15,7 +15,7 @@ namespace Skel
 	// Loops Through All Meshes, Then Draws
 	void ImportedSkinnedModel::Draw(const ShaderPtr& shader, const Matrix4x4& model)
 	{
-		UpdateBoneTransforms(Game.RunningTime());
+		UpdateBoneTransforms(static_cast<float>(Game.RunningTime()));
 		UpdateBoneShader(Resources.GetShader("SkinnedModel"));
 
 		for (unsigned int i = 0; i < m_Meshes.size(); i++)
@@ -49,7 +49,7 @@ namespace Skel
 
 	void ImportedSkinnedModel::UpdateBoneShader(ShaderPtr shader)
 	{
-		uint16 bonesSize = m_BoneInfos.size();
+		uint16 bonesSize = static_cast<uint16>(m_BoneInfos.size());
 		for (uint16 i = 0; i < bonesSize; ++i) {
 			char uniformName[16];
 			memset(uniformName, 0, sizeof(uniformName));
@@ -229,13 +229,13 @@ namespace Skel
 		// process animations
 		m_AnimationMap.clear();
 		m_AnimationNodeMap.clear();
-		for (int i = 0; i < m_Scene->mNumAnimations; ++i) {
+		for (unsigned int i = 0; i < m_Scene->mNumAnimations; ++i) {
 			aiAnimation* animation = m_Scene->mAnimations[i];
 			std::string animName = animation->mName.C_Str();
 			LOG("Loading animation[{0}]: {1}", i, animName);
 			m_AnimationMap[animName] = std::pair<aiAnimation*, uint8>(animation, i);
 			std::map<std::string, aiNodeAnim*> nodeAnimMap;
-			for (int o = 0; o < animation->mNumChannels; ++o) {
+			for (unsigned int o = 0; o < animation->mNumChannels; ++o) {
 				std::string animNodeName = animation->mChannels[o]->mNodeName.C_Str();
 				nodeAnimMap[animNodeName] = animation->mChannels[o];
 			}
@@ -284,7 +284,7 @@ namespace Skel
 					mesh->mNormals[i].z
 			};
 			// Bones
-			for (int o = 0; o < mesh->mNumBones; ++o) {
+			for (unsigned int o = 0; o < mesh->mNumBones; ++o) {
 				uint8 boneIndex = 0; 
 				aiBone* bone = mesh->mBones[o];
 				std::string boneName(bone->mName.data);
@@ -303,7 +303,7 @@ namespace Skel
 				m_BoneInfos[boneIndex].BoneOffset = bone->mOffsetMatrix;
 
 				// Add each bone weight
-				for (int j = 0; j < bone->mNumWeights; j++) {
+				for (unsigned int j = 0; j < bone->mNumWeights; j++) {
 					//uint8 vertexID = m_Entries[MeshIndex].BaseVertex + pMesh->mBones[i]->mWeights[j].mVertexId;
 					aiVertexWeight weightInfo = bone->mWeights[j];
 					// Note: not completely sure 'i' is the same as vertex ID. Maybe use m_NumVertices

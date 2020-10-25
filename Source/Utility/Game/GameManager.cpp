@@ -9,6 +9,8 @@
 #include <examples/imgui_impl_opengl3.h>
 #include <Random/Random.h>
 #include <Client/ClientManager.h>
+#include <Resources/ResourceManager.h>
+#include <GameObject/GameObjectManager.h>
 #include <chrono>
 #include "GameManager.h"
 
@@ -39,6 +41,7 @@ namespace Skel
 		ImGui_ImplOpenGL3_Init("#version 410");
 
 		Random::Seed();
+
 	}
 	// Called to enter first state
 	void GameManager::Start()
@@ -59,6 +62,7 @@ namespace Skel
 	void GameManager::Run()
 	{
 		UpdateDeltaTime();
+
 		#pragma region ImGui Start
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
@@ -66,6 +70,8 @@ namespace Skel
 		#pragma endregion
 
 		m_StateMachine.Update();
+		Objects.Run();
+		UpdateDeltaTimeLite();
 
 		#pragma region ImGui End
 		ImGuiIO& io = ImGui::GetIO();
@@ -76,9 +82,11 @@ namespace Skel
 
 		#pragma endregion
 
+
 		Input.ResetKeyPressedStates();
 		// Poll Window Events
 		m_Window.OnUpdate();
+
 
 		++m_Tick;
 	}
@@ -150,12 +158,17 @@ namespace Skel
 		return m_DeltaTime;
 	}
 
-	float GameManager::TimeScale() const
+	double GameManager::DeltaTimeLite() const
+	{
+		return m_DeltaTimeLite;
+	}
+
+	double GameManager::TimeScale() const
 	{
 		return m_TimeScale;
 	}
 
-	void GameManager::SetTimeScale(float timeScale)
+	void GameManager::SetTimeScale(double timeScale)
 	{
 		m_UnpausedTimeScale = timeScale;
 		m_TimeScale = timeScale;
@@ -188,7 +201,7 @@ namespace Skel
 		return m_Paused;
 	}
 
-	const Window& GameManager::GetWindow() const
+	Window& GameManager::GetWindow()
 	{
 		return m_Window;
 	}
@@ -204,6 +217,12 @@ namespace Skel
 		double currentTime = glfwGetTime();
 		m_DeltaTime = glm::min(currentTime - m_LastUpdatedTime, 1.0);
 		m_LastUpdatedTime = currentTime;
+	}
+	// Calculates delta time right after render. Used for benchmarking
+	void GameManager::UpdateDeltaTimeLite()
+	{
+		double currentTime = glfwGetTime();
+		m_DeltaTimeLite = glm::min(currentTime - m_LastUpdatedTime, 1.0);
 	}
 
 	bool GameManager::OnKeyPressed(KeyPressedEvent& e)

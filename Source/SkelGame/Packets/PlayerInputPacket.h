@@ -31,11 +31,11 @@ namespace Skel::Net
 
 			// TODO: refactor input to buffer. finalize input state before refactor
 			uint8 state = 0;
-			state |= InputState.Forward;
-			state |= InputState.Back	 << 1;
-			state |= InputState.Right << 2;
-			state |= InputState.Left << 3;
-			state |= InputState.Jump	 << 4;
+			state |= static_cast<uint8>(InputState.Forward);
+			state |= static_cast<uint8>(InputState.Back) << 1;
+			state |= static_cast<uint8>(InputState.Right) << 2;
+			state |= static_cast<uint8>(InputState.Left) << 3;
+			state |= static_cast<uint8>(InputState.Jump)	 << 4;
 
 			B_WRITE(state);
 			B_WRITE(InputState.Yaw);
@@ -43,11 +43,11 @@ namespace Skel::Net
 			ASSERT(RecentInputs.size() == Net::INPUTS_PACKED, "RecentInputs should be filled in constructor");
 			for (const PlayerInputState& recentInput : RecentInputs) {
 				state = 0;
-				state |= recentInput.Forward;
-				state |= recentInput.Back << 1;
-				state |= recentInput.Right << 2;
-				state |= recentInput.Left << 3;
-				state |= recentInput.Jump << 4;
+				state |= static_cast<uint8>(recentInput.Forward);
+				state |= static_cast<uint8>(recentInput.Back) << 1;
+				state |= static_cast<uint8>(recentInput.Right) << 2;
+				state |= static_cast<uint8>(recentInput.Left) << 3;
+				state |= static_cast<uint8>(recentInput.Jump) << 4;
 				B_WRITE(state);
 				float recentYaw = recentInput.Yaw;
 				B_WRITE(recentYaw);

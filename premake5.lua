@@ -20,11 +20,12 @@ IncludeDir["Assimp"] = 		"Vendor/Lib/Assimp/include"
 IncludeDir["freetype"] =	"Vendor/Lib/freetype/include"
 IncludeDir["irrKlang"] =	"Vendor/Lib/irrKlang/include"
 IncludeDir["json"] =		"Vendor/Lib/json/include"
+IncludeDir["rttr"] =		"Vendor/Lib/rttr"
 
 include "Vendor/Lib/GLFW"
 include "Vendor/Lib/GLAD"
 include "Vendor/Lib/imgui"
-
+include "Vendor/Lib/rttr"
 
 
 
@@ -67,7 +68,9 @@ project "RaggedSkeletonClient"
 		"%{IncludeDir.stb_image}",
 		"%{IncludeDir.Assimp}",
 		"%{IncludeDir.freetype}",
-		"%{IncludeDir.irrKlang}"
+		"%{IncludeDir.irrKlang}",
+		"%{IncludeDir.json}",
+		"%{IncludeDir.rttr}"
 	}
 
 	links
@@ -79,7 +82,8 @@ project "RaggedSkeletonClient"
 		"Vendor/Lib/freetype/lib/freetype.lib",
 		"Vendor/Lib/irrKlang/lib/Winx64-visualStudio/irrKlang.lib",
 		"opengl32.lib",
-		"Ws2_32.lib"
+		"Ws2_32.lib",
+		"rttr"
 	}
 
 	filter "system:windows"
@@ -99,6 +103,7 @@ project "RaggedSkeletonClient"
 			"SKEL_DEBUG",
 			"ENABLE_ASSERTS"
 		}
+		buildoptions "/Zi"
 		runtime "Debug"
 		symbols "on"
 
@@ -154,7 +159,9 @@ location "Source"
 		"%{IncludeDir.stb_image}",
 		"%{IncludeDir.Assimp}",
 		"%{IncludeDir.freetype}",
-		"%{IncludeDir.irrKlang}"
+		"%{IncludeDir.irrKlang}",
+		"%{IncludeDir.json}",
+		"%{IncludeDir.rttr}"
 	}
 
 	links
@@ -166,7 +173,8 @@ location "Source"
 		"Vendor/Lib/freetype/lib/freetype.lib",
 		"Vendor/Lib/irrKlang/lib/Winx64-visualStudio/irrKlang.lib",
 		"opengl32.lib",
-		"Ws2_32.lib"
+		"Ws2_32.lib",
+		"rttr"
 	}
 
 	filter "system:windows"

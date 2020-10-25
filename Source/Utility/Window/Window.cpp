@@ -23,6 +23,11 @@ Skel::Window::Window(const WindowProps & props)
 	m_Data.Width = props.Width;
 	m_Data.Height = props.Height;
 
+#ifdef SERVER
+	// Ignore window
+	return;
+#endif
+
 	LOG("Creating window {0} ({1}, {2})", props.Title, props.Width, props.Height);
 
 	// Removing Console
@@ -43,8 +48,17 @@ Skel::Window::Window(const WindowProps & props)
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 		glfwWindowHint(GLFW_SAMPLES, 4);
 	}
+	GLFWmonitor* monitor = glfwGetPrimaryMonitor();
+	const GLFWvidmode* mode = glfwGetVideoMode(monitor);
+
+	glfwWindowHint(GLFW_RED_BITS, mode->redBits);
+	glfwWindowHint(GLFW_GREEN_BITS, mode->greenBits);
+	glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
+	glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
+
 	m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
 	glfwMakeContextCurrent(m_Window);
+	glfwSwapInterval(1);
 	//glewInit();
 	gladLoadGL();
 	glfwSetWindowUserPointer(m_Window, &m_Data);
@@ -157,7 +171,7 @@ Skel::Window::Window(const WindowProps & props)
 	glfwSetCursorPosCallback(m_Window, [](GLFWwindow* window, double xPos, double yPos) {
 		WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 
-		MouseMovedEvent event((float)xPos, (float)yPos);
+		MouseMovedEvent event((double)xPos, (double)yPos);
 		data.EventCallback(event);
 	});
 	#pragma endregion
@@ -200,15 +214,19 @@ void Skel::Window::OnEvent(Event & e)
 	}
 }
 
-void Skel::Window::SetCursorEnabled(bool enabled) const
+void Skel::Window::SetCursorEnabled(bool enabled)
 {
 	if (!enabled)
 	{
 		glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
+		glfwSetInputMode(m_Window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
+		m_Data.CursorEnabled = false;
 	}
 	else
 	{
 		glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
+		glfwSetInputMode(m_Window, GLFW_RAW_MOUSE_MOTION, GLFW_FALSE);
+		m_Data.CursorEnabled = true;
 	}
 }
 

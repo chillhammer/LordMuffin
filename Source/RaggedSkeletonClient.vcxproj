@@ -79,11 +79,12 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>SkelPCH.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;SKEL_PLATFORM_WINDOWS;SKEL_BUILD_DLL;GLFW_INCLUDE_NONE;SKEL_DEBUG;ENABLE_ASSERTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;SkelGame;PCH;Utility;Vendor;..\Vendor\Lib\spdlog\include;..\Vendor\Lib\GLFW\include;..\Vendor\Lib\GLAD\include;..\Vendor\Lib\imgui;..\Vendor\Lib\glm;..;..\Vendor\Lib\Assimp\include;..\Vendor\Lib\freetype\include;..\Vendor\Lib\irrKlang\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;SKEL_PLATFORM_WINDOWS;SKEL_BUILD_DLL;GLFW_INCLUDE_NONE;CLIENT;SKEL_DEBUG;ENABLE_ASSERTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.;SkelGame;PCH;Utility;Vendor;..\Vendor\Lib\spdlog\include;..\Vendor\Lib\GLFW\include;..\Vendor\Lib\GLAD\include;..\Vendor\Lib\imgui;..\Vendor\Lib\glm;..;..\Vendor\Lib\Assimp\include;..\Vendor\Lib\freetype\include;..\Vendor\Lib\irrKlang\include;..\Vendor\Lib\json\include;..\Vendor\Lib\rttr;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <AdditionalOptions>/Zi %(AdditionalOptions)</AdditionalOptions>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -97,8 +98,8 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>SkelPCH.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;SKEL_PLATFORM_WINDOWS;SKEL_BUILD_DLL;GLFW_INCLUDE_NONE;SKEL_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;SkelGame;PCH;Utility;Vendor;..\Vendor\Lib\spdlog\include;..\Vendor\Lib\GLFW\include;..\Vendor\Lib\GLAD\include;..\Vendor\Lib\imgui;..\Vendor\Lib\glm;..;..\Vendor\Lib\Assimp\include;..\Vendor\Lib\freetype\include;..\Vendor\Lib\irrKlang\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;SKEL_PLATFORM_WINDOWS;SKEL_BUILD_DLL;GLFW_INCLUDE_NONE;CLIENT;SKEL_RELEASE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.;SkelGame;PCH;Utility;Vendor;..\Vendor\Lib\spdlog\include;..\Vendor\Lib\GLFW\include;..\Vendor\Lib\GLAD\include;..\Vendor\Lib\imgui;..\Vendor\Lib\glm;..;..\Vendor\Lib\Assimp\include;..\Vendor\Lib\freetype\include;..\Vendor\Lib\irrKlang\include;..\Vendor\Lib\json\include;..\Vendor\Lib\rttr;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -119,8 +120,8 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>SkelPCH.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;SKEL_PLATFORM_WINDOWS;SKEL_BUILD_DLL;GLFW_INCLUDE_NONE;SKEL_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;SkelGame;PCH;Utility;Vendor;..\Vendor\Lib\spdlog\include;..\Vendor\Lib\GLFW\include;..\Vendor\Lib\GLAD\include;..\Vendor\Lib\imgui;..\Vendor\Lib\glm;..;..\Vendor\Lib\Assimp\include;..\Vendor\Lib\freetype\include;..\Vendor\Lib\irrKlang\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;SKEL_PLATFORM_WINDOWS;SKEL_BUILD_DLL;GLFW_INCLUDE_NONE;CLIENT;SKEL_DIST;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.;SkelGame;PCH;Utility;Vendor;..\Vendor\Lib\spdlog\include;..\Vendor\Lib\GLFW\include;..\Vendor\Lib\GLAD\include;..\Vendor\Lib\imgui;..\Vendor\Lib\glm;..;..\Vendor\Lib\Assimp\include;..\Vendor\Lib\freetype\include;..\Vendor\Lib\irrKlang\include;..\Vendor\Lib\json\include;..\Vendor\Lib\rttr;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -140,17 +141,17 @@
     <ClInclude Include="PCH\SkelPCH.h" />
     <ClInclude Include="SkelGame\Client\ClientManager.h" />
     <ClInclude Include="SkelGame\Client\ClientSynchronizer.h" />
-    <ClInclude Include="SkelGame\FakeLag\FakeLagPacketHolderManager.h" />
     <ClInclude Include="SkelGame\Client\SnapshotReceiver.h" />
     <ClInclude Include="SkelGame\Events\GameEventTypes.h" />
     <ClInclude Include="SkelGame\Events\GameEvents.h" />
+    <ClInclude Include="SkelGame\FakeLag\FakeLagPacketHolderManager.h" />
     <ClInclude Include="SkelGame\Objects\Box\BoxMesh.h" />
-    <ClInclude Include="SkelGame\Objects\Box\WoodenBox.h" />
     <ClInclude Include="SkelGame\Objects\Box\WoodenBoxModel.h" />
+    <ClInclude Include="SkelGame\Objects\Network\NetworkComponent.h" />
+    <ClInclude Include="SkelGame\Objects\Player\PlayerComponent.h" />
     <ClInclude Include="SkelGame\Objects\Player\PlayerInputState.h" />
-    <ClInclude Include="SkelGame\Objects\Player\PlayerObject.h" />
-    <ClInclude Include="SkelGame\Objects\Player\PlayerSnapshotState.h" />
     <ClInclude Include="SkelGame\Objects\Player\PlayerPredictionStateHistory.h" />
+    <ClInclude Include="SkelGame\Objects\Player\PlayerSnapshotState.h" />
     <ClInclude Include="SkelGame\Packets\JoinPackets.h" />
     <ClInclude Include="SkelGame\Packets\PacketTypes.h" />
     <ClInclude Include="SkelGame\Packets\PlayerInputPacket.h" />
@@ -160,7 +161,10 @@
     <ClInclude Include="SkelGame\Server\ClientHandler.h" />
     <ClInclude Include="SkelGame\Server\ServerManager.h" />
     <ClInclude Include="Utility\Audio\AudioEngine.h" />
-    <ClInclude Include="Utility\Camera\Camera.h" />
+    <ClInclude Include="Utility\Camera\CameraComponent.h" />
+    <ClInclude Include="Utility\Components\ComponentManager.h" />
+    <ClInclude Include="Utility\Components\ComponentTemplate.h" />
+    <ClInclude Include="Utility\Components\GameObjectComponent.h" />
     <ClInclude Include="Utility\Containers\BitArray.h" />
     <ClInclude Include="Utility\Containers\PackedIDMap.h" />
     <ClInclude Include="Utility\EventSystem\Event.h" />
@@ -168,19 +172,26 @@
     <ClInclude Include="Utility\EventSystem\Events\ApplicationEvent.h" />
     <ClInclude Include="Utility\EventSystem\Events\KeyEvent.h" />
     <ClInclude Include="Utility\EventSystem\Events\MouseEvent.h" />
+    <ClInclude Include="Utility\EventSystem\Events\NetEvent.h" />
     <ClInclude Include="Utility\EventSystem\IObserver.h" />
     <ClInclude Include="Utility\EventSystem\Subject.h" />
     <ClInclude Include="Utility\Game\GameManager.h" />
+    <ClInclude Include="Utility\Game\Scene\Scene.h" />
     <ClInclude Include="Utility\Game\Screens\PauseScreen.h" />
     <ClInclude Include="Utility\Game\States\GameStates.h" />
     <ClInclude Include="Utility\GameObject\BoundingBox.h" />
     <ClInclude Include="Utility\GameObject\GameObject.h" />
+    <ClInclude Include="Utility\GameObject\GameObjectManager.h" />
+    <ClInclude Include="Utility\GameObject\GameObjectTemplate.h" />
     <ClInclude Include="Utility\Graphics\Model\ImportedMesh.h" />
     <ClInclude Include="Utility\Graphics\Model\ImportedModel.h" />
     <ClInclude Include="Utility\Graphics\Model\ImportedSkinnedMesh.h" />
     <ClInclude Include="Utility\Graphics\Model\ImportedSkinnedModel.h" />
     <ClInclude Include="Utility\Graphics\Model\Mesh.h" />
     <ClInclude Include="Utility\Graphics\Model\Model.h" />
+    <ClInclude Include="Utility\Graphics\Model\ModelAnimationComponent.h" />
+    <ClInclude Include="Utility\Graphics\Model\ModelAnimationController.h" />
+    <ClInclude Include="Utility\Graphics\Model\ModelRendererComponent.h" />
     <ClInclude Include="Utility\Graphics\Model\SingleMeshModel.h" />
     <ClInclude Include="Utility\Graphics\Model\Skybox.h" />
     <ClInclude Include="Utility\Graphics\OpenGL\Cubemap.h" />
@@ -221,29 +232,39 @@
     </ClCompile>
     <ClCompile Include="SkelGame\Client\ClientManager.cpp" />
     <ClCompile Include="SkelGame\Client\ClientSynchronizer.cpp" />
+    <ClCompile Include="SkelGame\Client\Client_HandlePackets.cpp" />
     <ClCompile Include="SkelGame\Client\SnapshotReceiver.cpp" />
     <ClCompile Include="SkelGame\Main.cpp" />
     <ClCompile Include="SkelGame\Objects\Box\BoxMesh.cpp" />
     <ClCompile Include="SkelGame\Objects\Box\WoodenBoxModel.cpp" />
-    <ClCompile Include="SkelGame\Objects\Player\PlayerObject.cpp" />
+    <ClCompile Include="SkelGame\Objects\Network\NetworkComponent.cpp" />
+    <ClCompile Include="SkelGame\Objects\Player\PlayerComponent.cpp" />
     <ClCompile Include="SkelGame\Objects\Player\PlayerPredictionStateHistory.cpp" />
     <ClCompile Include="SkelGame\Packets\SnapshotPacket.cpp" />
     <ClCompile Include="SkelGame\Server\ClientHandler.cpp" />
     <ClCompile Include="SkelGame\Server\ServerManager.cpp" />
+    <ClCompile Include="SkelGame\Server\Server_HandlePackets.cpp" />
     <ClCompile Include="Utility\Audio\AudioEngine.cpp" />
-    <ClCompile Include="Utility\Camera\Camera.cpp" />
+    <ClCompile Include="Utility\Camera\CameraComponent.cpp" />
+    <ClCompile Include="Utility\Components\ComponentManager.cpp" />
+    <ClCompile Include="Utility\Components\ComponentTemplate.cpp" />
     <ClCompile Include="Utility\EventSystem\Subject.cpp" />
     <ClCompile Include="Utility\Game\GameManager.cpp" />
+    <ClCompile Include="Utility\Game\Scene\Scene.cpp" />
     <ClCompile Include="Utility\Game\Screens\PauseScreen.cpp" />
     <ClCompile Include="Utility\Game\States\MainMenu.cpp" />
-    <ClCompile Include="Utility\Game\States\TestState.cpp" />
+    <ClCompile Include="Utility\Game\States\TestEntity.cpp" />
     <ClCompile Include="Utility\GameObject\BoundingBox.cpp" />
     <ClCompile Include="Utility\GameObject\GameObject.cpp" />
+    <ClCompile Include="Utility\GameObject\GameObjectManager.cpp" />
+    <ClCompile Include="Utility\GameObject\GameObjectTemplate.cpp" />
     <ClCompile Include="Utility\Graphics\Model\ImportedMesh.cpp" />
     <ClCompile Include="Utility\Graphics\Model\ImportedModel.cpp" />
     <ClCompile Include="Utility\Graphics\Model\ImportedSkinnedMesh.cpp" />
     <ClCompile Include="Utility\Graphics\Model\ImportedSkinnedModel.cpp" />
     <ClCompile Include="Utility\Graphics\Model\Mesh.cpp" />
+    <ClCompile Include="Utility\Graphics\Model\ModelAnimationComponent.cpp" />
+    <ClCompile Include="Utility\Graphics\Model\ModelRendererComponent.cpp" />
     <ClCompile Include="Utility\Graphics\Model\Skybox.cpp" />
     <ClCompile Include="Utility\Graphics\OpenGL\Cubemap.cpp" />
     <ClCompile Include="Utility\Graphics\OpenGL\IndexBuffer.cpp" />
@@ -277,6 +298,9 @@
     </ProjectReference>
     <ProjectReference Include="..\Vendor\Lib\imgui\ImGui.vcxproj">
       <Project>{C0FF640D-2C14-8DBE-F595-301E616989EF}</Project>
+    </ProjectReference>
+    <ProjectReference Include="..\Vendor\Lib\rttr\rttr.vcxproj">
+      <Project>{918F9D7C-7DC6-9E0D-26B3-841012C91A0F}</Project>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

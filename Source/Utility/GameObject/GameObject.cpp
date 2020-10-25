@@ -1,23 +1,12 @@
 #include <skelpch.h>
-#include <Resources/ResourceManager.h>s
+#include <Resources/ResourceManager.h>
+#include <GameObject/GameObjectManager.h>
 #include "GameObject.h"
 
 namespace Skel
 {
 	GameObject::GameObject()
 	{
-		//ASSERT(false, "GameObject must have model");
-		m_ID = GetNextID();
-	}
-	GameObject::GameObject(std::string modelName) 
-		: m_Model(Resources.GetModel(modelName))
-	{
-		m_ID = GetNextID();
-	}
-	GameObject::GameObject(std::string modelName, Vector3 position)
-		: m_Model(Resources.GetModel(modelName))
-	{
-		ObjectTransform.Position = position;
 		m_ID = GetNextID();
 	}
 	GameObject::GameObject(const GameObject & other)
@@ -53,45 +42,57 @@ namespace Skel
 		// Process Rotation
 		ObjectTransform.Rotation = ProcessAngleVector(ObjectTransform.Rotation);
 	}
-	// Returns whether two bounding boxes intersect
-	bool GameObject::IsColliding(const GameObject & other) const
+	void GameObject::AddComponent(ComponentPtr ptr)
 	{
-		return m_BoundingBox.IsIntersecting(ObjectTransform, other.ObjectTransform, other.m_BoundingBox);
+		ptr->SetOwner(this);
+		m_Components.emplace_back(ptr);
+		uint64 componentID = ptr->get_type().get_id();
+		ASSERT(m_ComponentMap.find(componentID) == m_ComponentMap.end(), "Trying to add component that exists");
+		m_ComponentMap[componentID] = std::move(ptr);
 	}
-	bool GameObject::IsCollidingAtPosition(const GameObject& other, Vector3 newPos) const
+
+	void GameObject::OnSceneCreatedComponents()
 	{
-		Transform temp(ObjectTransform);
-		temp.Position = newPos;
-		return m_BoundingBox.IsIntersecting(temp, other.ObjectTransform, other.m_BoundingBox);
+		for (auto& component : m_Components)
+		{
+			component->OnSceneCreated();
+		}
 	}
-	void GameObject::Draw()
+	void GameObject::UpdateComponents()
 	{
-		if (m_Model == nullptr)
-			return;
-		ShaderPtr shader = Resources.GetShader("Model");
-		Draw(shader);
+		for (auto& component : m_Components)
+		{
+			component->Update();
+		}
 	}
-	void GameObject::Draw(const ShaderPtr & shader)
+	void GameObject::PostUpdateComponents()
 	{
-		PreDraw();
-		if (m_Model == nullptr)
-			return;
-		m_Model->Draw(shader, ObjectTransform.GetMatrix());
+		for (auto& component : m_Components)
+		{
+			component->PostUpdate();
+		}
 	}
-	// Debug method to draw bounding box
-	void GameObject::DrawBoundingBox() const
+	void GameObject::DrawComponents()
 	{
-		if (!m_BoundingBox.IsEmpty())
-			m_BoundingBox.DebugDraw(ObjectTransform);
+		for (auto& component : m_Components)
+		{
+			component->Draw();
+		}
 	}
-	// Allows children to customize shape of bounding box
-	void GameObject::SetBoundingBox(Vector3 center, Vector3 halfExtents)
+	// Sets to destroy this object at end of frame
+	void GameObject::Destroy()
 	{
-		m_BoundingBox.SetParameters(center, halfExtents);
+		LOG("Destroying Object. ID: {0}", GetID());
+		Objects.DestroyObject(this);
 	}
-	BoundingBox GameObject::GetBoundingBox() const
+	// Delete all components on destruction
+	GameObject::~GameObject()
 	{
-		return m_BoundingBox;
+		for (ComponentPtr comp : m_Components)
+		{
+			comp->SetAlive(false);
+			comp->SetOwner(nullptr);
+		}
 	}
 	// Each object will have a unique identifier based on this static function
 	int GameObject::GetNextID()

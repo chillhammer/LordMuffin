@@ -14,7 +14,7 @@ namespace Skel
 	}
 	float ProcessAngle(float angle)
 	{
-		angle = std::fmod(angle, 360);
+		angle = static_cast<float>(std::fmod(angle, 360));
 		if (angle < 0) angle += 360; // Fmod doesn't account for negative numbers
 		return angle;
 	}
@@ -30,7 +30,7 @@ namespace Skel
 	{
 		start = ProcessAngle(start);
 		end = ProcessAngle(end);
-		float shortest_angle = std::fmod( std::fmod(end - start, 360)  + 540, 360) - 180;
+		float shortest_angle = static_cast<float>(std::fmod( std::fmod(end - start, 360)  + 540, 360) - 180);
 		return ProcessAngle(start + shortest_angle * amount);
 	}
 	// Returns difference between the two angles
@@ -38,7 +38,7 @@ namespace Skel
 	{
 		angle1 = ProcessAngle(angle1);
 		angle2 = ProcessAngle(angle2);
-		float shortest_angle = std::fmod(std::fmod(angle2 - angle1, 360) + 540, 360) - 180;
+		float shortest_angle = static_cast<float>(std::fmod(std::fmod(angle2 - angle1, 360) + 540, 360) - 180);
 		return shortest_angle;
 	}
 }

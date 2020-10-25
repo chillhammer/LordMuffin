@@ -1,0 +1,46 @@
+{
+    "Name": "Test Level",
+    "Objects" :
+    [
+        {
+            "Name" : "Wooden Floor",
+            "Scale" : [15, 0.001, 30],
+            "Components" :
+            {
+                "ModelRenderer" : 
+                {
+                    "Model" : "WoodenBox"
+                }
+            }
+        },
+        {
+            "Name" :"Bendy",
+            "Position" : [ 0, 1, 6 ],
+            "Components" :
+            {
+                "ModelRenderer" : 
+                {
+                    "Model" : "Bendy",
+                    "Shader" : "SkinnedModel"
+                },
+                "ModelAnimation" : {}
+            }
+        },
+        {
+            "ExistsOn" : "Client",
+            "Components" :
+            {
+                "Camera" :
+                {
+                    "Shaders" : ["Model", "Debug", "SkinnedModel"]
+                }
+            }
+        },
+        {
+            "Components" :
+            {
+                "Network" : {}
+            }
+        }
+    ]
+}

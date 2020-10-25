@@ -24,7 +24,7 @@ namespace Skel::Net {
 			if (handler.IsActive(i)) {
 				++clientNum;
 
-				const PlayerObject* obj = handler.GetPlayerObject(i);
+				const PlayerComponent* obj = &((handler.GetPlayerObject(i))->GetComponent<PlayerComponent>());
 				ASSERT(obj != nullptr, "Only enter objects that are active");
 
 				PlayerSnapshotState state(*obj);

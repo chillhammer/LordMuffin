@@ -2,6 +2,10 @@
 #include "SnapshotReceiver.h"
 #include <Client/ClientManager.h>
 #include <Game/GameManager.h>
+#include <GameObject/GameObjectManager.h>
+#include <Resources/ResourceManager.h>
+#include <GameObject/GameObjectTemplate.h>
+#include <Objects/Network/NetworkComponent.h>
 #include <Objects/Player/PlayerPredictionStateHistory.h>
 namespace Skel::Net {
 
@@ -18,13 +22,19 @@ namespace Skel::Net {
 
 			const auto& entries = packet.GetSnapshotEntries();
 
+
 			// Validate Client-Side Prediction
 			auto& playerEntry = std::find_if(entries.begin(), entries.end(), [](const SnapshotEntry& s) { return s.ClientID == Client.GetClientID(); });
 
 			// Check against predicted output and do corrections. Updates player object state if needed
 			double calculatedClientTime = Game.RunningTime() - (Client.GetSynchronizer().Latency() * 2 + Net::SNAPSHOT_INTER_BUFFER);
 			// Calculated time is off... I think i should send prediction ID instead
-			Client.GetPredictionHistory().CorrectState(playerEntry->State, m_PlayerObjectArray[playerEntry->ClientID], calculatedClientTime, m_LastReceivedClientTick);
+
+			// Correct player if its prediction is off
+			if (m_Network)
+			{
+				Client.GetPredictionHistory().CorrectState(playerEntry->State, m_Network->GetPlayerObject(playerEntry->ClientID), calculatedClientTime, m_LastReceivedClientTick);
+			}
 
 			// Add to queue to update the world state in Update()
 			m_ReceivedStates.emplace(entries, snapshotTime);
@@ -35,6 +45,10 @@ namespace Skel::Net {
 	// Note an optimization would be to not have SnapshotRecords be copy initialized
 	void SnapshotReceiver::Update()
 	{
+		if (!m_Network)
+		{
+			m_Network = &Objects.FindFirstComponent<NetworkComponent>();
+		}
 
 		// First Snapshot, No Interpolation
 		if (!m_ReceivedFirst && !m_ReceivedStates.empty()) {
@@ -94,27 +108,67 @@ namespace Skel::Net {
 	}
 
 	// Applies snapshot to object directly. No interpolation
-	void SnapshotReceiver::ApplySnapshotState(const PlayerSnapshotState& state, PlayerObject& player)
+	void SnapshotReceiver::ApplySnapshotState(const PlayerSnapshotState& state, GameObject* player)
 	{
-		player.ApplySnapshotState(state);
+		ASSERT(player, "Player must be non-null ptr");
+		ASSERT(player->HasComponent<PlayerComponent>(), "Must be a player");
+		PlayerComponent& playerComp = player->GetComponent<PlayerComponent>();
+		playerComp.ApplySnapshotState(state);
 	}
 
 	// Apply list of snapshot entries. Runs once a tick
 	// Will handle Player edge-case for client-side prediction validation
 	void SnapshotReceiver::ApplySnapshotEntries(const std::vector<SnapshotEntry>& entries)
 	{
+		ASSERT(m_Network, "Must have Network Component");
 		m_ActiveClients.clear();
 
 		for (const SnapshotEntry& entry : entries) {
 			m_ActiveClients.push_back(entry.ClientID);
-			PlayerObject& playerObj = m_PlayerObjectArray[entry.ClientID];
+			GameObject* playerObj = m_Network->GetPlayerObject(entry.ClientID);
+			// Creates player object if non existing
+			if (playerObj == nullptr)
+			{
+
+				playerObj = m_Network->CreatePlayerObject(entry.ClientID);
+				// TODO: use event system?
+			}
 
 			if (entry.ClientID == Client.GetClientID()) {
-				
 
 				continue;
 			}
 			ApplySnapshotState(entry.State, playerObj);
+		}
+
+		// Remove stale players
+		// Clean out the first part. Deletes any player "shells" in the pockets between active clients
+		uint16 playerIndex = 0;
+		for (uint8 i = 0; i < m_ActiveClients.size(); ++i)
+		{
+			uint16 activeClientID = m_ActiveClients.at(i);
+			while (playerIndex < activeClientID)
+			{
+				GameObject* obj = m_Network->GetPlayerObject(playerIndex);
+				if (obj != nullptr)
+				{
+					obj->Destroy();
+					m_Network->SetPlayerObject(playerIndex, nullptr);
+				}
+				playerIndex++;
+			}
+			playerIndex++;
+		}
+		// Clear out the latter part. Delete the rest of the player shells from the last active player to the upper limit
+		while (playerIndex < Net::MAX_PLAYERS)
+		{
+			GameObject* obj = m_Network->GetPlayerObject(playerIndex);
+			if (obj != nullptr)
+			{
+				obj->Destroy();
+				m_Network->SetPlayerObject(playerIndex, nullptr);
+			}
+			playerIndex++;
 		}
 	}
 
@@ -126,11 +180,11 @@ namespace Skel::Net {
 		uint16 aIndex = 0;
 		uint16 bIndex = 0;
 		double gameTime = Game.RunningTime();
-		float t = (gameTime - a.Time) / (b.Time - a.Time);
+		float t = static_cast<float>((gameTime - a.Time) / (b.Time - a.Time)); // casting down for lerping functions
 		//ASSERT(t <= 1, "t must be below 1");
 		//ASSERT(t >= 0, "t must be above 0");
-		uint16 aEntities = a.Entries.size();
-		uint16 bEntities = b.Entries.size();
+		uint16 aEntities = static_cast<uint16>(a.Entries.size());
+		uint16 bEntities = static_cast<uint16>(b.Entries.size());
 		while (aIndex < aEntities && bIndex < bEntities)
 		{
 			uint16 aID = a.Entries[aIndex].ClientID;

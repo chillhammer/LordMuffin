@@ -123,7 +123,7 @@ namespace Skel::Net
 		strncpy(address, address_in, 255);
 		address[255] = '\0';
 
-		int addressLength = strlen(address);
+		int addressLength = static_cast<int>(strlen(address));
 		m_port = 0;
 		if (address[0] == '[')
 		{
@@ -223,7 +223,7 @@ namespace Skel::Net
 
 	void Address::SetPort2(uint64_t port)
 	{
-		m_port = port;
+		m_port = static_cast<uint16_t>(port);
 	}
 
 	uint16_t Address::GetPort() const
