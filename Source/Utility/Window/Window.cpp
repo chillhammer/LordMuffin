@@ -214,17 +214,19 @@ void Skel::Window::OnEvent(Event & e)
 	}
 }
 
-void Skel::Window::SetCursorEnabled(bool enabled) const
+void Skel::Window::SetCursorEnabled(bool enabled)
 {
 	if (!enabled)
 	{
 		glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
 		glfwSetInputMode(m_Window, GLFW_RAW_MOUSE_MOTION, GLFW_TRUE);
+		m_Data.CursorEnabled = false;
 	}
 	else
 	{
 		glfwSetInputMode(m_Window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
 		glfwSetInputMode(m_Window, GLFW_RAW_MOUSE_MOTION, GLFW_FALSE);
+		m_Data.CursorEnabled = true;
 	}
 }
 

@@ -1,5 +1,6 @@
 #pragma once
 #include "Components/GameObjectComponent.h"
+#include <Graphics/OpenGL/Shader.h>
 
 #include "PlayerInputState.h"
 
@@ -22,5 +23,8 @@ namespace Skel
 		RTTR_REGISTRATION_FRIEND
 	private:
 		class NetworkComponent* m_Network;
+		ShaderPtr				m_Shader;
+		ModelPtr				m_HeadModel;
+		ShaderPtr				m_HeadShader;
 	};
 }

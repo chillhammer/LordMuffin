@@ -20,7 +20,7 @@ namespace Skel
 		ComponentTemplatePtr AddComponentTemplate(const std::string& component);
 		class GameObject* Instantiate();
 
-		// TODO: Make children or parent "pointer"/"link"
+		// TODO: Make children or parent "pointer"/"link". Currently no way to create a child object (Object Transform)
 	private:
 		std::vector<ComponentTemplatePtr> m_ComponentTemplates;
 	};

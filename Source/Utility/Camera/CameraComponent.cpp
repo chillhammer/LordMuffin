@@ -70,7 +70,7 @@ namespace Skel
 		// always update our mouse position
 		glfwGetCursorPos(Game.GetWindow().m_Window, &mouseX, &mouseY);
 
-		if (Input.GetMousePosition() != Vector2(0, 0) && !Game.IsPaused()) // Initial Mouse Delta Jump Ignored
+		if (Input.GetMousePosition() != Vector2(0, 0) && !Game.GetWindow().IsCursorEnabled()) // Initial Mouse Delta Jump Ignored
 		{
 			m_DeltaMousePosition = Vector2(mouseX - m_PrevMousePosition.x, mouseY - m_PrevMousePosition.y);
 		}
@@ -144,40 +144,7 @@ namespace Skel
 	}
 	void Skel::CameraComponent::OnEvent(const Subject* subject, Event& e)
 	{
-		Evnt::Dispatch<MouseMovedEvent>(e, EVENT_BIND_FN(CameraComponent, OnMouseMoved));
 		Evnt::Dispatch<KeyPressedEvent>(e, EVENT_BIND_FN(CameraComponent, OnKeyPressed));
-	}
-	// Moving camera with mouse
-	static int DELTA_CAP = 300;
-	bool Skel::CameraComponent::OnMouseMoved(MouseMovedEvent& e)
-	{
-		// TODO: Re-implement disabling in main menu
-		//if (Game.GetState() == GameStates::MainMenu::Instance()) return false;
-
-		//LOG("Camera: Mouse Moved: {0}, {1}", e.MouseX, e.MouseY);
-		//double midWindowX = Game.GetWindow().GetWidth() * 0.5;
-		//double midWindowY = Game.GetWindow().GetHeight() * 0.5;
-		//if (Input.GetMousePosition() != Vector2(0, 0) && !Game.IsPaused()) // Initial Mouse Delta Jump Ignored
-		//{
-		//	//m_DeltaMousePosition = Vector2(e.MouseX - midWindowX, e.MouseY - midWindowY);
-		//	//m_DeltaMouseX = e.MouseX - m_PrevMouseX;
-		//	//m_DeltaMouseY = e.MouseY - m_PrevMouseY;
-		//	m_DeltaMouseX = e.MouseX - midWindowX;
-		//	m_DeltaMouseY = e.MouseY - midWindowY;
-		//	if (m_DeltaMouseX * m_DeltaMouseX + m_DeltaMouseY * m_DeltaMouseY > DELTA_CAP * DELTA_CAP || Game.TimeScale() == 0.0f)
-		//	{
-		//		//m_DeltaMousePosition = Vector2(0.0f, 0.0f);
-		//		//m_DeltaMouseX = 0.0;
-		//		//m_DeltaMouseY = 0.0;
-		//		LOG_WARN("Delta Mouse Passed Cap");
-
-		//	}
-		//}
-		//if (!Game.IsPaused() && Game.TimeScale() != 0.0f)
-		//	Game.GetWindow().SetCursorPosition(midWindowX, midWindowY);
-		//m_PrevMouseX = e.MouseX;
-		//m_PrevMouseY = e.MouseY;
-		return false;
 	}
 	// Camera mode switching
 	bool Skel::CameraComponent::OnKeyPressed(KeyPressedEvent& e)

@@ -45,7 +45,11 @@ namespace Skel
 		void SetVSync(bool enabled) { m_Data.VSync = enabled; };
 		bool IsVSync() const { return m_Data.VSync; }
 
-		void SetCursorEnabled(bool enabled) const;
+		void SetCursorEnabled(bool enabled);
+		bool IsCursorEnabled() const
+		{
+			return m_Data.CursorEnabled;
+		}
 		void SetCursorPosition(float x, float y) const;
 
 		bool OnWindowResized(WindowResizeEvent& e);
@@ -57,6 +61,7 @@ namespace Skel
 			std::string Title;
 			unsigned int Width, Height;
 			bool VSync;
+			bool CursorEnabled;
 			EventCallbackFn EventCallback;
 		};
 		WindowData m_Data;

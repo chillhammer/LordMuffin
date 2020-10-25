@@ -3,7 +3,9 @@
 #include <Client/ClientManager.h>
 #include <GameObject/GameObjectManager.h>
 #include "Objects/Network/NetworkComponent.h"
+#include <Resources/ResourceManager.h>
 #include "PlayerSnapshotState.h"
+#include <Graphics/Model/ModelRendererComponent.h>
 #include "PlayerComponent.h"
 
 namespace Skel
@@ -59,6 +61,9 @@ namespace Skel
 	{
 		ASSERT(Objects.ComponentExists<NetworkComponent>(), "Player component cannot exist without network");
 		m_Network = &Objects.FindFirstComponent<NetworkComponent>();
+		m_Shader = Resources.GetShader(m_Owner->GetComponent<ModelRendererComponent>().GetShaderName());
+		m_HeadModel = Resources.GetModel("SoldierHead");
+		m_HeadShader = Resources.GetShader("Model");
 	}
 	void Skel::PlayerComponent::Update()
 	{
@@ -73,6 +78,10 @@ namespace Skel
 	}
 	void Skel::PlayerComponent::Draw()
 	{
+		Vector3 headPos = Vector3(0.0f, 2.7f, 0.0f);
 		
+		Matrix4x4 headMat = Matrix4x4(1.0f);
+		headMat = glm::translate(headMat, headPos);
+		m_HeadModel->Draw(m_HeadShader, headMat * m_Owner->ObjectTransform.GetMatrix());
 	}
 }

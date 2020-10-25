@@ -40,7 +40,6 @@ namespace Skel
 
 		Vector3 m_TargetLocation;
 	private:
-		bool OnMouseMoved(class MouseMovedEvent& e);
 		bool OnKeyPressed(class KeyPressedEvent& e);
 		void UpdatePivotPosition();
 

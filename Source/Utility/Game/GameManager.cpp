@@ -71,10 +71,7 @@ namespace Skel
 
 		m_StateMachine.Update();
 		Objects.Run();
-
-		ImGui::Begin("Actual Delta Time");
-		ImGui::Text("Time to ImGui End: %f", glfwGetTime() - m_LastUpdatedTime);
-		ImGui::End();
+		UpdateDeltaTimeLite();
 
 		#pragma region ImGui End
 		ImGuiIO& io = ImGui::GetIO();
@@ -161,6 +158,11 @@ namespace Skel
 		return m_DeltaTime;
 	}
 
+	double GameManager::DeltaTimeLite() const
+	{
+		return m_DeltaTimeLite;
+	}
+
 	double GameManager::TimeScale() const
 	{
 		return m_TimeScale;
@@ -199,7 +201,7 @@ namespace Skel
 		return m_Paused;
 	}
 
-	const Window& GameManager::GetWindow() const
+	Window& GameManager::GetWindow()
 	{
 		return m_Window;
 	}
@@ -215,6 +217,12 @@ namespace Skel
 		double currentTime = glfwGetTime();
 		m_DeltaTime = glm::min(currentTime - m_LastUpdatedTime, 1.0);
 		m_LastUpdatedTime = currentTime;
+	}
+	// Calculates delta time right after render. Used for benchmarking
+	void GameManager::UpdateDeltaTimeLite()
+	{
+		double currentTime = glfwGetTime();
+		m_DeltaTimeLite = glm::min(currentTime - m_LastUpdatedTime, 1.0);
 	}
 
 	bool GameManager::OnKeyPressed(KeyPressedEvent& e)

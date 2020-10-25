@@ -29,6 +29,7 @@ namespace Skel
 		uint64 GetTick() const;
 		double DeltaTime() const;
 		double DeltaTimeUnscaled() const;
+		double DeltaTimeLite() const;
 		double TimeScale() const;
 		void SetTimeScale(double timeScale);
 		void SetTimeScaleFreeze(bool freeze);
@@ -36,18 +37,20 @@ namespace Skel
 		void SetPause(bool pause);
 		bool IsPaused() const;
 
-		const class Window& GetWindow() const;
+		class Window& GetWindow();
 		Subject& GetWindowResizedSubject();
 		~GameManager();
 	private:
 		GameManager();
 		void UpdateDeltaTime();
+		void UpdateDeltaTimeLite();
 		bool OnKeyPressed(class KeyPressedEvent& e);
 
 		// Properties
 		uint64 m_Tick;
 		double m_LastUpdatedTime = 0;
 		double m_DeltaTime = 0;
+		double m_DeltaTimeLite = 0;
 		double m_TimeScale = 1;
 		double m_UnpausedTimeScale = 1;
 		bool m_Running = true;

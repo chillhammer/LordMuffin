@@ -103,6 +103,7 @@ project "RaggedSkeletonClient"
 			"SKEL_DEBUG",
 			"ENABLE_ASSERTS"
 		}
+		buildoptions "/Zi"
 		runtime "Debug"
 		symbols "on"
 
