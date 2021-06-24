@@ -6,6 +6,8 @@
 #include <Resources/ResourceManager.h>
 #include "PlayerSnapshotState.h"
 #include <Graphics/Model/ModelRendererComponent.h>
+#include <Graphics/Model/ModelAnimationComponent.h>
+#include <Input/InputManager.h>
 #include "PlayerComponent.h"
 
 namespace Skel
@@ -61,6 +63,7 @@ namespace Skel
 	{
 		ASSERT(Objects.ComponentExists<NetworkComponent>(), "Player component cannot exist without network");
 		m_Network = &Objects.FindFirstComponent<NetworkComponent>();
+		m_Animation = &m_Owner->GetComponent<ModelAnimationComponent>();
 		m_Shader = Resources.GetShader(m_Owner->GetComponent<ModelRendererComponent>().GetShaderName());
 		m_HeadModel = Resources.GetModel("SoldierHead");
 		m_HeadShader = Resources.GetShader("Model");
@@ -83,5 +86,15 @@ namespace Skel
 		Matrix4x4 headMat = Matrix4x4(1.0f);
 		headMat = glm::translate(headMat, headPos);
 		m_HeadModel->Draw(m_HeadShader, headMat * m_Owner->ObjectTransform.GetMatrix());
+
+		// TODO: Replace this with proper play anim handling
+		if (Input.IsKeyDown(KEY_A))
+		{
+			m_Animation->PlayAnimation("AnimStack::Armature|WalkLeft");
+		}
+		else
+		{
+			m_Animation->PlayAnimation(0);
+		}
 	}
 }

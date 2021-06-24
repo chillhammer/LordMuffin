@@ -1,0 +1,2 @@
+C:\Users\Hermos\Documents\RaggedSkeleton-Project\RaggedSkeleton\Vendor\Lib\rttr\bin\Debug-windows-x86_64\rttr\rttr.pdb
+C:\Users\Hermos\Documents\RaggedSkeleton-Project\RaggedSkeleton\Vendor\Lib\rttr\bin-int\Debug-windows-x86_64\rttr\rttr.pdb

@@ -1,0 +1,2 @@
+C:\Users\Hermos\Documents\RaggedSkeleton-Project\RaggedSkeleton\Vendor\Lib\GLAD\bin\Debug-windows-x86_64\GLAD\GLAD.pdb
+C:\Users\Hermos\Documents\RaggedSkeleton-Project\RaggedSkeleton\Vendor\Lib\GLAD\bin-int\Debug-windows-x86_64\GLAD\GLAD.pdb

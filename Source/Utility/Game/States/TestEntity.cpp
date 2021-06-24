@@ -71,6 +71,7 @@ namespace Skel::GameStates
 			{
 				bendy->Destroy();
 			}
+
 		}
 	}
 	void TestEntity::Exit(GameManager* owner)

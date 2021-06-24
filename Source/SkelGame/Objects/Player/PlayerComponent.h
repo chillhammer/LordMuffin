@@ -23,6 +23,7 @@ namespace Skel
 		RTTR_REGISTRATION_FRIEND
 	private:
 		class NetworkComponent* m_Network;
+		class ModelAnimationComponent* m_Animation;
 		ShaderPtr				m_Shader;
 		ModelPtr				m_HeadModel;
 		ShaderPtr				m_HeadShader;
