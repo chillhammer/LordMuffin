@@ -36,4 +36,20 @@ namespace Skel
 #endif
 		m_CurrentAnimationIndex = index;
 	}
+
+	void ModelAnimationComponent::PlayOverlayAnimation(const std::string& name)
+	{
+#ifndef SERVER
+		ASSERT(m_Model, "Controller does not have valid model");
+		m_Model->SetOverlayAnimation(name);
+		m_OverlayAnimationIndex = m_Model->GetAnimationIndex(name);
+#endif	
+	}
+	void ModelAnimationComponent::PlayOverlayAnimation(uint8 index) {
+#ifndef SERVER
+		ASSERT(m_Model, "Controller does not have valid model");
+		m_Model->SetOverlayAnimationIndex(index);
+#endif
+		m_OverlayAnimationIndex = index;
+	}
 }

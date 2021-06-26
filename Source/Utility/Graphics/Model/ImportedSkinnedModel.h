@@ -32,6 +32,14 @@ namespace Skel
 			ASSERT(animIt != m_AnimationMap.end(), "Animation does not exist");
 			m_CurrentAnimation = animIt->second.first;
 		}
+		void SetOverlayAnimationIndex(uint16 index) {
+			m_OverlayAnimation = m_Scene->mAnimations[index];
+		}
+		void SetOverlayAnimation(const std::string& animationName) {
+			auto animIt = m_AnimationMap.find(animationName);
+			ASSERT(animIt != m_AnimationMap.end(), "Animation does not exist");
+			m_OverlayAnimation = animIt->second.first;
+		}
 		uint8 GetAnimationIndex(const std::string& animName) const;
 	private:
 		struct BoneInfo
@@ -43,7 +51,7 @@ namespace Skel
 
 			BoneInfo() {}
 		};
-		void UpdateBoneNodeRecursive(float animationTime, const aiNode* node, const aiMatrix4x4& parentTransform);
+		void UpdateBoneNodeRecursive(aiAnimation* animation, float animationTime, const aiNode* node, const aiMatrix4x4& parentTransform, const std::string& pruneNodeName);
 		aiNodeAnim* GetNodeAnim(aiAnimation* anim, const std::string& nodeName) const;
 		uint8 FindPosition(float animationTime, const aiNodeAnim* nodeAnim);
 		uint8 FindRotation(float animationTime, const aiNodeAnim* nodeAnim);
@@ -59,6 +67,7 @@ namespace Skel
 		const aiScene* m_Scene;
 		Assimp::Importer m_Importer;
 		aiAnimation* m_CurrentAnimation;
+		aiAnimation* m_OverlayAnimation;
 		aiMatrix4x4 m_GlobalInverseTransform;
 		// These are a tracker that are used to see how much we have as we load
 		uint8 m_NumBones = 0;

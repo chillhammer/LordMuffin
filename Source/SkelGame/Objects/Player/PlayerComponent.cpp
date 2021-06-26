@@ -34,6 +34,24 @@ namespace Skel
 		m_Owner->ObjectTransform.Position += m_Owner->ObjectTransform.GetSide() * side * fdt * moveMult;
 		m_Owner->ObjectTransform.Position += m_Owner->ObjectTransform.GetSide() * (input.Jump ? 1.f : 0.f);
 
+		if (forward > 0)
+		{
+			m_Animation->PlayOverlayAnimation(PlayerAnim::WalkForward);
+		}
+		else if (forward < 0)
+		{
+			m_Animation->PlayOverlayAnimation(PlayerAnim::WalkBackward);
+		}
+		else if (side > 0)
+		{
+			m_Animation->PlayOverlayAnimation(PlayerAnim::WalkRight);
+		}
+		else if (side < 0)
+		{
+			m_Animation->PlayOverlayAnimation(PlayerAnim::WalkLeft);
+		}
+		// TODO: Other feet controls
+
 #ifndef SERVER
 		if (IsLocalClient())
 		{
@@ -48,7 +66,8 @@ namespace Skel
 		m_Owner->ObjectTransform.SetYaw(state.Yaw);
 		// TODO: pitch
 
-		//m_AnimationController.PlayAnimation(state.AnimationIndex);
+		m_Animation->PlayAnimation(state.AnimationIndex);
+		m_Animation->PlayOverlayAnimation(state.OverlayAnimationIndex);
 	}
 	// Only use on client. Test if this player is local client
 	bool Skel::PlayerComponent::IsLocalClient() const
@@ -58,6 +77,14 @@ namespace Skel
 			return true;
 		}
 		return false;
+	}
+	const uint8 Skel::PlayerComponent::GetCurrentAnimationIndex() const
+	{
+		return m_Animation->GetCurrentAnimationIndex();
+	}
+	const uint8 Skel::PlayerComponent::GetOverlayAnimationIndex() const
+	{
+		return m_Animation->GetOverlayAnimationIndex();
 	}
 	void Skel::PlayerComponent::OnCreated()
 	{
@@ -87,12 +114,7 @@ namespace Skel
 		headMat = glm::translate(headMat, headPos);
 		m_HeadModel->Draw(m_HeadShader, headMat * m_Owner->ObjectTransform.GetMatrix());
 
-		// TODO: Replace this with proper play anim handling
-		if (Input.IsKeyDown(KEY_A))
-		{
-			m_Animation->PlayAnimation("AnimStack::Armature|WalkLeft");
-		}
-		else
+		// TODO: Handle main animation
 		{
 			m_Animation->PlayAnimation(0);
 		}

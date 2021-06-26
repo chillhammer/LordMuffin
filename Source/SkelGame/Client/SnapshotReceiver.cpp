@@ -206,6 +206,7 @@ namespace Skel::Net {
 
 				// Take the later animation index
 				interpolatedState.AnimationIndex = b.Entries[bIndex].State.AnimationIndex;
+				interpolatedState.OverlayAnimationIndex = b.Entries[bIndex].State.OverlayAnimationIndex;
 
 				result.emplace_back(aID, interpolatedState);
 				++aIndex; ++bIndex;

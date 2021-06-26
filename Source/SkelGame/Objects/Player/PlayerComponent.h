@@ -4,9 +4,12 @@
 
 #include "PlayerInputState.h"
 
-
 namespace Skel
 {
+	enum PlayerAnim // Ordder matters, use this as Server can't access anim names
+	{
+		Stand, TPose, WalkBackward,WalkForward,WalkLeft,WalkRight
+	};
 	class PlayerComponent : public GameObjectComponent
 	{
 	public:
@@ -14,6 +17,8 @@ namespace Skel
 		void ProcessInput(const PlayerInputState& input, double dt);
 		void ApplySnapshotState(const struct PlayerSnapshotState& state);
 		bool IsLocalClient() const;
+		const uint8 GetCurrentAnimationIndex() const;
+		const uint8 GetOverlayAnimationIndex() const;
 
 		virtual void OnCreated() override;
 		virtual void Update() override;

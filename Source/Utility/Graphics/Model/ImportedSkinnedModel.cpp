@@ -9,6 +9,7 @@ namespace Skel
 	{
 		LoadModel(path);
 		m_CurrentAnimation = m_Scene->mAnimations[0];
+		m_OverlayAnimation = nullptr;
 		LOG("Imported Model: {0}", path);
 	}
 
@@ -21,6 +22,15 @@ namespace Skel
 		for (unsigned int i = 0; i < m_Meshes.size(); i++)
 			m_Meshes[i].Draw(shader, model);
 	}
+	static float CalculateAnimationTime(aiAnimation* animation, float runningTime)
+	{
+		ASSERT(animation != nullptr, "Animation does not exist");
+		float ticksPerSecond = (float)(animation->mTicksPerSecond != 0 ? animation->mTicksPerSecond : 25.0f);
+		float timeInTicks = runningTime * ticksPerSecond;
+		float animationDuration = (float)animation->mDuration;
+		float animationTime = std::fmod(timeInTicks, animationDuration);
+		return animationTime;
+	}
 
 	// Runs the animation and updates bone transforms
 	void ImportedSkinnedModel::UpdateBoneTransforms(float runningTime)
@@ -32,19 +42,16 @@ namespace Skel
 			LOG_WARN("Skinned Model has no animations");
 			return;
 		}
-
-		aiAnimation* animation = m_CurrentAnimation;
-		ASSERT(animation != nullptr, "Animation does not exist");
-		float ticksPerSecond = (float)(animation->mTicksPerSecond != 0 ? animation->mTicksPerSecond : 25.0f);
-		float timeInTicks = runningTime * ticksPerSecond;
-		float animationDuration = (float)animation->mDuration;
-		float animationTime = std::fmod(timeInTicks, animationDuration);
-
 		//LOG("Name: {4} | TPS: {0} | TimeInTicks: {1} | Duration: {2}, Time {3}", ticksPerSecond, timeInTicks, animationDuration, animationTime, animation->mName.C_Str());
 
-
-		UpdateBoneNodeRecursive(animationTime, m_Scene->mRootNode, identity);
-
+		
+		float animationTime = CalculateAnimationTime(m_CurrentAnimation, runningTime);
+		UpdateBoneNodeRecursive(m_CurrentAnimation, animationTime, m_Scene->mRootNode, identity, "");
+		if (m_OverlayAnimation)
+		{
+			animationTime = CalculateAnimationTime(m_OverlayAnimation, runningTime);
+			UpdateBoneNodeRecursive(m_OverlayAnimation, animationTime, m_Scene->mRootNode, identity, "Spine"); // May want to change prune node name in the future
+		}
 	}
 
 	void ImportedSkinnedModel::UpdateBoneShader(ShaderPtr shader)
@@ -70,11 +77,13 @@ namespace Skel
 
 	// Updates bone transforms by recursively going through hierachy
 	// Helper function
-	void ImportedSkinnedModel::UpdateBoneNodeRecursive(float animationTime, const aiNode* node, const aiMatrix4x4& parentTransform)
+	void ImportedSkinnedModel::UpdateBoneNodeRecursive(aiAnimation* animation, float animationTime, const aiNode* node, const aiMatrix4x4& parentTransform, const std::string& pruneNodeName)
 	{
 		std::string nodeName(node->mName.data);
-		
-		aiAnimation* animation = m_CurrentAnimation;
+		if (nodeName == pruneNodeName)
+		{
+			return;
+		}
 
 		aiMatrix4x4 nodeTransformation(node->mTransformation);
 
@@ -120,7 +129,7 @@ namespace Skel
 		}
 
 		for (uint8 i = 0; i < node->mNumChildren; i++) {
-			UpdateBoneNodeRecursive(animationTime, node->mChildren[i], GlobalTransformation);
+			UpdateBoneNodeRecursive(animation, animationTime, node->mChildren[i], GlobalTransformation, pruneNodeName);
 		}
 	}
 
