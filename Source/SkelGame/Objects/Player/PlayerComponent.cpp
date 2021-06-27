@@ -50,6 +50,10 @@ namespace Skel
 		{
 			m_Animation->PlayOverlayAnimation(PlayerAnim::WalkLeft);
 		}
+		else
+		{
+			m_Animation->PlayOverlayAnimation(PlayerAnim::Stand);
+		}
 		// TODO: Other feet controls
 
 #ifndef SERVER
