@@ -3,6 +3,7 @@
 #include <Server/ServerManager.h>
 #include <GameObject/GameObjectManager.h>
 #include <Resources/ResourceManager.h>
+#include <rttr/registration>
 #include "NetworkComponent.h"
 
 namespace Skel
@@ -78,7 +79,7 @@ namespace Skel
 		ASSERT((obj && m_PlayerObjects[clientID] == nullptr) || ((obj == nullptr && m_PlayerObjects[clientID])), "Cannot overwrite player");
 		m_PlayerObjects[clientID] = obj;
 
-#ifndef SERVER
+#ifdef CLIENT
 		if (Client.Connected() && clientID == Client.GetClientID())
 		{
 			m_LocalPlayer = obj;
@@ -103,7 +104,7 @@ namespace Skel
 	bool NetworkComponent::OnClientConnect(ClientConnectEvent e)
 	{
 		// Set from local
-#ifndef SERVER
+#ifdef CLIENT
 		if (e.ClientID == Client.GetClientID() && m_LocalPlayer)
 		{
 			SetPlayerObject(Client.GetClientID(), m_LocalPlayer);

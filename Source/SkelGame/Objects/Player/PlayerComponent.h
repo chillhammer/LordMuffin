@@ -6,7 +6,7 @@
 
 namespace Skel
 {
-	enum PlayerAnim // Ordder matters, use this as Server can't access anim names
+	enum PlayerAnim // Order matters, use this as Server can't access anim names
 	{
 		Stand, TPose, WalkBackward,WalkForward,WalkLeft,WalkRight
 	};

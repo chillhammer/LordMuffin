@@ -1,6 +1,6 @@
 #pragma once
-#include <string>
-#include <rttr/registration>
+
+#include <rttr/rttr_enable.h>
 #include <rttr/type>
 #include <rttr/registration_friend.h>
 

@@ -8,6 +8,7 @@
 #include <Graphics/Model/ModelRendererComponent.h>
 #include <Graphics/Model/ModelAnimationComponent.h>
 #include <Input/InputManager.h>
+#include <rttr/registration>
 #include "PlayerComponent.h"
 
 namespace Skel
@@ -29,6 +30,7 @@ namespace Skel
 		float moveMult = 3.0f;
 		float fdt = static_cast<float>(dt);
 
+		// TODO: Player set velocity from input
 		m_Owner->ObjectTransform.SetYaw(input.Yaw);
 		m_Owner->ObjectTransform.Position += m_Owner->ObjectTransform.GetHeading() * forward * fdt * moveMult;
 		m_Owner->ObjectTransform.Position += m_Owner->ObjectTransform.GetSide() * side * fdt * moveMult;

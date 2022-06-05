@@ -7,6 +7,7 @@ workspace "RaggedSkeleton"
 		"Release",
 		"Dist"
 	}
+	startproject "RaggedSkeletonClient"
 
 outputdir = "%{cfg.buildcfg}-%{cfg.system}-%{cfg.architecture}"
 
@@ -101,7 +102,8 @@ project "RaggedSkeletonClient"
 		defines 
 		{
 			"SKEL_DEBUG",
-			"ENABLE_ASSERTS"
+			"ENABLE_ASSERTS",
+			"CLIENT"
 		}
 		buildoptions "/Zi"
 		runtime "Debug"
@@ -206,3 +208,43 @@ location "Source"
 		defines "SKEL_DIST"
 		runtime "Release"
 		optimize "on"
+
+
+project "RaggedSkeletonAssets"
+	location "Source"
+	kind "ConsoleApp"
+	language "C++"
+	cppdialect "C++17"
+	staticruntime "on"
+
+	targetdir ("Temp/Binary/" .. outputdir .. "/%{prj.name}")
+	objdir ("Temp/Intermediates/" .. outputdir .. "/%{prj.name}")
+
+	pchheader "SkelPCH.h"
+	pchsource "Source/PCH/SkelPCH.cpp"
+
+	files
+	{
+		"Assets/**",
+		"premake5.lua"
+	}
+
+	defines
+	{
+		"_CRT_SECURE_NO_WARNINGS"
+	}
+
+	includedirs
+	{
+	}
+
+	links
+	{
+	}
+
+	filter "system:windows"
+		systemversion "latest"
+
+		defines
+		{
+		}

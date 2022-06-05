@@ -1,6 +1,7 @@
 #include "SkelPCH.h"
 #include <Resources/ResourceManager.h>
 #include <GameObject/GameObject.h>
+#include <rttr/registration>
 #include "ModelRendererComponent.h"
 
 namespace Skel

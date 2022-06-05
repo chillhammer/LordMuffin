@@ -1,0 +1,172 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Dist|x64">
+      <Configuration>Dist</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{4783D800-3312-62CA-DC30-76C5C89E7270}</ProjectGuid>
+    <IgnoreWarnCompileDuplicatedFilename>true</IgnoreWarnCompileDuplicatedFilename>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>RaggedSkeletonAssets</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <CharacterSet>Unicode</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>..\Temp\Binary\Debug-windows-x86_64\RaggedSkeletonAssets\</OutDir>
+    <IntDir>..\Temp\Intermediates\Debug-windows-x86_64\RaggedSkeletonAssets\</IntDir>
+    <TargetName>RaggedSkeletonAssets</TargetName>
+    <TargetExt>.exe</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>..\Temp\Binary\Release-windows-x86_64\RaggedSkeletonAssets\</OutDir>
+    <IntDir>..\Temp\Intermediates\Release-windows-x86_64\RaggedSkeletonAssets\</IntDir>
+    <TargetName>RaggedSkeletonAssets</TargetName>
+    <TargetExt>.exe</TargetExt>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>..\Temp\Binary\Dist-windows-x86_64\RaggedSkeletonAssets\</OutDir>
+    <IntDir>..\Temp\Intermediates\Dist-windows-x86_64\RaggedSkeletonAssets\</IntDir>
+    <TargetName>RaggedSkeletonAssets</TargetName>
+    <TargetExt>.exe</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>SkelPCH.h</PrecompiledHeaderFile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Optimization>Disabled</Optimization>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>SkelPCH.h</PrecompiledHeaderFile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Optimization>Disabled</Optimization>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Dist|x64'">
+    <ClCompile>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>SkelPCH.h</PrecompiledHeaderFile>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Optimization>Disabled</Optimization>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+      <LanguageStandard>stdcpp17</LanguageStandard>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <None Include="..\Assets\Fonts\BunnyFunny.ttf" />
+    <None Include="..\Assets\Fonts\arial.ttf" />
+    <None Include="..\Assets\Models\Bendy\Bendy.dae" />
+    <None Include="..\Assets\Models\Bendy\Bendy.fbx" />
+    <None Include="..\Assets\Models\Bendy\Bendy.obj" />
+    <None Include="..\Assets\Models\Bendy\boblampclean.md5anim" />
+    <None Include="..\Assets\Models\Bendy\boblampclean.md5mesh" />
+    <None Include="..\Assets\Models\Court\court.mtl" />
+    <None Include="..\Assets\Models\Court\court.obj" />
+    <None Include="..\Assets\Models\Fedora\fedora.mtl" />
+    <None Include="..\Assets\Models\Fedora\fedora.obj" />
+    <None Include="..\Assets\Models\Fedora\specular.mtl" />
+    <None Include="..\Assets\Models\FedoraAgent\fedora-agent.mtl" />
+    <None Include="..\Assets\Models\FedoraAgent\fedora-agent.obj" />
+    <None Include="..\Assets\Models\Soldier\Soldier.fbx" />
+    <None Include="..\Assets\Models\Soldier\SoldierHead.mtl" />
+    <None Include="..\Assets\Models\Soldier\SoldierHead.obj" />
+    <None Include="..\Assets\Models\Suit\suit-blue.mtl" />
+    <None Include="..\Assets\Models\Suit\suit-blue.obj" />
+    <None Include="..\Assets\Models\Suit\suit-red.mtl" />
+    <None Include="..\Assets\Models\Suit\suit-red.obj" />
+    <None Include="..\Assets\Prefabs\Player.json" />
+    <None Include="..\Assets\Scenes\TestLevel.json" />
+    <None Include="..\Assets\Sounds\LostPoint.wav" />
+    <None Include="..\Assets\Sounds\MainMenu.wav" />
+    <None Include="..\Assets\Sounds\MainTheme.wav" />
+    <None Include="..\Assets\Sounds\Pass.wav" />
+    <None Include="..\Assets\Sounds\Pickup.wav" />
+    <None Include="..\Assets\Sounds\Scored.wav" />
+    <None Include="..\Assets\Sounds\Select.wav" />
+    <None Include="..\Assets\Sounds\Stole.wav" />
+    <None Include="..\premake5.lua" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Assets\Models\Fedora\Handle1Tex.png" />
+    <Image Include="..\Assets\Textures\BlueScoreboard.png" />
+    <Image Include="..\Assets\Textures\BricksPainted.jpg" />
+    <Image Include="..\Assets\Textures\Icon.png" />
+    <Image Include="..\Assets\Textures\RedScoreboard.png" />
+    <Image Include="..\Assets\Textures\Skybox\Skybox-0.png" />
+    <Image Include="..\Assets\Textures\Skybox\Skybox-1.png" />
+    <Image Include="..\Assets\Textures\Skybox\Skybox-2.png" />
+    <Image Include="..\Assets\Textures\Skybox\Skybox-3.png" />
+    <Image Include="..\Assets\Textures\Skybox\Skybox-4.png" />
+    <Image Include="..\Assets\Textures\Skybox\Skybox-5.png" />
+    <Image Include="..\Assets\Textures\TitleScreen.png" />
+    <Image Include="..\Assets\Textures\WoodDark.jpg" />
+    <Image Include="..\Assets\Textures\wood.png" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

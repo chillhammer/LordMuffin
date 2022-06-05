@@ -1,6 +1,7 @@
 #include "SkelPCH.h"
 #include <GameObject/GameObject.h>
 #include <Resources/ResourceManager.h>
+#include <rttr/registration>
 #include "ModelRendererComponent.h"
 #include "ModelAnimationComponent.h"
 

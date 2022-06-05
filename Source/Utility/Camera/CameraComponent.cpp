@@ -4,6 +4,7 @@
 #include <GameObject/GameObject.h>
 #include <Game/States/GameStates.h>
 #include <imgui.h>
+#include <rttr/registration>
 #include "CameraComponent.h"
 
 namespace Skel

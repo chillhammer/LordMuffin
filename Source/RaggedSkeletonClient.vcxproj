@@ -79,7 +79,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>SkelPCH.h</PrecompiledHeaderFile>
       <WarningLevel>Level3</WarningLevel>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;SKEL_PLATFORM_WINDOWS;SKEL_BUILD_DLL;GLFW_INCLUDE_NONE;CLIENT;SKEL_DEBUG;ENABLE_ASSERTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;SKEL_PLATFORM_WINDOWS;SKEL_BUILD_DLL;GLFW_INCLUDE_NONE;SKEL_DEBUG;ENABLE_ASSERTS;CLIENT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>.;SkelGame;PCH;Utility;Vendor;..\Vendor\Lib\spdlog\include;..\Vendor\Lib\GLFW\include;..\Vendor\Lib\GLAD\include;..\Vendor\Lib\imgui;..\Vendor\Lib\glm;..;..\Vendor\Lib\Assimp\include;..\Vendor\Lib\freetype\include;..\Vendor\Lib\irrKlang\include;..\Vendor\Lib\json\include;..\Vendor\Lib\rttr;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>

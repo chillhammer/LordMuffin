@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Assets">
+      <UniqueIdentifier>{3824E0A7-24C6-0A7E-0D81-1ED2F9C191CE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Fonts">
+      <UniqueIdentifier>{7158FC89-5DBB-8B2E-0641-C4E4F28257B1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Models">
+      <UniqueIdentifier>{EBC6D5D9-5787-5110-20C2-9A8D8C4196EC}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Models\Bendy">
+      <UniqueIdentifier>{8C15CECC-F876-ABDA-81E4-F18CED44E299}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Models\Court">
+      <UniqueIdentifier>{67C9E5CC-D32A-C3DA-5C98-098DC8F8F999}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Models\Fedora">
+      <UniqueIdentifier>{0B1CE06F-F7AA-6939-A0C9-7D348C377ADF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Models\FedoraAgent">
+      <UniqueIdentifier>{FACACCCA-668D-0055-AF3D-8FE11B3FD932}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Models\Soldier">
+      <UniqueIdentifier>{0CE0766C-784C-3267-4140-CAC4AD6B54CF}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Models\Suit">
+      <UniqueIdentifier>{9FD40F4C-8BB8-D0A1-F418-CBF4E01BBB23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Prefabs">
+      <UniqueIdentifier>{CA488F02-B616-8308-9FAA-F32E8B175F6D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Scenes">
+      <UniqueIdentifier>{6846FCE6-D406-781D-9D41-C19A09C1BCF9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Sounds">
+      <UniqueIdentifier>{6332DEE7-CFF2-591E-982D-A39B04AD9EFA}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Textures">
+      <UniqueIdentifier>{0B35254A-77C0-920E-80D1-1503ECDBEE0E}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\Textures\Skybox">
+      <UniqueIdentifier>{BA55CD81-A64F-F6D3-8FBC-8CE47B555C40}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\Assets\Fonts\BunnyFunny.ttf">
+      <Filter>Assets\Fonts</Filter>
+    </None>
+    <None Include="..\Assets\Fonts\arial.ttf">
+      <Filter>Assets\Fonts</Filter>
+    </None>
+    <None Include="..\Assets\Models\Bendy\Bendy.dae">
+      <Filter>Assets\Models\Bendy</Filter>
+    </None>
+    <None Include="..\Assets\Models\Bendy\Bendy.fbx">
+      <Filter>Assets\Models\Bendy</Filter>
+    </None>
+    <None Include="..\Assets\Models\Bendy\Bendy.obj">
+      <Filter>Assets\Models\Bendy</Filter>
+    </None>
+    <None Include="..\Assets\Models\Bendy\boblampclean.md5anim">
+      <Filter>Assets\Models\Bendy</Filter>
+    </None>
+    <None Include="..\Assets\Models\Bendy\boblampclean.md5mesh">
+      <Filter>Assets\Models\Bendy</Filter>
+    </None>
+    <None Include="..\Assets\Models\Court\court.mtl">
+      <Filter>Assets\Models\Court</Filter>
+    </None>
+    <None Include="..\Assets\Models\Court\court.obj">
+      <Filter>Assets\Models\Court</Filter>
+    </None>
+    <None Include="..\Assets\Models\Fedora\fedora.mtl">
+      <Filter>Assets\Models\Fedora</Filter>
+    </None>
+    <None Include="..\Assets\Models\Fedora\fedora.obj">
+      <Filter>Assets\Models\Fedora</Filter>
+    </None>
+    <None Include="..\Assets\Models\Fedora\specular.mtl">
+      <Filter>Assets\Models\Fedora</Filter>
+    </None>
+    <None Include="..\Assets\Models\FedoraAgent\fedora-agent.mtl">
+      <Filter>Assets\Models\FedoraAgent</Filter>
+    </None>
+    <None Include="..\Assets\Models\FedoraAgent\fedora-agent.obj">
+      <Filter>Assets\Models\FedoraAgent</Filter>
+    </None>
+    <None Include="..\Assets\Models\Soldier\Soldier.fbx">
+      <Filter>Assets\Models\Soldier</Filter>
+    </None>
+    <None Include="..\Assets\Models\Soldier\SoldierHead.mtl">
+      <Filter>Assets\Models\Soldier</Filter>
+    </None>
+    <None Include="..\Assets\Models\Soldier\SoldierHead.obj">
+      <Filter>Assets\Models\Soldier</Filter>
+    </None>
+    <None Include="..\Assets\Models\Suit\suit-blue.mtl">
+      <Filter>Assets\Models\Suit</Filter>
+    </None>
+    <None Include="..\Assets\Models\Suit\suit-blue.obj">
+      <Filter>Assets\Models\Suit</Filter>
+    </None>
+    <None Include="..\Assets\Models\Suit\suit-red.mtl">
+      <Filter>Assets\Models\Suit</Filter>
+    </None>
+    <None Include="..\Assets\Models\Suit\suit-red.obj">
+      <Filter>Assets\Models\Suit</Filter>
+    </None>
+    <None Include="..\Assets\Prefabs\Player.json">
+      <Filter>Assets\Prefabs</Filter>
+    </None>
+    <None Include="..\Assets\Scenes\TestLevel.json">
+      <Filter>Assets\Scenes</Filter>
+    </None>
+    <None Include="..\Assets\Sounds\LostPoint.wav">
+      <Filter>Assets\Sounds</Filter>
+    </None>
+    <None Include="..\Assets\Sounds\MainMenu.wav">
+      <Filter>Assets\Sounds</Filter>
+    </None>
+    <None Include="..\Assets\Sounds\MainTheme.wav">
+      <Filter>Assets\Sounds</Filter>
+    </None>
+    <None Include="..\Assets\Sounds\Pass.wav">
+      <Filter>Assets\Sounds</Filter>
+    </None>
+    <None Include="..\Assets\Sounds\Pickup.wav">
+      <Filter>Assets\Sounds</Filter>
+    </None>
+    <None Include="..\Assets\Sounds\Scored.wav">
+      <Filter>Assets\Sounds</Filter>
+    </None>
+    <None Include="..\Assets\Sounds\Select.wav">
+      <Filter>Assets\Sounds</Filter>
+    </None>
+    <None Include="..\Assets\Sounds\Stole.wav">
+      <Filter>Assets\Sounds</Filter>
+    </None>
+    <None Include="..\premake5.lua" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="..\Assets\Models\Fedora\Handle1Tex.png">
+      <Filter>Assets\Models\Fedora</Filter>
+    </Image>
+    <Image Include="..\Assets\Textures\BlueScoreboard.png">
+      <Filter>Assets\Textures</Filter>
+    </Image>
+    <Image Include="..\Assets\Textures\BricksPainted.jpg">
+      <Filter>Assets\Textures</Filter>
+    </Image>
+    <Image Include="..\Assets\Textures\Icon.png">
+      <Filter>Assets\Textures</Filter>
+    </Image>
+    <Image Include="..\Assets\Textures\RedScoreboard.png">
+      <Filter>Assets\Textures</Filter>
+    </Image>
+    <Image Include="..\Assets\Textures\Skybox\Skybox-0.png">
+      <Filter>Assets\Textures\Skybox</Filter>
+    </Image>
+    <Image Include="..\Assets\Textures\Skybox\Skybox-1.png">
+      <Filter>Assets\Textures\Skybox</Filter>
+    </Image>
+    <Image Include="..\Assets\Textures\Skybox\Skybox-2.png">
+      <Filter>Assets\Textures\Skybox</Filter>
+    </Image>
+    <Image Include="..\Assets\Textures\Skybox\Skybox-3.png">
+      <Filter>Assets\Textures\Skybox</Filter>
+    </Image>
+    <Image Include="..\Assets\Textures\Skybox\Skybox-4.png">
+      <Filter>Assets\Textures\Skybox</Filter>
+    </Image>
+    <Image Include="..\Assets\Textures\Skybox\Skybox-5.png">
+      <Filter>Assets\Textures\Skybox</Filter>
+    </Image>
+    <Image Include="..\Assets\Textures\TitleScreen.png">
+      <Filter>Assets\Textures</Filter>
+    </Image>
+    <Image Include="..\Assets\Textures\WoodDark.jpg">
+      <Filter>Assets\Textures</Filter>
+    </Image>
+    <Image Include="..\Assets\Textures\wood.png">
+      <Filter>Assets\Textures</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
