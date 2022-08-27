@@ -22,6 +22,7 @@ namespace Skel
 
 		virtual void OnCreated() override;
 		virtual void Update() override;
+		virtual void PostUpdate() override;
 		virtual void Draw() override;
 
 		RTTR_ENABLE(GameObjectComponent)
@@ -29,6 +30,7 @@ namespace Skel
 	private:
 		class NetworkComponent* m_Network;
 		class ModelAnimationComponent* m_Animation;
+		class RigidBodyComponent* m_RigidBody;
 		ShaderPtr				m_Shader;
 		ModelPtr				m_HeadModel;
 		ShaderPtr				m_HeadShader;

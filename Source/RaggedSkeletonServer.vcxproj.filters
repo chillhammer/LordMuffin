@@ -97,6 +97,9 @@
     <Filter Include="Utility\Net">
       <UniqueIdentifier>{EFE9AD24-5B9F-261A-E493-20F150481D1E}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Utility\Physics">
+      <UniqueIdentifier>{CB92EEDD-371E-5CA2-402F-DF96AC39B8A2}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Utility\Profiler">
       <UniqueIdentifier>{CB9B4885-B794-67D7-E0C6-4C5CCC1E47E3}</UniqueIdentifier>
     </Filter>
@@ -360,6 +363,9 @@
     <ClInclude Include="Utility\Net\Socket.h">
       <Filter>Utility\Net</Filter>
     </ClInclude>
+    <ClInclude Include="Utility\Physics\RigidBodyComponent.h">
+      <Filter>Utility\Physics</Filter>
+    </ClInclude>
     <ClInclude Include="Utility\Profiler\ProfileBlock.h">
       <Filter>Utility\Profiler</Filter>
     </ClInclude>
@@ -547,6 +553,9 @@
     </ClCompile>
     <ClCompile Include="Utility\Net\Socket.cpp">
       <Filter>Utility\Net</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\Physics\RigidBodyComponent.cpp">
+      <Filter>Utility\Physics</Filter>
     </ClCompile>
     <ClCompile Include="Utility\Resources\ResourceManager.cpp">
       <Filter>Utility\Resources</Filter>

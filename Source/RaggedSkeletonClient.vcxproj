@@ -215,6 +215,7 @@
     <ClInclude Include="Utility\Net\Net.h" />
     <ClInclude Include="Utility\Net\Packet.h" />
     <ClInclude Include="Utility\Net\Socket.h" />
+    <ClInclude Include="Utility\Physics\RigidBodyComponent.h" />
     <ClInclude Include="Utility\Profiler\ProfileBlock.h" />
     <ClInclude Include="Utility\Random\Random.h" />
     <ClInclude Include="Utility\Resources\ResourceManager.h" />
@@ -281,6 +282,7 @@
     <ClCompile Include="Utility\Net\Net.cpp" />
     <ClCompile Include="Utility\Net\Packet.cpp" />
     <ClCompile Include="Utility\Net\Socket.cpp" />
+    <ClCompile Include="Utility\Physics\RigidBodyComponent.cpp" />
     <ClCompile Include="Utility\Resources\ResourceManager.cpp" />
     <ClCompile Include="Utility\Transform\TransformHelpers.cpp" />
     <ClCompile Include="Utility\UI\Button.cpp" />

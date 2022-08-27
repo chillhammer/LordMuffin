@@ -4,6 +4,9 @@
     <Filter Include="Assets">
       <UniqueIdentifier>{3824E0A7-24C6-0A7E-0D81-1ED2F9C191CE}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets\Docs">
+      <UniqueIdentifier>{1036B113-7CEB-2909-05E0-23E07194200D}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Assets\Fonts">
       <UniqueIdentifier>{7158FC89-5DBB-8B2E-0641-C4E4F28257B1}</UniqueIdentifier>
     </Filter>
@@ -45,6 +48,9 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Assets\Docs\CreateAComponent.txt">
+      <Filter>Assets\Docs</Filter>
+    </None>
     <None Include="..\Assets\Fonts\BunnyFunny.ttf">
       <Filter>Assets\Fonts</Filter>
     </None>

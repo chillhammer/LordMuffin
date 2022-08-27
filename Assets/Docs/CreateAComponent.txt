@@ -1,0 +1,69 @@
+
+
+How to create a component
+
+1. #include <Components/GameObjectComponent.h>
+2. Class inherit from public GameObjectComponent
+3. Add these to declaration:
+	RTTR_ENABLE(GameObjectComponent)
+	RTTR_REGISTRATION_FRIEND
+4.Add these to .cpp file
+	RTTR_REGISTRATION
+	{
+		using namespace rttr;
+		registration::class_<CLASSNAME>("ClassName")
+			.constructor<>(registration::public_access);
+	}
+
+
+
+CPP File:
+
+#include "SkelPCH.h"
+#include <rttr/registration>
+#include "RigidBodyComponent.h"
+
+namespace Skel
+{
+	RTTR_REGISTRATION
+	{
+		using namespace rttr;
+		registration::class_<RigidBodyComponent>("RigidBody")
+			.constructor<>(registration::public_access);
+	}
+
+	RigidBodyComponent::RigidBodyComponent() 
+	{
+	}
+
+	void RigidBodyComponent::OnSceneCreated()
+	{
+	}
+
+	void RigidBodyComponent::Update()
+	{
+	}
+}
+
+
+Header File:
+
+#pragma once
+#include <Components/GameObjectComponent.h>
+
+namespace Skel
+{
+	class RigidBodyComponent : public GameObjectComponent
+	{
+	public:
+		RigidBodyComponent();
+
+		virtual void OnSceneCreated() override;
+		virtual void Update() override;
+
+
+		RTTR_ENABLE(GameObjectComponent)
+		RTTR_REGISTRATION_FRIEND
+	private:
+	};
+}

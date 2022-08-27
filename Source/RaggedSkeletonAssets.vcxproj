@@ -117,6 +117,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="..\Assets\Docs\CreateAComponent.txt" />
     <None Include="..\Assets\Fonts\BunnyFunny.ttf" />
     <None Include="..\Assets\Fonts\arial.ttf" />
     <None Include="..\Assets\Models\Bendy\Bendy.dae" />
