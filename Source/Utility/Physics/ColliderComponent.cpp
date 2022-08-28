@@ -11,7 +11,9 @@ namespace Skel
 		registration::class_<ColliderComponent>("Collider")
 			.constructor<>(registration::public_access)
 			.property("Type", &ColliderComponent::GetColliderType, &ColliderComponent::SetColliderType)
-			.property("Radius", &ColliderComponent::GetRadius, &ColliderComponent::SetRadius);
+			.property("Radius", &ColliderComponent::GetRadius, &ColliderComponent::SetRadius)
+			.property("Center", &ColliderComponent::GetCenter, &ColliderComponent::SetCenter)
+			.property("HalfExtents", &ColliderComponent::GetHalfExtents, &ColliderComponent::SetHalfExtents);
 	}
 
 	std::string ColliderTypeNames[] = {
@@ -44,6 +46,35 @@ namespace Skel
 	{
 		return std::to_string(m_ColliderData.Sphere.radius);
 	}
+
+	void Skel::ColliderComponent::SetCenter(const std::string& center)
+	{
+		Vector3 vec;
+		STRING_TO_VECTOR3( center, vec )
+
+		m_ColliderData.AABB.center = vec;
+	}
+	const std::string& Skel::ColliderComponent::GetCenter() const
+	{
+		std::string str;
+		VECTOR3_TO_STRING(m_ColliderData.AABB.center, str)
+		return str;
+	}
+
+	void Skel::ColliderComponent::SetHalfExtents(const std::string& halfExtents)
+	{
+		Vector3 vec;
+		STRING_TO_VECTOR3(halfExtents, vec)
+
+		m_ColliderData.AABB.halfExtents = vec;
+	}
+	const std::string& Skel::ColliderComponent::GetHalfExtents() const
+	{
+		std::string str;
+		VECTOR3_TO_STRING(m_ColliderData.AABB.halfExtents, str)
+		return str;
+	}
+
 	bool Skel::ColliderComponent::IsColliding(const GameObject* otherObj) const
 	{
 		Vector3 resolveVec;

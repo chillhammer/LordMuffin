@@ -69,3 +69,22 @@ static bool GLLogCall(const char* function, const char* file, int line)
 	return true;
 }
 #pragma endregion
+
+#define STRING_TO_VECTOR3( str, outVector3 )	\
+	{											\
+		std::stringstream ss( str );			\
+		std::string number;						\
+		ss >> number;							\
+		outVector3.x = std::stof(number);		\
+		ss >> number;							\
+		outVector3.y = std::stof(number);		\
+		ss >> number;							\
+		outVector3.z = std::stof(number);		\
+	}											\
+	
+#define VECTOR3_TO_STRING( vector3, outString )	\
+	{											\
+		std::stringstream ss;					\
+		ss << vector3.x << " " << vector3.y << " " << vector3.z;	\
+		outString = ss.str();					\
+	}											\

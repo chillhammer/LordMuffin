@@ -44,6 +44,12 @@ namespace Skel
 		void SetRadius(const std::string& radius);
 		const std::string& GetRadius() const;
 
+		void SetCenter(const std::string& center);
+		const std::string& GetCenter() const;
+
+		void SetHalfExtents(const std::string& halfExtents);
+		const std::string& GetHalfExtents() const;
+
 		// TODO: Add collider AABB getters and setters
 
 		bool IsColliding( const GameObject* otherObj ) const;
