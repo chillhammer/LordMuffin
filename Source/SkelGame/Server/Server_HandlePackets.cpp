@@ -115,30 +115,7 @@ namespace Skel
 					}
 
 					// Dynamic Physics Check - Player v. Player Collision
-					// TODO: Move this to a player component function
-					const float cPushbackSpeed = 15.0f;
-					GameObject* clientObj = obj->GetOwner();
-					Vector3 clientPos = clientObj->ObjectTransform.GetGlobalPosition();
-					ColliderComponent& collider = clientObj->GetComponent<ColliderComponent>();
-					for (int i = 0; i < Net::MAX_PLAYERS; i++)
-					{
-						GameObject* iPlayer = m_PlayerObjects[i];
-						if (iPlayer && iPlayer != clientObj)
-						{
-							Vector3 resolveVec;
-							if( collider.IsColliding(iPlayer, resolveVec))
-							{
-								Vector3 otherPos = iPlayer->ObjectTransform.GetGlobalPosition();
-								Vector3 toOther =  glm::normalize( otherPos - clientPos );
-								iPlayer->ObjectTransform.Position -= resolveVec;
-								RigidBodyComponent& otherRigidBody = iPlayer->GetComponent<RigidBodyComponent>();
-								otherRigidBody.SetVelocity(toOther * cPushbackSpeed);
-
-								// Set other player is moved by server. This means it will override client prediction
-								clientHandler.SetMovedByServerThisFrame(i);
-							}
-						}
-					}
+					obj->Server_PostProcessInput( &clientHandler, m_PlayerObjects );
 					
 				}
 				else

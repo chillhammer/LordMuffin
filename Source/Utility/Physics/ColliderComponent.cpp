@@ -84,10 +84,16 @@ namespace Skel
 			float radiusSum = (otherRadius + radius);
 			if (originDistanceSq < radiusSum * radiusSum)
 			{
-				ASSERT( originDistanceSq > 0, "Distance must be bigger than 0, otherwise resolve cannot happen");
-				float originDistance = glm::sqrt(originDistanceSq);
-				Vector3 otherToMe = ( origin - otherOrigin ) / originDistance;
-				outResolveVec = otherToMe * (radiusSum - originDistance );
+				if( originDistanceSq > 0)
+				{
+					float originDistance = glm::sqrt(originDistanceSq);
+					Vector3 otherToMe = ( origin - otherOrigin ) / originDistance;
+					outResolveVec = otherToMe * (radiusSum - originDistance );
+				}
+				else
+				{
+					outResolveVec = Vector3( 0, 0, 0);
+				}
 				return true;
 			}
 		}
