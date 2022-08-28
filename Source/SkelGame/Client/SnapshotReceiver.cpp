@@ -211,6 +211,8 @@ namespace Skel::Net {
 				interpolatedState.AnimationIndex = b.Entries[bIndex].State.AnimationIndex;
 				interpolatedState.OverlayAnimationIndex = b.Entries[bIndex].State.OverlayAnimationIndex;
 
+				interpolatedState.MovedByServer = a.Entries[bIndex].State.MovedByServer || b.Entries[bIndex].State.MovedByServer;
+
 				result.emplace_back(aID, interpolatedState);
 				++aIndex; ++bIndex;
 			}

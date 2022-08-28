@@ -129,6 +129,11 @@ namespace Skel
 
 					// Set other player is moved by server. This means it will override client prediction
 					clientHandler->SetMovedByServerThisFrame(i);
+
+
+					// Slow speed on collision
+					m_RigidBody->SetVelocity( m_RigidBody->GetVelocity() * 0.5f );
+					clientHandler->SetMovedByServerThisFrame( m_Network->GetPlayerID( clientObj ) );
 				}
 			}
 		}

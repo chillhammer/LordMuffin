@@ -18,6 +18,7 @@ namespace Skel
 		GameObject* GetLocalPlayerObject() const;
 		GameObject* CreatePlayerObject(uint16 clientID);
 		PlayerComponent* GetPlayerComponent(uint16 clientID) const;
+		uint16 GetPlayerID(GameObject*) const;
 		void SetPlayerObject(uint16 clientID, GameObject* obj);
 		void SetLocalPlayerObject(GameObject* obj);
 

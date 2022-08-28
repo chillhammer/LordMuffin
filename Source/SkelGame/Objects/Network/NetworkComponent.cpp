@@ -74,6 +74,18 @@ namespace Skel
 		}
 		return nullptr;
 	}
+	uint16 Skel::NetworkComponent::GetPlayerID(GameObject* playerObj ) const
+	{
+		for (int clientID = 0; clientID < Net::MAX_PLAYERS; clientID++)
+		{
+			if (m_PlayerObjects[clientID] == playerObj)
+			{
+				return clientID;
+			}
+		}
+		ASSERT(false, "Invalid player object");
+		return -1;
+	}
 	void Skel::NetworkComponent::SetPlayerObject(uint16 clientID, GameObject* obj)
 	{
 		ASSERT((obj && m_PlayerObjects[clientID] == nullptr) || ((obj == nullptr && m_PlayerObjects[clientID])), "Cannot overwrite player");

@@ -21,7 +21,6 @@ namespace Skel
 		Socket& m_Server = Server.GetSocket();
 		ClientHandler& clientHandler = Server.GetClientHandler();
 
-		clientHandler.ClearMovedByServerThisFrame();
 
 		// Receive Packets
 		int packetsReceived = 0;
@@ -149,6 +148,8 @@ namespace Skel
 				FakeLagPackets.AddPacket(packet, slot.ClientAddress);
 				//m_Server.SendBuffer(buffer, slot.ClientAddress);
 			}
+
+			clientHandler.ClearMovedByServerThisFrame();
 
 		}
 
