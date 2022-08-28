@@ -18,6 +18,7 @@ namespace Skel
 		void ClampVelocity( float);
 		void ReduceVelocity(float reduceSpeed);
 		float GetSpeed() const;
+		Vector3 GetVelocity() const;
 		void UpdatePosition(double dt);
 
 		RTTR_ENABLE(GameObjectComponent)

@@ -19,6 +19,8 @@ namespace Skel
 		bool IsLocalClient() const;
 		const uint8 GetCurrentAnimationIndex() const;
 		const uint8 GetOverlayAnimationIndex() const;
+		const Vector3 GetVelocity() const;
+		void SetVelocity(Vector3);
 
 		virtual void OnCreated() override;
 		virtual void Update() override;

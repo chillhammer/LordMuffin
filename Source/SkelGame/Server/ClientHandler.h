@@ -32,6 +32,9 @@ namespace Skel::Net
 		bool IsActive(uint16 clientID) const;
 		const class GameObject* GetPlayerObject(uint16 clientID) const;
 		const std::vector<ClientSlot>& GetClientSlots() const;
+		void ClearMovedByServerThisFrame();
+		void SetMovedByServerThisFrame( uint16 clientID );
+		bool GetMovedByServerThisFrame( uint16 clientID ) const;
 
 		Subject ClientSubject;
 
@@ -41,6 +44,7 @@ namespace Skel::Net
 
 	private:
 		bool m_SlotAvailability[MAX_PLAYERS];
+		bool m_MovedByServer[MAX_PLAYERS];
 		uint64 m_LatestTick[MAX_PLAYERS];
 		uint64 m_LastReceivedOnServerTick[MAX_PLAYERS];
 		uint64 m_InputAcks[MAX_PLAYERS];

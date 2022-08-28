@@ -363,6 +363,9 @@
     <ClInclude Include="Utility\Net\Socket.h">
       <Filter>Utility\Net</Filter>
     </ClInclude>
+    <ClInclude Include="Utility\Physics\ColliderComponent.h">
+      <Filter>Utility\Physics</Filter>
+    </ClInclude>
     <ClInclude Include="Utility\Physics\RigidBodyComponent.h">
       <Filter>Utility\Physics</Filter>
     </ClInclude>
@@ -553,6 +556,9 @@
     </ClCompile>
     <ClCompile Include="Utility\Net\Socket.cpp">
       <Filter>Utility\Net</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\Physics\ColliderComponent.cpp">
+      <Filter>Utility\Physics</Filter>
     </ClCompile>
     <ClCompile Include="Utility\Physics\RigidBodyComponent.cpp">
       <Filter>Utility\Physics</Filter>

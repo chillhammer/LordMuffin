@@ -50,6 +50,10 @@ namespace Skel
 		speed = glm::clamp(speed, 0.0f, maxSpeed);
 		m_Velocity = glm::normalize(m_Velocity) * speed;
 	}
+	Vector3 Skel::RigidBodyComponent::GetVelocity() const
+	{
+		return m_Velocity;
+	}
 	float Skel::RigidBodyComponent::GetSpeed() const
 	{
 		return glm::length(m_Velocity);

@@ -129,6 +129,20 @@ namespace Skel::Net {
 	{
 		return m_ClientSlots;
 	}
+	void ClientHandler::ClearMovedByServerThisFrame()
+	{
+		for (int i = 0; i < MAX_PLAYERS; ++i) {
+			m_MovedByServer[i] = false;
+		}
+	}
+	void ClientHandler::SetMovedByServerThisFrame(uint16 clientID)
+	{
+		m_MovedByServer[clientID] = true;
+	}
+	bool ClientHandler::GetMovedByServerThisFrame(uint16 clientID) const
+	{
+		return m_MovedByServer[clientID];
+	}
 	uint16 ClientHandler::FindAvailableSlotIndex() const
 	{
 		for (int i = 0; i < MAX_PLAYERS; ++i) {

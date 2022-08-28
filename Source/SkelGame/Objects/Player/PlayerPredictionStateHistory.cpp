@@ -67,6 +67,15 @@ namespace Skel {
 				return true;
 			}
 		}
+
+		// Correct it if the Server moved the entity, this is intended, not a network issue
+		if (corrected.MovedByServer)
+		{
+			playerComp.ApplySnapshotState(corrected);
+			
+			LOG("Player was moved by server");
+			return true;
+		}
 		
 		// The state in which the action occured
 		PredictedMoveResult relevant = m_PredictedMoveResults[m_Start];
@@ -89,7 +98,7 @@ namespace Skel {
 				int index = (m_Start + i) % Net::PREDICTED_STATES;
 				PredictedMove& move = m_PredictedMoves[index];
 				playerComp.ProcessInput(move.InputState, move.DeltaTime);
-				m_PredictedMoveResults[index].State = PlayerSnapshotState(playerComp);
+				m_PredictedMoveResults[index].State = PlayerSnapshotState(playerComp, false);
 			}
 			ASSERT((m_Start + m_Count) % Net::PREDICTED_STATES == m_End, "Count does not end on m_End");
 			return true;

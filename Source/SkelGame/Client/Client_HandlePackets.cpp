@@ -102,7 +102,7 @@ namespace Skel
 					FakeLagPackets.PopAndSendToServer<Net::PlayerInputPacket>(buffer);
 
 					// Record personal input & state so that we can rollback
-					Client.GetPredictionHistory().RecordState(input, PlayerSnapshotState(playerComp));
+					Client.GetPredictionHistory().RecordState(input, PlayerSnapshotState(playerComp, false));
 				}
 			}
 			else

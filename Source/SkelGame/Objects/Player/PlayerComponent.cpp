@@ -93,6 +93,9 @@ namespace Skel
 	{
 		m_Owner->ObjectTransform.Position = state.Position;
 		m_Owner->ObjectTransform.SetYaw(state.Yaw);
+		
+		// TODO: Decide if setting velocity is necessary
+		SetVelocity(state.Velocity);	// Set velocity because of some collision
 		// TODO: pitch
 
 		m_Animation->PlayAnimation(state.AnimationIndex);
@@ -114,6 +117,14 @@ namespace Skel
 	const uint8 Skel::PlayerComponent::GetOverlayAnimationIndex() const
 	{
 		return m_Animation->GetOverlayAnimationIndex();
+	}
+	const Vector3 Skel::PlayerComponent::GetVelocity() const
+	{
+		return m_RigidBody->GetVelocity();
+	}
+	void Skel::PlayerComponent::SetVelocity(Vector3 velocity)
+	{
+		m_RigidBody->SetVelocity(velocity);
 	}
 	void Skel::PlayerComponent::OnCreated()
 	{

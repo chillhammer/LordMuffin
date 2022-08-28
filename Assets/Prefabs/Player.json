@@ -8,7 +8,12 @@
             "Shader" : "SkinnedModel"
         },
         "ModelAnimation" : {},
-        "RigidBody" : {},
+        "RigidBody": {},
+        "Collider": 
+        {
+          "Type": "Sphere",
+          "Radius":  "2.0"
+        },
         "Player" : {}
     }
 }
