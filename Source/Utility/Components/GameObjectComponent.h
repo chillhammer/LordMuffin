@@ -19,6 +19,7 @@ namespace Skel
 
 		virtual void Update() {};
 		virtual void PostUpdate() {};
+		virtual void StaticUpdate() {};	// Once per frame per component type, irrespective of how many objects has this component
 		virtual void Draw() {};
 
 
@@ -27,6 +28,8 @@ namespace Skel
 		
 		void SetAlive(bool alive) { m_Alive = alive; }
 		bool GetAlive() const { return m_Alive; }
+
+		rttr::type GetRTTRType() { return get_type(); }
 
 		virtual ~GameObjectComponent() {};
 

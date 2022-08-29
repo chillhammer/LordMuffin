@@ -28,6 +28,9 @@
     <Filter Include="Assets\Models\Soldier">
       <UniqueIdentifier>{0CE0766C-784C-3267-4140-CAC4AD6B54CF}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets\Models\Sphere">
+      <UniqueIdentifier>{C140FC8E-ADCF-8558-56EE-9953425C96FE}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Assets\Models\Suit">
       <UniqueIdentifier>{9FD40F4C-8BB8-D0A1-F418-CBF4E01BBB23}</UniqueIdentifier>
     </Filter>
@@ -101,6 +104,9 @@
     </None>
     <None Include="..\Assets\Models\Soldier\SoldierHead.obj">
       <Filter>Assets\Models\Soldier</Filter>
+    </None>
+    <None Include="..\Assets\Models\Sphere\sphere.obj">
+      <Filter>Assets\Models\Sphere</Filter>
     </None>
     <None Include="..\Assets\Models\Suit\suit-blue.mtl">
       <Filter>Assets\Models\Suit</Filter>

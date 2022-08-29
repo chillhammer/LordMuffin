@@ -19,7 +19,7 @@ namespace Skel::Net {
 	Address GetServerAddress()
 	{
 		//return Address(99, 54, 20, 79, 8082);
-		return Address(127, 0, 0, 1, 8082);
+		return Address( 127, 0, 0, 1, 8082 );
 	}
 
 }

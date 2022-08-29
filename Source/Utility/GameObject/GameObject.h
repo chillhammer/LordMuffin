@@ -69,6 +69,7 @@ namespace Skel
 		void OnSceneCreatedComponents();
 		void UpdateComponents();
 		void PostUpdateComponents();
+		void StaticUpdateComponents(std::vector<rttr::type>&);
 		void DrawComponents();
 
 		void Destroy();

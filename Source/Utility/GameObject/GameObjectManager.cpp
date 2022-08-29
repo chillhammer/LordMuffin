@@ -70,6 +70,14 @@ namespace Skel
 			GameObject* const o = m_GameObjects.at(i);
 			o->PostUpdateComponents();
 		}
+
+		std::vector<rttr::type> updatedRTTRTypes;
+		for (size_t i = 0; i < m_GameObjects.size(); ++i)
+		{
+			GameObject* const o = m_GameObjects.at(i);
+			o->StaticUpdateComponents(updatedRTTRTypes);
+		}
+
 #ifndef  SERVER
 		for (size_t i = 0; i < m_GameObjects.size(); ++i)
 		{

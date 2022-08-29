@@ -27,6 +27,7 @@ namespace Skel
 		while (m_Server.ReceiveBuffer(buffer, fromAddress)) {
 			packetsReceived++;
 
+
 			// Find out what packet is being received
 			PacketType packetType;
 			buffer.ResetReadPosition();

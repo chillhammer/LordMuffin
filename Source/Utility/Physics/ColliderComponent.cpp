@@ -1,6 +1,9 @@
 #include "SkelPCH.h"
 #include <rttr/registration>
 #include <Game/GameManager.h>
+#include <Resources/ResourceManager.h>
+#include "Macros.h"
+#include <imgui.h>
 #include "ColliderComponent.h"
 
 namespace Skel
@@ -130,5 +133,37 @@ namespace Skel
 		}
 
 		return false;
+	}
+
+	bool ColliderDebugSpheres = false;
+	bool ColliderDebugABB = false;
+	void Skel::ColliderComponent::Draw()
+	{
+		
+		if( m_ColliderType == COLLIDER_AABB )
+		{
+			if(ColliderDebugABB)
+			{
+				DEBUG_BOX( ( GetOwner()->ObjectTransform.GetGlobalPosition() + m_ColliderData.AABB.center ), m_ColliderData.AABB.halfExtents )
+			}
+		}
+		else if (m_ColliderType == COLLIDER_SPHERE)
+		{
+			if(ColliderDebugSpheres)
+			{
+				//DEBUG_BOX(GetOwner()->ObjectTransform.GetGlobalPosition(), Vector3( m_ColliderData.Sphere.radius ) )
+				DEBUG_SPHERE(GetOwner()->ObjectTransform.GetGlobalPosition(), Vector3( m_ColliderData.Sphere.radius ) )
+			}
+		}
+	}
+	
+	void Skel::ColliderComponent::StaticUpdate()
+	{
+	#ifdef CLIENT
+		ImGui::Begin("Collider Debug");
+		ImGui::Checkbox("Collider - Debug Spheres", &ColliderDebugSpheres);
+		ImGui::Checkbox("Collider - Debug ABB", &ColliderDebugABB);
+		ImGui::End();
+	#endif
 	}
 }

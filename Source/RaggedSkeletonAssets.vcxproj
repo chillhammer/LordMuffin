@@ -135,6 +135,7 @@
     <None Include="..\Assets\Models\Soldier\Soldier.fbx" />
     <None Include="..\Assets\Models\Soldier\SoldierHead.mtl" />
     <None Include="..\Assets\Models\Soldier\SoldierHead.obj" />
+    <None Include="..\Assets\Models\Sphere\sphere.obj" />
     <None Include="..\Assets\Models\Suit\suit-blue.mtl" />
     <None Include="..\Assets\Models\Suit\suit-blue.obj" />
     <None Include="..\Assets\Models\Suit\suit-red.mtl" />

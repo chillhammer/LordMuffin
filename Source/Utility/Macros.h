@@ -88,3 +88,26 @@ static bool GLLogCall(const char* function, const char* file, int line)
 		ss << vector3.x << " " << vector3.y << " " << vector3.z;	\
 		outString = ss.str();					\
 	}											\
+
+#define DEBUG_BOX( center, halfExtents )		\
+	{											\
+		Vector3 scale = (2.f * halfExtents);	\
+		Vector3 centerVec = center;				\
+		centerVec.z += scale.z * 0.5f;			\
+		Transform debugTransform;				\
+		debugTransform.Position = centerVec;	\
+		debugTransform.Scale = scale;			\
+		ModelPtr debugBox = Resources.GetModel("WoodenBox");						\
+		debugBox->Draw(Resources.GetShader("Debug"), debugTransform.GetMatrix());	\
+	}											\
+
+#define DEBUG_SPHERE( center, radius )		\
+	{											\
+		Vector3 scale = (0.375f * radius);		\
+		Vector3 centerVec = center;				\
+		Transform debugTransform;				\
+		debugTransform.Position = centerVec;	\
+		debugTransform.Scale = scale;			\
+		ModelPtr debugSphere = Resources.GetModel("Sphere");						\
+		debugSphere->Draw(Resources.GetShader("Debug"), debugTransform.GetMatrix());\
+	}	

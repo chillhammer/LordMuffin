@@ -44,6 +44,7 @@ namespace Skel
 		models.emplace("Bendy",			new ImportedSkinnedModel("../Assets/Models/Bendy/Bendy.fbx"));
 		models.emplace("Soldier",		new ImportedSkinnedModel("../Assets/Models/Soldier/Soldier.fbx"));
 		models.emplace("SoldierHead",	new ImportedModel("../Assets/Models/Soldier/SoldierHead.obj"));
+		models.emplace("Sphere",		new ImportedModel("../Assets/Models/Sphere/sphere.obj"));
 		models.emplace("WoodenBox",		new WoodenBoxModel());
 
 

@@ -56,11 +56,17 @@ namespace Skel
 		bool IsColliding( const GameObject* otherObj, Vector3& outResolveVec ) const;
 		bool IsColliding( const ColliderComponent& otherCollider ) const;
 		bool IsColliding( const ColliderComponent& otherCollider, Vector3& outResolveVec ) const;
+
+		virtual void StaticUpdate() override;
+		virtual void Draw() override;
+
+
 		friend class ColliderComponent;
 		RTTR_ENABLE(GameObjectComponent)
 		RTTR_REGISTRATION_FRIEND
 	private:
 		ColliderType m_ColliderType;
 		ColliderData m_ColliderData;
+
 	};
 }

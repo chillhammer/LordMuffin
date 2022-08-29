@@ -27,7 +27,7 @@
                 "Collider": 
                 {
                     "Type": "AABB",
-                    "Center": "1.0 1.0 1.0",
+                    "Center": "0.0 1.0 0.0",
                     "HalfExtents": "1.0 1.0 1.0"
                 }
             }

@@ -72,6 +72,17 @@ namespace Skel
 			component->PostUpdate();
 		}
 	}
+	void GameObject::StaticUpdateComponents(std::vector<rttr::type>& updatedTypes)
+	{
+		for (auto& component : m_Components)
+		{
+			if (std::find(updatedTypes.begin(), updatedTypes.end(), component->GetRTTRType()) == updatedTypes.end())
+			{
+				updatedTypes.push_back(component->GetRTTRType());
+				component->StaticUpdate();
+			}
+		}
+	}
 	void GameObject::DrawComponents()
 	{
 		for (auto& component : m_Components)
