@@ -16,6 +16,7 @@
 #include <Graphics/Model/Model.h>
 #include <Graphics/Model/ImportedModel.h>
 #include <Graphics/Model/SingleMeshModel.h>
+#include <Physics/PhysicsWorldManager.h>
 #include <Resources/ResourceManager.h>
 #include <Game/States/GameStates.h>
 #include <Net/Net.h>
@@ -33,6 +34,7 @@ int main()
 	Log::Init();
 	Net::Init();
 
+	PhysicsWorld.Init();
 #ifndef SERVER
 	// Setting Up Client Dependencies
 	Input.Init();

@@ -16,20 +16,18 @@
         {
             "Name" :"Bendy",
             "Position" : [ 0, 1, 6 ],
-            "Components" :
-            {
-                "ModelRenderer" : 
-                {
-                    "Model" : "Bendy",
-                    "Shader" : "SkinnedModel"
+            "Components": {
+                "ModelRenderer": {
+                    "Model": "Bendy",
+                    "Shader": "SkinnedModel"
                 },
                 "ModelAnimation": {},
-                "Collider": 
-                {
+                "Collider": {
                     "Type": "AABB",
                     "Center": "0.0 1.0 0.0",
                     "HalfExtents": "1.0 1.0 1.0"
-                }
+                },
+                "RigidBody": {}
             }
         },
         {

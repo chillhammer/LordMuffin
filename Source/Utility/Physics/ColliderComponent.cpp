@@ -131,6 +131,28 @@ namespace Skel
 				return true;
 			}
 		}
+		else if (m_ColliderType == COLLIDER_SPHERE && otherCollider.m_ColliderType == COLLIDER_AABB)
+		{
+			// TODO: fill out AABB / Sphere collision properly
+			float radius = m_ColliderData.Sphere.radius;
+			float otherRadius = otherCollider.m_ColliderData.AABB.halfExtents.x;
+			float originDistanceSq = glm::distance2(otherOrigin, origin);
+			float radiusSum = (otherRadius + radius);
+			if (originDistanceSq < radiusSum * radiusSum)
+			{
+				if (originDistanceSq > 0)
+				{
+					float originDistance = glm::sqrt(originDistanceSq);
+					Vector3 otherToMe = (origin - otherOrigin) / originDistance;
+					outResolveVec = otherToMe * (radiusSum - originDistance);
+				}
+				else
+				{
+					outResolveVec = Vector3(0, 0, 0);
+				}
+				return true;
+			}
+		}
 
 		return false;
 	}
@@ -151,7 +173,6 @@ namespace Skel
 		{
 			if(ColliderDebugSpheres)
 			{
-				//DEBUG_BOX(GetOwner()->ObjectTransform.GetGlobalPosition(), Vector3( m_ColliderData.Sphere.radius ) )
 				DEBUG_SPHERE(GetOwner()->ObjectTransform.GetGlobalPosition(), Vector3( m_ColliderData.Sphere.radius ) )
 			}
 		}

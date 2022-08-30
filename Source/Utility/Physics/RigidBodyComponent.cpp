@@ -1,6 +1,8 @@
 #include "SkelPCH.h"
 #include <rttr/registration>
 #include <Game/GameManager.h>
+#include "ColliderComponent.h"
+#include "PhysicsWorldManager.h"
 #include "RigidBodyComponent.h"
 
 namespace Skel
@@ -16,6 +18,11 @@ namespace Skel
 	{
 	}
 
+	void Skel::RigidBodyComponent::OnCreated()
+	{
+		m_Collider = &m_Owner->GetComponent<ColliderComponent>();
+	}
+
 	void RigidBodyComponent::OnSceneCreated()
 	{
 	}
@@ -26,10 +33,24 @@ namespace Skel
 		UpdatePosition( dt );
 	}
 
+	// Simulates rigidbody movement
+	// On Client - updates it in game loop normally
+	// On Server - updates it from Input packet using Client delta time. May want to refactor it on Server
 	void RigidBodyComponent::UpdatePosition( double dt )
 	{
 		GameObject* owner = GetOwner();
 		owner->ObjectTransform.Position += m_Velocity * static_cast<float>(dt);
+
+		// TODO: Collider check
+		std::vector<class RigidBodyComponent*>& staticRigidBodies = PhysicsWorld.GetStaticRigidBodies();
+		for(RigidBodyComponent* otherRigidBody : staticRigidBodies)
+		{
+			ASSERT(otherRigidBody->GetCollider(), "Static rigid body must have a collider");
+			if (GetCollider() != otherRigidBody->GetCollider() && GetCollider()->IsColliding(*otherRigidBody->GetCollider()))
+			{
+				LOG("Two objects are colliding!");
+			}
+		}
 	}
 
 	void Skel::RigidBodyComponent::SetVelocity(Vector3 velocity)
@@ -53,6 +74,10 @@ namespace Skel
 	Vector3 Skel::RigidBodyComponent::GetVelocity() const
 	{
 		return m_Velocity;
+	}
+	ColliderComponent* Skel::RigidBodyComponent::GetCollider()
+	{
+		return m_Collider;
 	}
 	float Skel::RigidBodyComponent::GetSpeed() const
 	{

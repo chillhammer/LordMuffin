@@ -228,6 +228,9 @@
     <ClInclude Include="Utility\EventSystem\Events\ApplicationEvent.h">
       <Filter>Utility\EventSystem\Events</Filter>
     </ClInclude>
+    <ClInclude Include="Utility\EventSystem\Events\GameObjectEvent.h">
+      <Filter>Utility\EventSystem\Events</Filter>
+    </ClInclude>
     <ClInclude Include="Utility\EventSystem\Events\KeyEvent.h">
       <Filter>Utility\EventSystem\Events</Filter>
     </ClInclude>
@@ -364,6 +367,9 @@
       <Filter>Utility\Net</Filter>
     </ClInclude>
     <ClInclude Include="Utility\Physics\ColliderComponent.h">
+      <Filter>Utility\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Utility\Physics\PhysicsWorldManager.h">
       <Filter>Utility\Physics</Filter>
     </ClInclude>
     <ClInclude Include="Utility\Physics\RigidBodyComponent.h">
@@ -558,6 +564,9 @@
       <Filter>Utility\Net</Filter>
     </ClCompile>
     <ClCompile Include="Utility\Physics\ColliderComponent.cpp">
+      <Filter>Utility\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Utility\Physics\PhysicsWorldManager.cpp">
       <Filter>Utility\Physics</Filter>
     </ClCompile>
     <ClCompile Include="Utility\Physics\RigidBodyComponent.cpp">

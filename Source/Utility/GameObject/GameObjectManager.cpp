@@ -1,5 +1,6 @@
 #include "SkelPCH.h"
 #include "GameObjectManager.h"
+#include "EventSystem/Events/GameObjectEvent.h"
 #include <Resources/ResourceManager.h>
 
 namespace Skel
@@ -29,6 +30,9 @@ namespace Skel
 		{
 			obj->OnSceneCreatedComponents();
 		}
+		SceneLoadedEvent e(m_GameObjects);
+		SceneLoaded.Notify(e);
+
 	}
 	GameObject* GameObjectManager::InstantiateObject(GameObjectTemplatePtr obj)
 	{

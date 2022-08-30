@@ -20,6 +20,8 @@ namespace Skel
 		GameObject* InstantiateObject(GameObjectTemplatePtr);
 		void DestroyObject(class GameObject* obj);
 
+		Subject SceneLoaded;
+
 		#pragma region Object Helpers
 		template<typename T>
 		T& FindFirstComponent()

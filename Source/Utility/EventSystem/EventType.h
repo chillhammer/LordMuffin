@@ -16,5 +16,7 @@ enum class EventType
 
 	ClientDisconnect,ClientConnect,
 
+	SceneLoaded,
+
 	CUSTOM_EVENTS
 };

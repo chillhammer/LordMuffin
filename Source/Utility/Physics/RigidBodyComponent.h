@@ -10,6 +10,7 @@ namespace Skel
 	public:
 		RigidBodyComponent();
 
+		virtual void OnCreated() override;
 		virtual void OnSceneCreated() override;
 		virtual void Update() override;
 
@@ -20,10 +21,12 @@ namespace Skel
 		float GetSpeed() const;
 		Vector3 GetVelocity() const;
 		void UpdatePosition(double dt);
+		class ColliderComponent* GetCollider();
 
 		RTTR_ENABLE(GameObjectComponent)
 		RTTR_REGISTRATION_FRIEND
 	private:
 		Vector3 m_Velocity;
+		class ColliderComponent* m_Collider;
 	};
 }
