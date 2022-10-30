@@ -48,7 +48,7 @@ namespace Skel
 			ASSERT(otherRigidBody->GetCollider(), "Static rigid body must have a collider");
 			if (GetCollider() != otherRigidBody->GetCollider() && GetCollider()->IsColliding(*otherRigidBody->GetCollider()))
 			{
-				LOG("Two objects are colliding!");
+				LOG("Two objects are colliding! {0} and {1}", owner->GetName(), otherRigidBody->GetOwner()->GetName());
 			}
 		}
 	}

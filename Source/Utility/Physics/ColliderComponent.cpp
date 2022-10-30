@@ -134,22 +134,45 @@ namespace Skel
 		else if (m_ColliderType == COLLIDER_SPHERE && otherCollider.m_ColliderType == COLLIDER_AABB)
 		{
 			// TODO: fill out AABB / Sphere collision properly
+			Vector3 origin = GetOwner()->ObjectTransform.Position;
+			Vector3 otherOrigin = otherCollider.GetOwner()->ObjectTransform.Position;
+
 			float radius = m_ColliderData.Sphere.radius;
-			float otherRadius = otherCollider.m_ColliderData.AABB.halfExtents.x;
-			float originDistanceSq = glm::distance2(otherOrigin, origin);
-			float radiusSum = (otherRadius + radius);
-			if (originDistanceSq < radiusSum * radiusSum)
+
+			float halfExtents = 0.0f;
+			float AABBAxisPos = 0.0f;
+			float axisDist = 0.0f;
+			float sphereAxisPos = 0.0f;
+			float smallestIntersectionDist = -1.0f;
+			int pushDir = 0;
+			Vector3 axis;
+			Vector3 resolveVec;
+
+			for( int i = 0; i < 3; i++)
 			{
-				if (originDistanceSq > 0)
+				axis = Vector3( 1, 0, 0 );
+				halfExtents = otherCollider.m_ColliderData.AABB.halfExtents[i];
+				AABBAxisPos = otherCollider.m_ColliderData.AABB.center[i] + otherOrigin[i];
+				sphereAxisPos = origin[i];
+
+				pushDir = glm::sign(AABBAxisPos - sphereAxisPos);
+				axisDist = glm::abs( AABBAxisPos - sphereAxisPos );
+				float intersectionDist = /* halfExtents + */ radius - axisDist;
+				if (intersectionDist >= 0 && ( smallestIntersectionDist < 0.0f || intersectionDist < smallestIntersectionDist ) )
 				{
-					float originDistance = glm::sqrt(originDistanceSq);
-					Vector3 otherToMe = (origin - otherOrigin) / originDistance;
-					outResolveVec = otherToMe * (radiusSum - originDistance);
+					smallestIntersectionDist = intersectionDist;
+				
+					resolveVec = axis * static_cast<float>(pushDir) * intersectionDist;
 				}
-				else
+				if (intersectionDist < 0)
 				{
-					outResolveVec = Vector3(0, 0, 0);
+					return false;
 				}
+			}
+
+			if (smallestIntersectionDist >= 0.0f)
+			{
+				outResolveVec = resolveVec;
 				return true;
 			}
 		}
