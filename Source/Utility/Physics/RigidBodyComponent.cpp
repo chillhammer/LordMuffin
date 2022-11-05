@@ -46,9 +46,12 @@ namespace Skel
 		for(RigidBodyComponent* otherRigidBody : staticRigidBodies)
 		{
 			ASSERT(otherRigidBody->GetCollider(), "Static rigid body must have a collider");
-			if (GetCollider() != otherRigidBody->GetCollider() && GetCollider()->IsColliding(*otherRigidBody->GetCollider()))
+			Vector3 resolveVec;
+			if (GetCollider() != otherRigidBody->GetCollider() && GetCollider()->IsColliding(*otherRigidBody->GetCollider(), resolveVec))
 			{
 				LOG("Two objects are colliding! {0} and {1}", owner->GetName(), otherRigidBody->GetOwner()->GetName());
+				owner->ObjectTransform.Position -= resolveVec;
+				m_Velocity -= resolveVec;
 			}
 		}
 	}

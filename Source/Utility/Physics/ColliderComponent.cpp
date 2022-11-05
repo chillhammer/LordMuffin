@@ -55,12 +55,15 @@ namespace Skel
 		Vector3 vec;
 		STRING_TO_VECTOR3( center, vec )
 
-		m_ColliderData.AABB.center = vec;
+		m_Center = vec;
+		
 	}
 	const std::string& Skel::ColliderComponent::GetCenter() const
 	{
 		std::string str;
-		VECTOR3_TO_STRING(m_ColliderData.AABB.center, str)
+		Vector3 vec;
+
+		VECTOR3_TO_STRING(m_Center, str)
 		return str;
 	}
 
@@ -108,11 +111,13 @@ namespace Skel
 
 	bool Skel::ColliderComponent::IsColliding(const ColliderComponent& otherCollider, Vector3& outResolveVec ) const
 	{
-		Vector3 origin = GetOwner()->ObjectTransform.Position;
-		Vector3 otherOrigin = otherCollider.GetOwner()->ObjectTransform.Position;
+		
+		
 		if (m_ColliderType == COLLIDER_SPHERE && otherCollider.m_ColliderType == COLLIDER_SPHERE)
 		{
-			float radius = m_ColliderData.Sphere.radius;
+			Vector3 origin = GetOwner()->ObjectTransform.Position + m_Center;
+			Vector3 otherOrigin = otherCollider.GetOwner()->ObjectTransform.Position + otherCollider.m_Center;
+			float radius = otherCollider.m_ColliderData.Sphere.radius;
 			float otherRadius = otherCollider.m_ColliderData.Sphere.radius;
 			float originDistanceSq = glm::distance2(otherOrigin, origin);
 			float radiusSum = (otherRadius + radius);
@@ -134,7 +139,7 @@ namespace Skel
 		else if (m_ColliderType == COLLIDER_SPHERE && otherCollider.m_ColliderType == COLLIDER_AABB)
 		{
 			// TODO: fill out AABB / Sphere collision properly
-			Vector3 origin = GetOwner()->ObjectTransform.Position;
+			Vector3 origin = GetOwner()->ObjectTransform.Position + m_Center;
 			Vector3 otherOrigin = otherCollider.GetOwner()->ObjectTransform.Position;
 
 			float radius = m_ColliderData.Sphere.radius;
@@ -144,33 +149,42 @@ namespace Skel
 			float axisDist = 0.0f;
 			float sphereAxisPos = 0.0f;
 			float smallestIntersectionDist = -1.0f;
+			float AABBClosestPosToSphere = -1.0f;
+			float sphereClosestPosToAABB = -1.0f;
 			int pushDir = 0;
 			Vector3 axis;
-			Vector3 resolveVec;
+			Vector3 resolveVec = Vector3( 0, 0, 0);
+			// LOG( "-----");
 
 			for( int i = 0; i < 3; i++)
 			{
-				axis = Vector3( 1, 0, 0 );
+				axis = Vector3( 0, 0, 0 );
+				axis[i] = 1;
 				halfExtents = otherCollider.m_ColliderData.AABB.halfExtents[i];
-				AABBAxisPos = otherCollider.m_ColliderData.AABB.center[i] + otherOrigin[i];
+				AABBAxisPos = otherCollider.m_Center[i] + otherOrigin[i];
 				sphereAxisPos = origin[i];
 
 				pushDir = glm::sign(AABBAxisPos - sphereAxisPos);
 				axisDist = glm::abs( AABBAxisPos - sphereAxisPos );
-				float intersectionDist = /* halfExtents + */ radius - axisDist;
-				if (intersectionDist >= 0 && ( smallestIntersectionDist < 0.0f || intersectionDist < smallestIntersectionDist ) )
+				AABBClosestPosToSphere = AABBAxisPos + glm::min(axisDist, halfExtents) * pushDir * -1;
+				sphereClosestPosToAABB = sphereAxisPos + glm::min(axisDist, radius ) * pushDir;
+
+				// float intersectionDist = /* halfExtents + */ radius - axisDist;
+				float intersectionDist = ( AABBClosestPosToSphere - sphereClosestPosToAABB ) * pushDir * -1;
+				// LOG( "Axis {0} -- Intersection Dist: {1}", i, intersectionDist );
+				if (intersectionDist > 0 && (smallestIntersectionDist < 0.0f || intersectionDist < smallestIntersectionDist) )
 				{
 					smallestIntersectionDist = intersectionDist;
 				
 					resolveVec = axis * static_cast<float>(pushDir) * intersectionDist;
 				}
-				if (intersectionDist < 0)
+				if (intersectionDist <= 0)
 				{
 					return false;
 				}
 			}
 
-			if (smallestIntersectionDist >= 0.0f)
+			if (smallestIntersectionDist > 0.0f)
 			{
 				outResolveVec = resolveVec;
 				return true;
@@ -189,14 +203,14 @@ namespace Skel
 		{
 			if(ColliderDebugABB)
 			{
-				DEBUG_BOX( ( GetOwner()->ObjectTransform.GetGlobalPosition() + m_ColliderData.AABB.center ), m_ColliderData.AABB.halfExtents )
+				DEBUG_BOX( ( GetOwner()->ObjectTransform.GetGlobalPosition() + m_Center ), m_ColliderData.AABB.halfExtents )
 			}
 		}
 		else if (m_ColliderType == COLLIDER_SPHERE)
 		{
 			if(ColliderDebugSpheres)
 			{
-				DEBUG_SPHERE(GetOwner()->ObjectTransform.GetGlobalPosition(), Vector3( m_ColliderData.Sphere.radius ) )
+				DEBUG_SPHERE(GetOwner()->ObjectTransform.GetGlobalPosition() + m_Center, Vector3( m_ColliderData.Sphere.radius ) )
 			}
 		}
 	}

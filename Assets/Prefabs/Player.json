@@ -12,7 +12,8 @@
         "Collider": 
         {
           "Type": "Sphere",
-          "Radius":  "2.0"
+          "Radius": "1.0",
+          "Center": "0.0 1.0 0.0"
         },
         "Player" : {}
     }

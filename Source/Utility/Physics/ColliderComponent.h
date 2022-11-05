@@ -10,7 +10,6 @@ namespace Skel
 	};
 	struct AABBCollider
 	{
-		Vector3 center;
 		Vector3 halfExtents;
 	};
 	enum ColliderType
@@ -67,6 +66,7 @@ namespace Skel
 	private:
 		ColliderType m_ColliderType;
 		ColliderData m_ColliderData;
+		Vector3 m_Center;
 
 	};
 }
