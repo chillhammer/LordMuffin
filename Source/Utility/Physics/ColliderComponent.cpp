@@ -154,7 +154,7 @@ namespace Skel
 			int pushDir = 0;
 			Vector3 axis;
 			Vector3 resolveVec = Vector3( 0, 0, 0);
-			// LOG( "-----");
+			//LOG( "-----");
 
 			for( int i = 0; i < 3; i++)
 			{
@@ -171,7 +171,7 @@ namespace Skel
 
 				// float intersectionDist = /* halfExtents + */ radius - axisDist;
 				float intersectionDist = ( AABBClosestPosToSphere - sphereClosestPosToAABB ) * pushDir * -1;
-				// LOG( "Axis {0} -- Intersection Dist: {1}", i, intersectionDist );
+				//LOG( "Axis {0} -- Intersection Dist: {1}", i, intersectionDist );
 				if (intersectionDist > 0 && (smallestIntersectionDist < 0.0f || intersectionDist < smallestIntersectionDist) )
 				{
 					smallestIntersectionDist = intersectionDist;

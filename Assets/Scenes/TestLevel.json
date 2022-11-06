@@ -5,12 +5,16 @@
         {
             "Name" : "Wooden Floor",
             "Scale" : [15, 0.001, 30],
-            "Components" :
-            {
-                "ModelRenderer" : 
-                {
-                    "Model" : "WoodenBox"
-                }
+            "Components": {
+                "ModelRenderer": {
+                    "Model": "WoodenBox"
+                },
+                "Collider": {
+                    "Type": "AABB",
+                    "Center": "0.0 0.0 0.0",
+                    "HalfExtents": "15.0 1.0 30"
+                },
+                "RigidBody": {}
             }
         },
         {
@@ -20,7 +24,7 @@
                 "ModelRenderer": {
                     "Model": "Bendy",
                     "Shader": "SkinnedModel"
-                },
+                }, 
                 "ModelAnimation": {},
                 "Collider": {
                     "Type": "AABB",

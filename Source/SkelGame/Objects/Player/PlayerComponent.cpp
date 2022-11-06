@@ -32,17 +32,17 @@ namespace Skel
 		float forward = static_cast<float>((input.Forward ? 1 : 0) - (input.Back ? 1 : 0));
 		float side = static_cast<float>((input.Right ? 1 : 0) - (input.Left ? 1 : 0));
 		float moveMult = 6.0f;
+		float jumpMult = 10.0f;
+		float gravityMult = 8.0f;
 		float fdt = static_cast<float>(dt);
 
 		// TODO: Player set velocity from input
 		m_Owner->ObjectTransform.SetYaw(input.Yaw);
-		m_Owner->ObjectTransform.Position += m_Owner->ObjectTransform.GetSide() * (input.Jump ? 1.f : 0.f);
 
-		// Player Movement
+		float currentVerticalSpeed = m_RigidBody->GetVelocity().y;
+
 		m_RigidBody->AddVelocity(m_Owner->ObjectTransform.GetHeading() * forward * fdt * moveMult + m_Owner->ObjectTransform.GetSide() * side * fdt * moveMult);
 		m_RigidBody->ClampVelocity( 20.0f );
-
-		
 
 		if( glm::abs( forward ) + glm::abs( side ) < 0.01f )
 		{
@@ -51,12 +51,28 @@ namespace Skel
 		else
 		{
 			float speed = m_RigidBody->GetSpeed();
+			
 			if (speed > 0)
 			{
 				Vector3 targetDir = glm::normalize(forward * m_Owner->ObjectTransform.GetHeading() + side * m_Owner->ObjectTransform.GetSide());
-				m_RigidBody->SetVelocity(targetDir * speed);
+				Vector3 newVelocity = targetDir * speed;
+				m_RigidBody->SetVelocity(newVelocity);
 			}
 		}
+
+		// Vertical movement
+		if (input.Jump)
+		{
+			currentVerticalSpeed = jumpMult;
+		}
+		else
+		{
+			// Simulate gravity. Should this be in rigid body?
+			currentVerticalSpeed -= gravityMult * fdt;
+		}
+		Vector3 adjustedVerticalVelocity = m_RigidBody->GetVelocity();
+		adjustedVerticalVelocity.y = currentVerticalSpeed;
+		m_RigidBody->SetVelocity(adjustedVerticalVelocity);
 
 		if (forward > 0)
 		{
